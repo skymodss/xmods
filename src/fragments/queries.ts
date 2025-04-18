@@ -106,7 +106,10 @@ export const NC_COMMENT_FULL_FRAGMENT = gql(/* GraphQL */ `
 					uri
 					url
 					name
-     					isVerified
+					verified {
+						fieldGroupName
+						verified
+					}
 					ncUserMeta {
 						featuredImage {
 							node {
@@ -168,7 +171,6 @@ export const QUERY_MUTATION_CREATE_COMMENT = gql(/* GraphQL */ `
 		$content: String = null
 		$commentOn: Int = null
 		$authorEmail: String = null
-		$approved: String = null
 		$authorUrl: String = null
 	) {
 		createComment(
@@ -178,7 +180,6 @@ export const QUERY_MUTATION_CREATE_COMMENT = gql(/* GraphQL */ `
 				parent: $parent
 				content: $content
 				commentOn: $commentOn
-				approved: $approved
 				authorEmail: $authorEmail
 				authorUrl: $authorUrl
 			}

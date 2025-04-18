@@ -1,7 +1,7 @@
 import { gql } from '@/__generated__';
 
 export const POST_CARD_FIELDS = gql(`
-  fragment PostCardFieldsNOTNcmazMEDIA on Post {
+  fragment PostCardFieldsNOTNcmazMEDIA4 on Post {
     databaseId
     title
     uri
@@ -21,7 +21,10 @@ export const POST_CARD_FIELDS = gql(`
       node {
         name
         uri
-        isVerified
+        verified {
+          fieldGroupName
+          verified
+        }
         avatar {
           url
         }
