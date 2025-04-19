@@ -10,8 +10,6 @@ import { gql, useQuery } from '@apollo/client';
 import useGetPostsNcmazMetaByIds from "@/hooks/useGetPostsNcmazMetaByIds";
 import { TPostCard } from '@/components/Card2/Card2';
 
-
-// Definiši query koristeći generisani gql helper
 const GET_USER_VERIFICATION = gql(`
   query GetUserVerification {
     users {
@@ -29,7 +27,7 @@ const GET_USER_VERIFICATION = gql(`
   }
 `);
 
-const Single2 = () => {
+const Single2: React.FC = () => {
   const { data, loading, error } = useQuery(GET_USER_VERIFICATION);
 
   if (loading) return <div>Loading...</div>;
@@ -39,12 +37,14 @@ const Single2 = () => {
     <div>
       <h2>Users and Verification Status</h2>
       <ul>
-        {data?.users?.nodes?.map((user) => (
-          <li key={user?.id}>
-            {user?.name} - Verified:{" "}
-            {user?.ncUserMeta?.verified?.verified ? "Yes" : "No"}
-          </li>
-        ))}
+        {data?.users?.nodes?.map((user) =>
+          user ? (
+            <li key={user.id}>
+              {user.name} - Verified:{" "}
+              {user.ncUserMeta?.verified?.verified ? "Yes" : "No"}
+            </li>
+          ) : null
+        )}
       </ul>
     </div>
   );
