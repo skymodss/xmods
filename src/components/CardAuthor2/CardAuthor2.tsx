@@ -1,7 +1,9 @@
 import { FC } from 'react'
 import Avatar from '@/components/Avatar/Avatar'
 import Link from 'next/link'
-import { NcmazFcUserFullFieldsFragment, NC_USER_FULL_FIELDS_FRAGMENT } from '@/__generated__/graphql'
+import { NcmazFcUserFullFieldsFragment } from '@/__generated__/graphql'
+import { FragmentType } from '@/__generated__'
+import { NC_USER_FULL_FIELDS_FRAGMENT } from '@/fragments'
 import ncFormatDate from '@/utils/formatDate'
 import { getUserDataFromUserCardFragment } from '@/utils/getUserDataFromUserCardFragment'
 import getTrans from '@/utils/getTrans'
@@ -9,7 +11,9 @@ import getTrans from '@/utils/getTrans'
 const T = getTrans()
 
 export interface CardAuthor2Props {
-	author: NcmazFcUserFullFieldsFragment
+	author:
+		| FragmentType<typeof NC_USER_FULL_FIELDS_FRAGMENT>
+		| NcmazFcUserFullFieldsFragment
 	date: string
 	className?: string
 	readingTime?: number
@@ -23,7 +27,10 @@ const CardAuthor2: FC<CardAuthor2Props> = ({
 	date,
 	hoverReadingTime = false,
 }) => {
-	const { databaseId, uri, name, featuredImageMeta } = getUserDataFromUserCardFragment(author)
+	const { databaseId, uri, name, featuredImageMeta } =
+		getUserDataFromUserCardFragment(
+			author as FragmentType<typeof NC_USER_FULL_FIELDS_FRAGMENT>,
+		)
 
 	return (
 		<Link
