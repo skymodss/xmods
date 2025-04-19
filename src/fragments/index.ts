@@ -464,6 +464,39 @@ export const NC_USER_SHORT_FOR_POST_CARD_FRAGMENT = gql(/* GraphQL */ `
 	}
 `)
 
+export const NC_USER_FULL_FIELDS_FRAGMENT3 = gql(/* GraphQL */ `
+	fragment on User {
+		id
+		databaseId
+		uri
+		username
+		name
+		description
+		registeredDate
+  		verified {
+        	  fieldGroupName
+                  verified
+      		}
+		ncUserMeta {
+			buymeacoffeUrl
+			color
+			facebookUrl
+			githubUrl
+			instagramUrl
+			linkedinUrl
+			mediumUrl
+			ncBio
+			pinterestUrl
+			twitchUrl
+			twitterUrl
+			vimeoUrl
+			websiteUrl
+			youtubeUrl
+			tiktokUrl
+		}
+	}
+`)
+
 export const NC_USER_FULL_FIELDS_FRAGMENT = gql(/* GraphQL */ `
 	fragment NcmazFcUserFullFields on User {
 		id
