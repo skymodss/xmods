@@ -1,6 +1,15 @@
-import React from "react";
-import { gql } from "src/__generated__/gql";
-import { useQuery } from "@apollo/client";
+import React, { FC } from "react";
+import NcImage from "@/components/NcImage/NcImage";
+import { getPostDataFromPostFragment } from "@/utils/getPostDataFromPostFragment";
+import SingleHeader from "../SingleHeader";
+import { SingleType1Props } from "../single/single";
+import { GET_RELATED_POSTS } from '@/container/singles/single/related';
+interface Props extends SingleType1Props {}
+import SingleRelatedPosts2 from '@/container/singles/SingleRelatedPosts2';
+import { gql, useQuery } from '@apollo/client';
+import useGetPostsNcmazMetaByIds from "@/hooks/useGetPostsNcmazMetaByIds";
+import { TPostCard } from '@/components/Card2/Card2';
+
 
 // Definiši query koristeći generisani gql helper
 const GET_USER_VERIFICATION = gql(`
