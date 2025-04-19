@@ -10,25 +10,48 @@ import useGetPostsNcmazMetaByIds from "@/hooks/useGetPostsNcmazMetaByIds";
 import { TPostCard } from '@/components/Card2/Card2';
 import { gql } from '@/__generated__'
 
-const GET_USER_VERIFICATION = gql(`
-  fragment on User {
-    users {
-      nodes {
-        id
-        name
-        ncUserMeta {
-          verified {
-            fieldGroupName
-            verified
-          }
+// 1. Definiši fragment
+const USER_FRAGMENT = gql(`
+  fragment UserFullFields on User {
+    id
+    databaseId
+    uri
+    url
+    name
+    verified {
+      fieldGroupName
+      verified
+    }
+    ncUserMeta {
+      featuredImage {
+        node {
+          ...NcmazFcImageFields
         }
       }
     }
   }
+  fragment NcmazFcImageFields on MediaItem {
+    __typename
+    altText
+    databaseId
+    sourceUrl
+  }
+`);
+
+// 2. Upit koristi fragment
+const GET_USERS = gql(`
+  query GetUsers {
+    users {
+      nodes {
+        ...UserFullFields
+      }
+    }
+  }
+  ${USER_FRAGMENT}
 `);
 
 const Single2: React.FC = () => {
-  const { data, loading, error } = useQuery(GET_USER_VERIFICATION);
+  const { data, loading, error } = useQuery(GET_USERS);
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
@@ -41,7 +64,7 @@ const Single2: React.FC = () => {
           user ? (
             <li key={user.id}>
               {user.name} - Verified:{" "}
-              {user.ncUserMeta?.verified?.verified ? "Yes" : "No"}
+              {user.verified?.verified ? "Yes" : "No"}
             </li>
           ) : null
         )}
