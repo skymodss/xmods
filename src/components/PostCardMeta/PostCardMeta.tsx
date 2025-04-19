@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { NcmazFcUserFullFieldsFragment } from '@/__generated__/graphql'
 import ncFormatDate from '@/utils/formatDate'
 import { FragmentType } from '@/__generated__'
-import { NC_USER_FULL_FIELDS_FRAGMENT3 } from '@/fragments'
+import { NC_USER_FULL_FIELDS_FRAGMENT } from '@/fragments'
 import { getUserDataFromUserCardFragment } from '@/utils/getUserDataFromUserCardFragment'
 
 export interface PostCardMetaProps {
@@ -12,7 +12,7 @@ export interface PostCardMetaProps {
 	meta: {
 		date?: string
 		author?:
-			| FragmentType<typeof NC_USER_FULL_FIELDS_FRAGMENT3>
+			| FragmentType<typeof NC_USER_FULL_FIELDS_FRAGMENT>
 			| NcmazFcUserFullFieldsFragment
 	}
 	hiddenAvatar?: boolean
@@ -28,7 +28,7 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
 	const { date } = meta
 
 	const author = getUserDataFromUserCardFragment(
-		meta.author as FragmentType<typeof NC_USER_FULL_FIELDS_FRAGMENT3>,
+		meta.author as FragmentType<typeof NC_USER_FULL_FIELDS_FRAGMENT>,
 	)
 
 	if (!author.databaseId && !date) {
