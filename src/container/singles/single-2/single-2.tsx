@@ -10,44 +10,32 @@ import useGetPostsNcmazMetaByIds from "@/hooks/useGetPostsNcmazMetaByIds";
 import { TPostCard } from '@/components/Card2/Card2';
 import { gql, useQuery } from '@apollo/client';
 
-// 1. Definiši fragment
-const USER_FRAGMENT = gql(`
-  fragment UserFullFields on User {
-    id
-    databaseId
-    uri
-    url
-    name
-    verified {
-      fieldGroupName
-      verified
-    }
-    ncUserMeta {
-      featuredImage {
-        node {
-          ...NcmazFcImageFields
+const GET_USERS = gql(`
+  query {
+    users {
+      nodes {
+        id
+        databaseId
+        uri
+        url
+        name
+        verified {
+          fieldGroupName
+          verified
+        }
+        ncUserMeta {
+          featuredImage {
+            node {
+              __typename
+              altText
+              databaseId
+              sourceUrl
+            }
+          }
         }
       }
     }
   }
-  fragment NcmazFcImageFields on MediaItem {
-    __typename
-    altText
-    databaseId
-    sourceUrl
-  }
-`);
-
-// 2. Upit koristi fragment
-const GET_USERS = gql(`
-  query GetUsers {
-    users {
-      nodes {
-        ...UserFullFields
-      }
-    }
-  }
-  ${USER_FRAGMENT}
 `);
 
 const Single2: React.FC = () => {
@@ -60,7 +48,7 @@ const Single2: React.FC = () => {
     <div>
       <h2>Users and Verification Status</h2>
       <ul>
-        {data?.users?.nodes?.map((user) =>
+        {(data?.users?.nodes ?? []).map((user: any) =>
           user ? (
             <li key={user.id}>
               {user.name} - Verified:{" "}
