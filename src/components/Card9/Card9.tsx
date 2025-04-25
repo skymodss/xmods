@@ -92,7 +92,6 @@ const Card9: FC<Card9Props> = ({
 						className="h-full w-full rounded-3xl object-cover aspect-video object-cover transition-transform duration-500 group-hover:scale-105"
 						src={featuredImage?.sourceUrl || ''}
 						sizes="(max-width: 600px) 480px, 500px"
-						loading="lazy"
 					/>
 					<PostTypeFeaturedIcon
 						className="absolute left-3 top-3 group-hover:hidden"
