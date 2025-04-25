@@ -135,7 +135,7 @@ const SingleType1: FC<SingleType1Props> = ({ post, showRightSidebar }) => {
                                                         width="640"
                                                         height="360"
                                                         fetchPriority="high"
-                                                        loading="lazy"
+							loading="eager"
                                                         decoding="async"
                                                         data-nimg="1"
                                                         style={{ color: 'transparent' }}
