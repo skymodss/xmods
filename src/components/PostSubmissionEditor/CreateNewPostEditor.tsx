@@ -471,9 +471,9 @@ const CreateNewPostEditor: FC<Props> = ({
 						<Label
 							htmlFor="video-url"
 							className="block capitalize"
-							title={T.pageSubmission['Download URL (Youtube, Vimeo, mp4 ... )']}
+							title={T.pageSubmission['Video URL (Youtube, Vimeo, mp4 ... )']}
 						>
-							{T.pageSubmission['Download URL (Youtube, Vimeo, mp4 ... )']}
+							{T.pageSubmission['Video URL (Youtube, Vimeo, mp4 ... )']}
 						</Label>
 						<Input
 							onChange={(event) => {
@@ -481,7 +481,7 @@ const CreateNewPostEditor: FC<Props> = ({
 							}}
 							defaultValue={videoUrl}
 							className="mt-1"
-							placeholder={T.pageSubmission['Download URL...']}
+							placeholder="Download URL..."
 							type="url"
 							name="video-url"
 							id="video-url"
@@ -504,9 +504,9 @@ const CreateNewPostEditor: FC<Props> = ({
 				<Label
 					htmlFor="video-url"
 					className="block capitalize"
-					title={T.pageSubmission['Download URL (Youtube, Vimeo, mp4 ... )']}
+					title={T.pageSubmission['Video URL (Youtube, Vimeo, mp4 ... )']}
 				>
-					{T.pageSubmission['Download URL (Youtube, Vimeo, mp4 ... )']}
+					{T.pageSubmission['Video URL (Youtube, Vimeo, mp4 ... )']}
 				</Label>
 				<Input
 					onChange={(event) => {
@@ -514,7 +514,7 @@ const CreateNewPostEditor: FC<Props> = ({
 					}}
 					defaultValue={videoUrl}
 					className="mt-1"
-					placeholder={T.pageSubmission['Download URL...']}
+					placeholder={T.pageSubmission['Video URL...']}
 					type="url"
 					name="video-url"
 					id="video-url"
