@@ -461,6 +461,7 @@ const CreateNewPostEditor: FC<Props> = ({
 					<TitleEditor
 						defaultTitle={titleContent}
 						onUpdate={debounceGetTitle}
+						type="url"
 					/>
 					<div className="mx-auto w-full max-w-screen-md mb-6 px-2.5">
 						<Label
