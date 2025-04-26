@@ -12,7 +12,7 @@ const CoreFreeform = (props: any) => {
 
 	return (
 		<div
-			className="CoreFreeform overflow-hidden"
+			className="CoreFreeform overflow-hidden mt-[0px] mb-[0px]"
 			dangerouslySetInnerHTML={{ __html: processedHtml || '' }}
 		></div>
 	)
