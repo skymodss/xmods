@@ -216,10 +216,10 @@ const SingleType1: FC<SingleType1Props> = ({ post, showRightSidebar }) => {
                                             </div>
                                         </div>
                                         <div className="p-6 pt-0 space-y-4">
-                                            <div className="flex flex-col gap-2">
-						    <span className="line-clamp-2" dangerouslySetInnerHTML={{ __html: excerpt }} ></span 
-                                            </div>
-                                        </div>
+    						<div className="flex flex-col gap-2">
+        						<span className="line-clamp-2" dangerouslySetInnerHTML={{ __html: excerpt }}></span>
+    						</div>
+					</div>
                                     </div>
                                 </section>
 				<section className="script-description">
