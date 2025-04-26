@@ -232,14 +232,12 @@ const SingleType1: FC<SingleType1Props> = ({ post, showRightSidebar }) => {
                                             </div>
                                         </div>
                                         <div className="p-6 pt-0 space-y-4">
-    						<div className="flex flex-col gap-2">
-							<div
-								id="single-entry-content"
-								className="prose mx-auto max-w-screen-md lg:prose-lg dark:prose-invert"
-								ref={contentRef}
-							>
-								<MyWordPressBlockViewer blocks={blocks} />
-							</div>
+						<div
+							id="single-entry-content"
+							className="prose mx-auto max-w-screen-md lg:prose-lg dark:prose-invert ml-[0px] mr-[0px] mt-[0px] mb-[0px]"
+							ref={contentRef}
+						>
+							<MyWordPressBlockViewer blocks={blocks} />
 						</div>
 					</div>
                                     </div>
