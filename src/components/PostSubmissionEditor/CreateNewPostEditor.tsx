@@ -45,10 +45,12 @@ interface Props {
 	defaultTags?: TagNodeShort[]
 	defaultCategories?: NcmazFcCategoryFullFieldsFragmentFragment[]
 	defaultPostOptionsData?: PostOptionsData
+	showRightSidebar?: boolean;
 	//
 }
 
 const CreateNewPostEditor: FC<Props> = ({
+	showRightSidebar,
 	isEditingPostId,
 	isEditingPage,
 	isSubmittingPage,
