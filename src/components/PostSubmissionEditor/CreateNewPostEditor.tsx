@@ -49,7 +49,6 @@ interface Props {
 }
 
 const CreateNewPostEditor: FC<Props> = ({
-	showRightSidebar,
 	isEditingPostId,
 	isEditingPage,
 	isSubmittingPage,
