@@ -526,6 +526,8 @@ const PostOptionsBtn: FC<PostOptionsBtnProps> = ({ onSubmit, defaultData }) => {
 
 					{postFormatsSelected === 'video' && renderInputVideoUrl()}
 
+					{postFormatsSelected === 'standard' && renderInputVideoUrl()}
+
 					{postFormatsSelected === 'audio' && renderInputAudio()}
 
 					{postFormatsSelected === 'standard' &&
