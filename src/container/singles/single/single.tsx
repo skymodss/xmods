@@ -21,6 +21,8 @@ import SingleCommentWrap from '@/container/singles/SingleCommentWrap'
 import ncFormatDate from '@/utils/formatDate'
 import convertNumbThousand from '@/utils/convertNumbThousand'
 import PageLayout from '@/container/PageLayout'
+import MyWordPressBlockViewer from '@/components/MyWordPressBlockViewer'
+import { flatListToHierarchical } from '@faustwp/core'
 
 
 export interface SingleType1Props {
@@ -30,6 +32,9 @@ export interface SingleType1Props {
 
 
 const SingleType1: FC<SingleType1Props> = ({ post, showRightSidebar }) => {
+
+    const contentRef = useRef<HTMLDivElement>(null)
+	
     const {
         title,
         content,
@@ -45,6 +50,7 @@ const SingleType1: FC<SingleType1Props> = ({ post, showRightSidebar }) => {
         commentStatus,
 	ncmazVideoUrl,
 	uri,
+	editorBlocks,
     } = getPostDataFromPostFragment(post || {});
 
     // Fetch related posts
@@ -61,6 +67,14 @@ const SingleType1: FC<SingleType1Props> = ({ post, showRightSidebar }) => {
     });
 
     const hasFeaturedImage = !!featuredImage?.sourceUrl;
+
+    let blocks: (ContentBlock | null)[] = []
+    if (editorBlocks) {
+	    blocks = flatListToHierarchical(editorBlocks as any, {
+		    idKey: 'clientId',
+		    parentKey: 'parentClientId',
+	    })
+    }
 
     return (
         <>
@@ -217,8 +231,14 @@ const SingleType1: FC<SingleType1Props> = ({ post, showRightSidebar }) => {
                                         </div>
                                         <div className="p-6 pt-0 space-y-4">
     						<div className="flex flex-col gap-2">
-        						<span className="line-clamp-2" dangerouslySetInnerHTML={{ __html: excerpt }}></span>
-    						</div>
+							<div
+								id="single-entry-content"
+								className="prose mx-auto max-w-screen-md lg:prose-lg dark:prose-invert"
+								ref={contentRef}
+							>
+								<MyWordPressBlockViewer blocks={blocks} />
+							</div>
+						</div>
 					</div>
                                     </div>
                                 </section>
