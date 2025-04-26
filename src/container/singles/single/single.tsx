@@ -23,6 +23,8 @@ import convertNumbThousand from '@/utils/convertNumbThousand'
 import PageLayout from '@/container/PageLayout'
 import MyWordPressBlockViewer from '@/components/MyWordPressBlockViewer'
 import { flatListToHierarchical } from '@faustwp/core'
+import { ContentBlock } from '@faustwp/blocks/dist/mjs/components/WordPressBlocksViewer'
+
 
 
 export interface SingleType1Props {
