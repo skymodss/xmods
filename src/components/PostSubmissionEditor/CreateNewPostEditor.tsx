@@ -444,11 +444,16 @@ const CreateNewPostEditor: FC<Props> = ({
 	const renderPostTitle = () => {
 		return (
 			<div className="w-full px-2.5 pb-10 pt-2.5 lg:py-10">
-				<div className="mx-auto w-full max-w-screen-md space-y-5">
-					<TitleEditor
-						defaultTitle={titleContent}
-						onUpdate={debounceGetTitle}
-					/>
+				<div className="mx-auto w-full max-w-screen-md space-y-5 rounded-xl border text-card-foreground shadow-sm bg-card/70 backdrop-blur-sm pl-[24px] pr-[24px] pt-[24px] pb-[24px]">
+					<div className="">
+						<Label className="text-sm">
+							{T.pageSubmission['Mod Title']}
+						</Label>
+						<TitleEditor
+							defaultTitle={titleContent}
+							onUpdate={debounceGetTitle}
+						/>
+					</div>
 					<div className="">
 						<Label className="text-sm">
 							{T.pageSubmission['Featured image']}
@@ -466,9 +471,9 @@ const CreateNewPostEditor: FC<Props> = ({
 						<Label
 							htmlFor="video-url"
 							className="block capitalize"
-							title={T.pageSubmission['Video URL (Youtube, Vimeo, mp4 ... )']}
+							title={T.pageSubmission['Download LINK (Direct download url)']}
 						>
-							{T.pageSubmission['Video URL (Youtube, Vimeo, mp4 ... )']}
+							{T.pageSubmission['Direct download url']}
 						</Label>
 						<Input
 							onChange={(event) => {
