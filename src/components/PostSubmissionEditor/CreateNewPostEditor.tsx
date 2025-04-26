@@ -462,6 +462,26 @@ const CreateNewPostEditor: FC<Props> = ({
 						defaultTitle={titleContent}
 						onUpdate={debounceGetTitle}
 					/>
+					<div className="mx-auto w-full max-w-screen-md mb-6 px-2.5">
+						<Label
+							htmlFor="video-url"
+							className="block capitalize"
+							title={T.pageSubmission['Video URL (Youtube, Vimeo, mp4 ... )']}
+						>
+							{T.pageSubmission['Video URL (Youtube, Vimeo, mp4 ... )']}
+						</Label>
+						<Input
+							onChange={(event) => {
+								debounceVideoUrlChange(event.currentTarget.value)
+							}}
+							defaultValue={videoUrl}
+							className="mt-1"
+							placeholder={T.pageSubmission['Video url...']}
+							type="url"
+							name="video-url"
+							id="video-url"
+						/>
+					</div>
 					<TagsInput defaultValue={tags} onChange={handleChangeTags} />
 					{ERROR && (
 						<Alert containerClassName="text-sm" type="error">
@@ -508,7 +528,6 @@ const CreateNewPostEditor: FC<Props> = ({
 				<div className="absolute inset-0 flex h-full flex-col">
 					<div className="hiddenScrollbar flex-1 overflow-y-auto">
 						{renderPostTitle()}
-						{renderInputVideoUrl()}
 
 						<TiptapEditor
 							defaultContent={contentHTML}
