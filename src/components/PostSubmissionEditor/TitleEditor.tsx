@@ -32,7 +32,7 @@ const TitleEditor: FC<Props> = ({ onUpdate, defaultTitle = '' }) => {
 		},
 	})
 
-	return <EditorContent className="focus:outline-none" editor={editor} />
+	return <EditorContent type={type} className="focus:outline-none" editor={editor} />
 }
 
 export default TitleEditor
