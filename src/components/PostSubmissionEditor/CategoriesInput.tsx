@@ -171,7 +171,6 @@ const CategoriesInput: FC<Props> = ({ onChange, defaultValue }) => {
 							} nc-Button relative inline-flex h-auto flex-shrink-0 items-center justify-center rounded-2xl border-transparent transition-colors bg-white dark:bg-neutral-800 ring-1 ring-neutral-300 hover:ring-neutral-400/80 dark:ring-neutral-600 dark:hover:ring-neutral-500 disabled:hover:ring-neutral-300 dark:disabled:hover:ring-neutral-600 disabled:opacity-60 text-sm font-medium py-3 px-4 sm:py-3.5 sm:px-6`}
 							type="button"
 							disabled={isMax}
-							<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon" class="-me-1 ms-2 h-4 w-4"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"></path></svg>
 						>
 							{`${T.pageSubmission['Add categories']} (${categories.length}/${MAX_TAGS_LENGTH})`}
 						</button>
