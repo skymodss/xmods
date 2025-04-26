@@ -1,11 +1,5 @@
 import React, { FC } from 'react';
 import Head from 'next/head';
-import {
-	GetPostSiglePageQuery,
-	NcgeneralSettingsFieldsFragmentFragment,
-	NcmazFcUserReactionPostActionEnum,
-	NcmazFcUserReactionPostNumberUpdateEnum,
-} from '@/__generated__/graphql'
 import Tag from '@/components/Tag/Tag';
 import NcImage from '@/components/NcImage/NcImage';
 import { getPostDataFromPostFragment } from '@/utils/getPostDataFromPostFragment';
@@ -223,16 +217,10 @@ const SingleType1: FC<SingleType1Props> = ({ post, showRightSidebar }) => {
                                         </div>
                                         <div className="p-6 pt-0 space-y-4">
                                             <div className="flex flex-col gap-2">
-						    <PageLayout
-							headerMenuItems={props.data?.primaryMenuItems?.nodes || []}
-							footerMenuItems={props.data?.footerMenuItems?.nodes || []}
-							pageFeaturedImageUrl={featuredImage?.sourceUrl}
-							pageTitle={title}
-							pageDescription={excerpt || ''}
-							generalSettings={
-								props.data?.generalSettings as NcgeneralSettingsFieldsFragmentFragment
-							}
-						     />		
+						  <span
+							className="line-clamp-2"
+							dangerouslySetInnerHTML={{ __html: excerpt }}
+						></span  
                                             </div>
                                         </div>
                                     </div>
