@@ -20,7 +20,6 @@ const TitleEditor: FC<Props> = ({ onUpdate, defaultTitle = '' }) => {
 		],
 		editorProps: {
 			attributes: {
-				type="url",
 				class:
 					'focus:outline-none max-w-screen-md mx-auto block w-full border-neutral-200 bg-white hover:ring hover:ring-primary-200/50 focus:border-primary-300 focus:ring focus:ring-primary-200/50 dark:border-neutral-600 dark:bg-transparent dark:placeholder:text-neutral-400 dark:hover:ring-primary-500/30 dark:focus:ring-primary-500/30 rounded-2xl text-sm font-normal h-11 px-4 py-3 mt-1',
 			},
