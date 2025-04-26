@@ -75,7 +75,11 @@ const SingleType1: FC<SingleType1Props> = ({ post, showRightSidebar }) => {
 	    blocks = flatListToHierarchical(editorBlocks as any, {
 		    idKey: 'clientId',
 		    parentKey: 'parentClientId',
-	    })
+	    }).map((block) => ({
+		    f
+        	    ...block,
+                    className: 'ml-[0px] mr-[0px] mt-[0px] mb-[0px]',
+            }));
     }
 
     return (
