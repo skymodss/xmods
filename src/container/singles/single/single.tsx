@@ -219,7 +219,7 @@ const SingleType1: FC<SingleType1Props> = ({ post, showRightSidebar }) => {
                                             <div className="flex flex-col gap-2">
 						    <PageLayout
 							pageDescription={excerpt || ''}
-						     </PageLayout>		
+						     />		
                                             </div>
                                         </div>
                                     </div>
