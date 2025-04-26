@@ -34,6 +34,10 @@ import { useSelector } from 'react-redux'
 import { RootState } from '@/stores/store'
 import getTrans from '@/utils/getTrans'
 
+export interface Props {
+    showRightSidebar?: boolean;
+}
+
 interface Props {
 	isEditingPage?: boolean
 	isEditingPostId?: string
@@ -45,7 +49,6 @@ interface Props {
 	defaultTags?: TagNodeShort[]
 	defaultCategories?: NcmazFcCategoryFullFieldsFragmentFragment[]
 	defaultPostOptionsData?: PostOptionsData
-	showRightSidebar?: boolean;
 	//
 }
 
