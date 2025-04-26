@@ -471,9 +471,9 @@ const CreateNewPostEditor: FC<Props> = ({
 						<Label
 							htmlFor="video-url"
 							className="block capitalize"
-							title={T.pageSubmission['Download LINK (Direct download url)']}
+							title={T.pageSubmission['Video URL (Youtube, Vimeo, mp4 ... )']}
 						>
-							{T.pageSubmission['Direct download url']}
+							{T.pageSubmission['Video URL (Youtube, Vimeo, mp4 ... )']}
 						</Label>
 						<Input
 							onChange={(event) => {
