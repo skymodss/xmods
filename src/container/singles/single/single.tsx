@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC, forwardRef, useEffect, useRef, useState } from 'react'
 import Head from 'next/head';
 import Tag from '@/components/Tag/Tag';
 import NcImage from '@/components/NcImage/NcImage';
