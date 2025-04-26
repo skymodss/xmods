@@ -498,30 +498,6 @@ const CreateNewPostEditor: FC<Props> = ({
 		)
 	}
 
-	const renderInputVideoUrl = () => {
-		return (
-			<div className="mx-auto w-full max-w-screen-md mb-6 px-2.5">
-				<Label
-					htmlFor="video-url"
-					className="block capitalize"
-					title={T.pageSubmission['Video URL (Youtube, Vimeo, mp4 ... )']}
-				>
-					{T.pageSubmission['Video URL (Youtube, Vimeo, mp4 ... )']}
-				</Label>
-				<Input
-					onChange={(event) => {
-						debounceVideoUrlChange(event.currentTarget.value)
-					}}
-					defaultValue={videoUrl}
-					className="mt-1"
-					placeholder={T.pageSubmission['Video URL...']}
-					type="url"
-					name="video-url"
-					id="video-url"
-				/>
-			</div>
-		)
-	}
 
 	const enableRevertBtn =
 		localStoragePath.startsWith('submission_page__edit__') &&
