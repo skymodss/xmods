@@ -25,6 +25,7 @@ import {
 	NC_MUTATION_UPDATE_POST,
 } from '@/fragments/mutations'
 import Label from '../Label/Label'
+import Input from '../Input/Input'
 import { IS_CHISNGHIAX_DEMO_SITE } from '@/contains/site-settings'
 import NcModal from '../NcModal/NcModal'
 import Link from 'next/link'
@@ -114,11 +115,13 @@ const CreateNewPostEditor: FC<Props> = ({
 			JSON.parse(localStorage.getItem(localStoragePath) || '{}')
 				.postOptionsData || defaultPostOptionsDataProp,
 	)
+	const [videoUrl, setVideoUrl] = useState<string>(
+		() =>
+			JSON.parse(localStorage.getItem(localStoragePath) || '{}').videoUrl || ''
+	)
 	//
 	const [newUpdatedUri, setNewUpdatedUri] = useState('')
 	const [isSubmitSuccess, setIsSubmitSuccess] = useState(false)
-
-	//
 
 	// all keys of states
 	const stateKeys = [
@@ -128,6 +131,7 @@ const CreateNewPostEditor: FC<Props> = ({
 		'tags',
 		'categories',
 		'postOptionsData',
+		'videoUrl',
 	] as const
 
 	const updateToLocalStorage = (
@@ -143,11 +147,11 @@ const CreateNewPostEditor: FC<Props> = ({
 				tags,
 				categories,
 				postOptionsData,
+				videoUrl,
 				...{ [name]: value },
 			}),
 		)
 	}
-	//
 
 	const handleRevertToDefault = () => {
 		localStorage.removeItem(localStoragePath)
@@ -166,13 +170,11 @@ const CreateNewPostEditor: FC<Props> = ({
 			setTags(data.tags || defaultTagsProp)
 			setCategories(data.categories || defaultCategoriesProp)
 			setPostOptionsData(data.postOptionsData || defaultPostOptionsDataProp)
+			setVideoUrl(data.videoUrl || '')
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
-	//
 
-	// MUTATION_CREATE_POST GQL
-	// status: PENDING | PRIVATE | PUBLISH | DRAFT | TRASH
-	// Lưu ý có biến ncTags - Biến này được tạo ra để Contributor và Author có thể thêm Tags mới vào Post (Được xử lý trong ncmaz-custom-wpgraphql)
 	const [mutationCreatePost, { error, data, loading }] = useMutation(
 		NC_MUTATION_CREATE_POST,
 		{
@@ -213,31 +215,30 @@ const CreateNewPostEditor: FC<Props> = ({
 		},
 	})
 
-	//
 	const debounceGetTitle = debounce(function (e: Editor) {
 		setTitleContent(e.getText())
-		//
 		updateToLocalStorage('titleContent', e.getText())
 	}, 300)
 
 	const debounceGetContentHtml = debounce(function (e: Editor) {
 		setContentHTML(e.getHTML())
-		//
 		updateToLocalStorage('contentHTML', e.getHTML())
 	}, 400)
-	//
+
+	const debounceVideoUrlChange = debounce(function (value: string) {
+		setVideoUrl(value)
+		updateToLocalStorage('videoUrl', value)
+		setPostOptionsData((prev) => ({ ...prev, videoUrl: value }))
+	}, 300)
 
 	useEffect(() => {
 		if (isSubmitSuccess) {
-			// remove localstorage
 			localStorage.removeItem(localStoragePath)
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [isSubmitSuccess])
 
 	useEffect(() => {
-		//   Kiểm tra xem có bao nhiêu key trong localStorage có chứa submission_page__edit__
-		//  Nếu có nhiều hơn 1 key thì xóa hết các key đó đi và chỉ giữ lại key hiện tại là localStoragePath
-
 		const keys = Object.keys(localStorage)
 		const keysWithEdit = keys.filter((key) =>
 			key.startsWith('submission_page__edit__'),
@@ -249,9 +250,9 @@ const CreateNewPostEditor: FC<Props> = ({
 				}
 			})
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
-	//
 	const handleChangeFeaturedImage = (image: ImageState) => {
 		setFeaturedImage(image)
 		updateToLocalStorage('featuredImage', image)
@@ -261,7 +262,6 @@ const CreateNewPostEditor: FC<Props> = ({
 	const handleChangeCategories = (
 		data: NcmazFcCategoryFullFieldsFragmentFragment[],
 	) => {
-		// Thực hiện điều này để tránh việc gọi updateToLocalStorage ngay lần mount đầu tiên.
 		if (data.length === categories.length) {
 			return
 		}
@@ -280,14 +280,19 @@ const CreateNewPostEditor: FC<Props> = ({
 	const handleApplyPostOptions = (data: PostOptionsData) => {
 		setPostOptionsData(data)
 		updateToLocalStorage('postOptionsData', data)
+		if (data.videoUrl !== videoUrl) {
+			setVideoUrl(data.videoUrl || '')
+			updateToLocalStorage('videoUrl', data.videoUrl || '')
+		}
 	}
 
 	const onSubmmitMutation = (status: PostStatusEnum) => {
-		// for site chisnghiax demo - please delete this code on your site
 		if (IS_CHISNGHIAX_DEMO_SITE) {
 			toast.error('Sorry, post submission is disabled on the demo site!')
 			return
 		}
+
+		const videoUrlToSend = videoUrl || postOptionsData.videoUrl || null
 
 		if (isSubmittingPage) {
 			mutationCreatePost({
@@ -340,7 +345,7 @@ const CreateNewPostEditor: FC<Props> = ({
 					commentStatus: postOptionsData.isAllowComments ? 'open' : 'closed',
 					excerpt: postOptionsData.excerptText ?? null,
 					ncmazAudioUrl: postOptionsData.audioUrl ?? null,
-					ncmazVideoUrl: postOptionsData.videoUrl ?? null,
+					ncmazVideoUrl: videoUrlToSend,
 					postFormatName:
 						postOptionsData.postFormatsSelected !== ''
 							? postOptionsData.postFormatsSelected
@@ -403,12 +408,11 @@ const CreateNewPostEditor: FC<Props> = ({
 					commentStatus: postOptionsData.isAllowComments ? 'open' : 'closed',
 					excerpt: postOptionsData.excerptText ?? null,
 					ncmazAudioUrl: postOptionsData.audioUrl ?? null,
-					ncmazVideoUrl: postOptionsData.videoUrl ?? null,
+					ncmazVideoUrl: videoUrlToSend,
 					postFormatName:
 						postOptionsData.postFormatsSelected !== ''
 							? postOptionsData.postFormatsSelected
 							: null,
-
 					//
 					showRightSidebar: postOptionsData.showRightSidebar ? '1' : '0',
 					postStyle: postOptionsData.postStyleSelected,
@@ -469,6 +473,31 @@ const CreateNewPostEditor: FC<Props> = ({
 		)
 	}
 
+	const renderInputVideoUrl = () => {
+		return (
+			<div className="mx-auto w-full max-w-screen-md mb-6 px-2.5">
+				<Label
+					htmlFor="video-url"
+					className="block capitalize"
+					title={T.pageSubmission['Video URL (Youtube, Vimeo, mp4 ... )']}
+				>
+					{T.pageSubmission['Video URL (Youtube, Vimeo, mp4 ... )']}
+				</Label>
+				<Input
+					onChange={(event) => {
+						debounceVideoUrlChange(event.currentTarget.value)
+					}}
+					defaultValue={videoUrl}
+					className="mt-1"
+					placeholder={T.pageSubmission['Video url...']}
+					type="url"
+					name="video-url"
+					id="video-url"
+				/>
+			</div>
+		)
+	}
+
 	const enableRevertBtn =
 		localStoragePath.startsWith('submission_page__edit__') &&
 		!!localStorage.getItem(localStoragePath)?.length
@@ -479,6 +508,7 @@ const CreateNewPostEditor: FC<Props> = ({
 				<div className="absolute inset-0 flex h-full flex-col">
 					<div className="hiddenScrollbar flex-1 overflow-y-auto">
 						{renderPostTitle()}
+						{renderInputVideoUrl()}
 
 						<TiptapEditor
 							defaultContent={contentHTML}
@@ -517,7 +547,6 @@ const CreateNewPostEditor: FC<Props> = ({
 								<Button
 									fontSize="text-sm font-medium"
 									onClick={() => {
-										// open window confirm to confirm revert
 										let result = confirm(
 											'Are you sure you want to revert new changes?',
 										)
