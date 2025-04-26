@@ -445,6 +445,10 @@ const CreateNewPostEditor: FC<Props> = ({
 		return (
 			<div className="w-full px-2.5 pb-10 pt-2.5 lg:py-10">
 				<div className="mx-auto w-full max-w-screen-md space-y-5">
+					<TitleEditor
+						defaultTitle={titleContent}
+						onUpdate={debounceGetTitle}
+					/>
 					<div className="">
 						<Label className="text-sm">
 							{T.pageSubmission['Featured image']}
@@ -457,10 +461,6 @@ const CreateNewPostEditor: FC<Props> = ({
 					<CategoriesInput
 						defaultValue={categories}
 						onChange={handleChangeCategories}
-					/>
-					<TitleEditor
-						defaultTitle={titleContent}
-						onUpdate={debounceGetTitle}
 					/>
 					<div className="mx-auto w-full max-w-screen-md mb-6 px-2.5">
 						<Label
