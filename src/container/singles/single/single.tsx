@@ -237,7 +237,7 @@ const SingleType1: FC<SingleType1Props> = ({ post, showRightSidebar }) => {
 							className="prose mx-auto max-w-screen-md lg:prose-lg dark:prose-invert ml-[0px] mr-[0px] mt-[0px] mb-[0px]"
 							ref={contentRef}
 						>
-							<MyWordPressBlockViewer className="ml-[0px] mr-[0px] mt-[0px] mb-[0px]" blocks={blocks} />
+							<MyWordPressBlockViewer blocks={blocks} />
 						</div>
 					</div>
                                     </div>
