@@ -447,7 +447,7 @@ const CreateNewPostEditor: FC<Props> = ({
 				<div className="mx-auto w-full max-w-screen-md space-y-5 rounded-xl border text-card-foreground shadow-sm bg-card/70 backdrop-blur-sm pl-[24px] pr-[24px] pt-[24px] pb-[24px]">
 					<div className="">
 						<Label className="text-sm">
-							{T.pageSubmission['Mod Title']}
+							Mod Title
 						</Label>
 						<TitleEditor
 							defaultTitle={titleContent}
