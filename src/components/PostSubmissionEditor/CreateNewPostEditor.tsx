@@ -502,7 +502,6 @@ const CreateNewPostEditor: FC<Props> = ({
 					<TiptapEditor
 						defaultContent={contentHTML}
 						onUpdate={debounceGetContentHtml}
-						className="editor nc-CommentCard__box flex flex-1 flex-col overflow-hidden rounded-xl border border-neutral-200  sm:text-base dark:border-neutral-700"
 					/>
 				</div>
 			</div>
