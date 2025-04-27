@@ -12,6 +12,8 @@ import { NC_SITE_SETTINGS } from '@/contains/site-settings'
 import Page404Content from '@/container/404Content'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/stores/store'
+import SingleType1 from '@/container/singles/single/single'
+import { getPostDataFromPostFragment } from '@/utils/getPostDataFromPostFragment'
 
 const Page: FaustPage<{}> = (props) => {
 	const { isReady, isAuthenticated } = useSelector(
@@ -36,6 +38,10 @@ const Page: FaustPage<{}> = (props) => {
 			</div>
 		)
 	}
+
+	const {
+		ncPostMetaData,
+	} = getPostDataFromPostFragment(_post)
 
 	const renderHeader = () => {
 		return (
@@ -67,10 +73,20 @@ const Page: FaustPage<{}> = (props) => {
 
 	return (
 		<>
-			<div className="relative flex h-[100vh] w-full flex-col">
-				{renderHeader()}
-				<CreateNewPostEditor isSubmittingPage />
-			</div>
+			{ncPostMetaData?.showRightSidebar ? (
+					<div>
+						<div className={`relative`}>
+							{renderHeaderType()}
+							<CreateNewPostEditor isSubmittingPage />
+						</div>
+					</div>
+				) : (
+					<div>
+						{renderHeaderType()}
+
+
+					</div>
+				)}
 		</>
 	)
 }
