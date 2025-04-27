@@ -76,7 +76,7 @@ const TiptapEditor: FC<Props> = ({ onUpdate, defaultContent = '' }) => {
 		editorProps: {
 			attributes: {
 				class:
-					'focus:outline-none prose prose-neutral lg:prose-lg dark:prose-invert max-w-screen-md mx-auto min-h-[500px]',
+					'focus:outline-none prose prose-neutral lg:prose-lg dark:prose-invert max-w-screen-md mx-auto min-h-[500px] pt-[0px]',
 			},
 		},
 		content: defaultContent,
@@ -94,7 +94,7 @@ const TiptapEditor: FC<Props> = ({ onUpdate, defaultContent = '' }) => {
 				{editor && <MyBubbleMenu editor={editor} />}
 				{editor && <MenuBar editor={editor} />}
 				<EditorContent
-					className="editor__content pt-[15px]"
+					className="pt-[0px]"
 					editor={editor}
 				/>
 			</div>
