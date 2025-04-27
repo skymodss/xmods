@@ -7,18 +7,14 @@ import SwitchDarkMode from '@/components/SwitchDarkMode/SwitchDarkMode'
 import AvatarDropdown from '@/components/Header/AvatarDropdown'
 import Logo from '@/components/Logo/Logo'
 import CreateBtn from '@/components/Header/CreateBtn'
-import { FC, useEffect } from 'react'
+import { useEffect } from 'react'
 import { NC_SITE_SETTINGS } from '@/contains/site-settings'
 import Page404Content from '@/container/404Content'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/stores/store'
 
-export interface PageProps {
-    showRightSidebar?: boolean;
-}
 
-
-const Page: FC<PageProps> = ({ showRightSidebar }) => {
+const Page: FaustPage<{}> = (props) => {
 	
 	const { isReady, isAuthenticated } = useSelector(
 		(state: RootState) => state.viewer.authorizedUser,
