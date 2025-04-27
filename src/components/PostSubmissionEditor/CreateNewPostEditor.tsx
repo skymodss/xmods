@@ -35,12 +35,9 @@ import { RootState } from '@/stores/store'
 import getTrans from '@/utils/getTrans'
 
 
-export interface CreateNewPostEditor1Props {
-    showRightSidebar?: boolean;
-}
 
-
-interface Props {
+export interface Props {
+	showRightSidebar?: boolean;
 	isEditingPage?: boolean
 	isEditingPostId?: string
 	isSubmittingPage?: boolean
@@ -55,6 +52,7 @@ interface Props {
 }
 
 const CreateNewPostEditor: FC<Props> = ({
+	showRightSidebar,
 	isEditingPostId,
 	isEditingPage,
 	isSubmittingPage,
