@@ -94,7 +94,7 @@ const TiptapEditor: FC<Props> = ({ onUpdate, defaultContent = '' }) => {
 				{editor && <MyBubbleMenu editor={editor} />}
 				{editor && <MenuBar editor={editor} />}
 				<EditorContent
-					className="pt-[0px]"
+					className="pt-[10px] pr-[10px] pl-[10px] pb-[10px]"
 					editor={editor}
 				/>
 			</div>
