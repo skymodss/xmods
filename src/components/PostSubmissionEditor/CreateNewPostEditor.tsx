@@ -445,12 +445,11 @@ const CreateNewPostEditor: FC<Props> = ({
 	const renderPostTitle = () => {
 		return (
 			<div className="w-full px-2.5 pb-10 pt-2.5 lg:py-10">
-				<div className="mx-auto w-full max-w-screen-md space-y-5 pr-[24px] pt-[24px] pb-[24px]">
+				<div className="mx-auto w-full flex justify-center max-w-screen-md space-y-5 pt-[24px] pb-[24px]">
 					<h2 className="text-xl font-semibold capitalize">
-						Upload a mod
+						Submit Mod
 					</h2>
-					</div>
-				<div className="w-24 border-b border-neutral-200 dark:border-neutral-700"></div>
+				</div>
 				<div className="mx-auto w-full max-w-screen-md space-y-5 rounded-xl border text-card-foreground shadow-sm bg-card/70 backdrop-blur-sm pl-[24px] pr-[24px] pt-[24px] pb-[24px]">
 					<div className="">
 						<Label className="text-sm">
