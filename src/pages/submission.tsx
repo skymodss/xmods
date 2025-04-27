@@ -13,7 +13,13 @@ import Page404Content from '@/container/404Content'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/stores/store'
 
-const Page: FaustPage<{}> = (props) => {
+export interface PageProps {
+    showRightSidebar?: boolean;
+}
+
+
+const Page: FC<PageProps> = ({ showRightSidebar }) => {
+	
 	const { isReady, isAuthenticated } = useSelector(
 		(state: RootState) => state.viewer.authorizedUser,
 	)
