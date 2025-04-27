@@ -34,6 +34,12 @@ import { useSelector } from 'react-redux'
 import { RootState } from '@/stores/store'
 import getTrans from '@/utils/getTrans'
 
+
+export interface CreateNewPostEditor1Props {
+    showRightSidebar?: boolean;
+}
+
+
 interface Props {
 	isEditingPage?: boolean
 	isEditingPostId?: string
@@ -493,6 +499,10 @@ const CreateNewPostEditor: FC<Props> = ({
 							{ERROR.message}
 						</Alert>
 					)}
+					<TiptapEditor
+						defaultContent={contentHTML}
+						onUpdate={debounceGetContentHtml}
+					/>
 				</div>
 			</div>
 		)
@@ -509,11 +519,7 @@ const CreateNewPostEditor: FC<Props> = ({
 				<div className="absolute inset-0 flex h-full flex-col">
 					<div className="hiddenScrollbar flex-1 overflow-y-auto">
 						{renderPostTitle()}
-
-						<TiptapEditor
-							defaultContent={contentHTML}
-							onUpdate={debounceGetContentHtml}
-						/>
+						
 					</div>
 
 					<div className="w-full flex-shrink-0 border-t border-neutral-200 px-2.5 dark:border-neutral-600">
