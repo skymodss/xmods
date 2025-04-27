@@ -265,12 +265,12 @@ export default ({ editor }: { editor: Editor }) => {
 
 	return (
 		<div
-			className="editor__header sticky z-10 flex justify-center overflow-hidden bg-neutral-100 px-2 py-5 lg:overflow-visible lg:px-0 dark:bg-neutral-800"
+			className="editor__header sticky z-10 flex justify-center overflow-hidden bg-neutral-100 px-1 py-1 lg:overflow-visible lg:px-0 dark:bg-neutral-800"
 			style={{
 				top: windowSizeWidth <= 600 ? 0 : wpadminbarH,
 			}}
 		>
-			<div className="w-full max-w-screen-md">
+			<div className="w-full max-w-screen-md pl-[20px] pr-[20px]">
 				<div className="hiddenScrollbar -mx-2.5 flex items-center overflow-x-auto px-2.5 lg:overflow-x-visible lg:px-0">
 					{ITEM_STATE.map((item, index) => (
 						<Fragment key={index}>
