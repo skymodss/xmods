@@ -37,7 +37,6 @@ import getTrans from '@/utils/getTrans'
 
 
 export interface Props {
-	showRightSidebar?: boolean;
 	isEditingPage?: boolean
 	isEditingPostId?: string
 	isSubmittingPage?: boolean
@@ -52,7 +51,6 @@ export interface Props {
 }
 
 const CreateNewPostEditor: FC<Props> = ({
-	showRightSidebar,
 	isEditingPostId,
 	isEditingPage,
 	isSubmittingPage,
