@@ -523,7 +523,7 @@ const CreateNewPostEditor: FC<Props> = ({
 					</div>
 
 					<div className="w-full flex-shrink-0 border-t border-neutral-200 px-2.5 dark:border-neutral-600">
-						<div className="mx-auto flex w-full max-w-screen-md flex-wrap gap-2 py-4 pt-[18px] sm:gap-3">
+						<div className="mx-auto flex w-full max-w-screen-md flex justify-center flex-wrap gap-2 py-4 pt-[18px] sm:gap-3">
 							<ButtonPrimary
 								fontSize="text-base font-medium"
 								onClick={handleClickPublish}
