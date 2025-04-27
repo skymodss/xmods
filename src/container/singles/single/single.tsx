@@ -155,16 +155,9 @@ const SingleType1: FC<SingleType1Props> = ({ post, showRightSidebar }) => {
                                                     {!!hasFeaturedImage && (
 							<NcImage
 								alt={title}
-								containerClassName="container my-10 sm:my-12"
-								className={`mx-auto rounded-xl ${
-									imgWidth <= 768 && ncPostMetaData?.showRightSidebar
-										? 'w-full max-w-screen-md'
-										: ''
-								}`}
 								src={featuredImage?.sourceUrl || ''}
 								width={imgWidth}
 								height={imgHeight}
-								sizes={'(max-width: 1024px) 100vw, 1280px'}
 								priority
 								enableDefaultPlaceholder
 							/>
