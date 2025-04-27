@@ -18,7 +18,7 @@ interface PageProps {
   showRightSidebar?: boolean; // Add this line to define the prop
 }
 
-const Page: FaustPage<PageProps> = (props) => {
+const Page: FaustPage<PageProps> = (props, {showRightSidebar}) => {
   const { isReady, isAuthenticated } = useSelector(
     (state: RootState) => state.viewer.authorizedUser,
   );
@@ -78,11 +78,9 @@ const Page: FaustPage<PageProps> = (props) => {
           <div className="lg:col-span-2">
             <CreateNewPostEditor isSubmittingPage />
           </div>
-          {props.showRightSidebar && ( // Ensure this prop is defined
-            <aside className="lg:col-span-1">
+          <aside className="lg:col-span-1">
               <div className="rounded-lg border text-card-foreground shadow-sm sticky top-15 bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 lg:w-[400px] h-[100%]">
                 <div className="flex flex-col space-y-1.5 p-6 pb-3">
-                  {/* Add sidebar content here */}
                 </div>
               </div>
             </aside>
