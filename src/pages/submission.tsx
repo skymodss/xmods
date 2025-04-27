@@ -31,8 +31,11 @@ const Page: FaustPage<{}> = (props) => {
 
 	if (!isReady) {
 		return (
-			<div className="container flex items-center justify-center p-5">
-				<CircleLoading />
+			<div
+ 				className="container flex items-center justify-center p-5"
+  				style={{ minHeight: "100vh" }}
+			>
+  				<CircleLoading />
 			</div>
 		)
 	}
