@@ -152,21 +152,23 @@ const SingleType1: FC<SingleType1Props> = ({ post, showRightSidebar }) => {
                                         <div className="p-6 pt-0">
                                             <div className="flex flex-col gap-6 lg:flex-row">
                                                 <div className="group relative w-full overflow-hidden rounded-xl lg:w-7/12">
-                                                    <NcImage
-							alt={title}
-							containerClassName="container my-10 sm:my-12"
-							className={`mx-auto rounded-xl ${
-								imgWidth <= 768 && ncPostMetaData?.showRightSidebar
-									? 'w-full max-w-screen-md'
-									: ''
-							}`}
-							src={featuredImage?.sourceUrl || ''}
-							width={imgWidth}
-							height={imgHeight}
-							sizes={'(max-width: 1024px) 100vw, 1280px'}
-							priority
-							enableDefaultPlaceholder
-						    />
+                                                    {!!hasFeaturedImage && (
+							<NcImage
+								alt={title}
+								containerClassName="container my-10 sm:my-12"
+								className={`mx-auto rounded-xl ${
+									imgWidth <= 768 && ncPostMetaData?.showRightSidebar
+										? 'w-full max-w-screen-md'
+										: ''
+								}`}
+								src={featuredImage?.sourceUrl || ''}
+								width={imgWidth}
+								height={imgHeight}
+								sizes={'(max-width: 1024px) 100vw, 1280px'}
+								priority
+								enableDefaultPlaceholder
+							/>
+						)}
                                                 </div>
                                                 <div className="flex flex-col justify-between gap-4 lg:w-5/12">
                                                     <div className="space-y-4">
