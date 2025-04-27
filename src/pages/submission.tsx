@@ -1,22 +1,5 @@
-import { GetStaticPropsContext } from 'next';
-import { FaustPage, getNextStaticProps } from '@faustwp/core';
-import CreateNewPostEditor from '@/components/PostSubmissionEditor/CreateNewPostEditor';
-import { useRouter } from 'next/router';
-import CircleLoading from '@/components/Loading/CircleLoading';
-import SwitchDarkMode from '@/components/SwitchDarkMode/SwitchDarkMode';
-import AvatarDropdown from '@/components/Header/AvatarDropdown';
-import Logo from '@/components/Logo/Logo';
-import CreateBtn from '@/components/Header/CreateBtn';
-import { useEffect } from 'react';
-import { NC_SITE_SETTINGS } from '@/contains/site-settings';
-import Page404Content from '@/container/404Content';
-import { useSelector } from 'react-redux';
-import { RootState } from '@/stores/store';
-import SingleRelatedPosts2 from '@/container/singles/SingleRelatedPosts2'; // Example: Add related posts
-import { TPostCard } from '@/components/Card2/Card2';
-
 interface PageProps {
-  showRightSidebar?: boolean;
+  showRightSidebar?: boolean; // Add this line to define the prop
 }
 
 const Page: FaustPage<PageProps> = (props) => {
@@ -79,11 +62,11 @@ const Page: FaustPage<PageProps> = (props) => {
           <div className="lg:col-span-2">
             <CreateNewPostEditor isSubmittingPage />
           </div>
-          {props.showRightSidebar && (
+          {props.showRightSidebar && ( // Ensure this prop is defined
             <aside className="lg:col-span-1">
               <div className="rounded-lg border text-card-foreground shadow-sm sticky top-15 bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 lg:w-[400px] h-[100%]">
                 <div className="flex flex-col space-y-1.5 p-6 pb-3">
-                  <SingleRelatedPosts2 posts={[]} postDatabaseId={0} />
+                  {/* Add sidebar content here */}
                 </div>
               </div>
             </aside>
