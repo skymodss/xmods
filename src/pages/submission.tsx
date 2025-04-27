@@ -21,6 +21,8 @@ const Page: FaustPage<{}> = (props) => {
 	)
 	const router = useRouter()
 
+	const _post = props.data?.post || {}
+
 	if (NC_SITE_SETTINGS['submissions-settings']?.enable === false) {
 		return <Page404Content />
 	}
