@@ -27,6 +27,7 @@ import { ContentBlock } from '@faustwp/blocks/dist/mjs/components/WordPressBlock
 
 
 
+
 export interface SingleType1Props {
     post: FragmentTypePostFullFields;
     showRightSidebar?: boolean;
