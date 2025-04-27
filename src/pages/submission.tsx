@@ -1,25 +1,4 @@
-import { GetStaticPropsContext } from 'next'
-import { FaustPage, getNextStaticProps } from '@faustwp/core'
-import CreateNewPostEditor from '@/components/PostSubmissionEditor/CreateNewPostEditor'
-import { useRouter } from 'next/router'
-import CircleLoading from '@/components/Loading/CircleLoading'
-import SwitchDarkMode from '@/components/SwitchDarkMode/SwitchDarkMode'
-import AvatarDropdown from '@/components/Header/AvatarDropdown'
-import Logo from '@/components/Logo/Logo'
-import CreateBtn from '@/components/Header/CreateBtn'
-import { FC, useEffect } from 'react'
-import { NC_SITE_SETTINGS } from '@/contains/site-settings'
-import Page404Content from '@/container/404Content'
-import { useSelector } from 'react-redux'
-import { RootState } from '@/stores/store'
-
-
-interface PageProps {
-  showRightSidebar?: boolean; // Add this line to define the prop
-}
-
-const Page: FC<PageProps> = (props, {showRightSidebar}) => {
-  const { isReady, isAuthenticated } = useSelector(
+const { isReady, isAuthenticated } = useSelector(
 		(state: RootState) => state.viewer.authorizedUser,
 	)
 	const router = useRouter()
