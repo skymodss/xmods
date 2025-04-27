@@ -1,4 +1,20 @@
-const { isReady, isAuthenticated } = useSelector(
+import { GetStaticPropsContext } from 'next'
+import { FaustPage, getNextStaticProps } from '@faustwp/core'
+import CreateNewPostEditor from '@/components/PostSubmissionEditor/CreateNewPostEditor'
+import { useRouter } from 'next/router'
+import CircleLoading from '@/components/Loading/CircleLoading'
+import SwitchDarkMode from '@/components/SwitchDarkMode/SwitchDarkMode'
+import AvatarDropdown from '@/components/Header/AvatarDropdown'
+import Logo from '@/components/Logo/Logo'
+import CreateBtn from '@/components/Header/CreateBtn'
+import { useEffect } from 'react'
+import { NC_SITE_SETTINGS } from '@/contains/site-settings'
+import Page404Content from '@/container/404Content'
+import { useSelector } from 'react-redux'
+import { RootState } from '@/stores/store'
+
+const Page: FaustPage<{}> = (props) => {
+	const { isReady, isAuthenticated } = useSelector(
 		(state: RootState) => state.viewer.authorizedUser,
 	)
 	const router = useRouter()
