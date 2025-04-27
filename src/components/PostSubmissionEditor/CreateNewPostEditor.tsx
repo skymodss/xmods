@@ -35,8 +35,7 @@ import { RootState } from '@/stores/store'
 import getTrans from '@/utils/getTrans'
 
 
-
-export interface Props {
+interface Props {
 	isEditingPage?: boolean
 	isEditingPostId?: string
 	isSubmittingPage?: boolean
