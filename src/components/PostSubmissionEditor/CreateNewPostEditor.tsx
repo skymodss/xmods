@@ -444,7 +444,7 @@ const CreateNewPostEditor: FC<Props> = ({
 
 	const renderPostTitle = () => {
 		return (
-			<div className="w-full px-2.5 pb-10 pt-2.5 lg:py-10">
+			<div className="w-full px-2.5 pb-10 lg:py-10 pt-[0px]">
 				<div className="mx-auto w-full flex justify-center max-w-screen-md space-y-5 pt-[24px] pb-[24px]">
 					<h2 className="text-xl font-semibold capitalize">
 						Submit Mod
