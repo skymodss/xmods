@@ -447,7 +447,7 @@ const CreateNewPostEditor: FC<Props> = ({
 	const LOADING = loading || updatePostLoading
 	const ERROR = error || updatePostError
 
-	const renderPostTitle: FC<CreateNewPostEditor1Props> = ({showRightSidebar}) => {
+	const renderPostTitle = ({}) => {
 		return (
 			<div className="w-full px-2.5 pb-10 pt-2.5 lg:py-10">
 				<div className="mx-auto w-full max-w-screen-md space-y-5 rounded-xl border text-card-foreground shadow-sm bg-card/70 backdrop-blur-sm pl-[24px] pr-[24px] pt-[24px] pb-[24px]">
