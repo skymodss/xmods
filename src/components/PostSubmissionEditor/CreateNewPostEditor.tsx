@@ -512,7 +512,7 @@ const CreateNewPostEditor: FC<Props> = ({
 		<>
 			<div className="nc-CreateNewPostEditor relative flex-1">
 				<div className="absolute inset-0 flex h-full flex-col">
-					<div className="hiddenScrollbar flex-1 overflow-y-auto">
+					<div className="flex-1 overflow-y-auto">
 						{renderPostTitle()}
 						
 					</div>
