@@ -13,7 +13,7 @@ const CoreFreeform = (props: any) => {
 	return (
 		<div
 			className="CoreFreeform overflow-hidden mt-0 mb-0"
-			dangerouslySetInnerHTML={{ __html: processedHtml || '' }}
+			dangerouslySetInnerHTML={{ __html: processedHtml || 'mt-0 mb-0'}}
 		></div>
 	)
 }
