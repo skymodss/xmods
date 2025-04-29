@@ -83,14 +83,14 @@ const SingleType1: FC<SingleType1Props> = ({ post, showRightSidebar }) => {
 
     return (
         <>
-            <div className="bg-background __className_3a0388 min-h-screen">
+            <div className="bg-[#f3f3f3] __className_3a0388 min-h-screen">
                 <div className="absolute -top-[370px] hidden h-[50rem] w-full md:block"></div>
                 <div className="min-h-screen bg-background">
                      <main className="container px-4 py-6 lg:px-14 max-w-[1400px] mx-auto">
                         <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
                             <div className="z-10 space-y-6 lg:col-span-2">
                                 <header className="!mt-0">
-                                    <div className="rounded-lg border text-card-foreground shadow-sm bg-card/70 backdrop-blur-sm">
+                                    <div className="rounded-xl border text-card-foreground shadow-sm bg-card/70 backdrop-blur-sm bg-[rgb(255,255,255)]">
                                         <div className="flex flex-col space-y-1.5 p-6 pb-4 pt-[16px]">
                                             <div className="flex flex-col gap-1">
 						    <CategoryBadgeList
