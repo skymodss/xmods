@@ -42,7 +42,7 @@
   --c-neutral-black3: 26, 26, 26; // Ovo je crna boja u RGB formatu
 }
 
-.dark\:bg-neutral-900:where(.dark,.dark *) {
+.dark\:crnija:where(.dark,.dark *) {
     --tw-bg-opacity: 1;
     background-color: rgba(var(--c-neutral-black3),var(--tw-bg-opacity,1))
 }
