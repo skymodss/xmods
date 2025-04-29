@@ -142,10 +142,10 @@ const SingleType1: FC<SingleType1Props> = ({ post, showRightSidebar }) => {
 							    	    <path d="M15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15C13.6569 15 15 13.6569 15 12Z"></path>
 							</svg>
                                                         <h2 className="min-w-[1.125rem] flex-shrink-0 text-start text-neutral-900 transition-colors duration-75 dark:text-neutral-200">{convertNumbThousand(ncPostMetaData?.viewsCount || 1)}</h2>
+							     <span className="mx-[6px] font-medium text-neutral-500 dark:text-neutral-400">
+								     ·
+							     </span>
                                                     </div>
-						        <span className="mx-[6px] font-medium text-neutral-500 dark:text-neutral-400">
-								·
-							</span>
                                                 </div>
                                             </div>
                                         </div>
