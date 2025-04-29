@@ -38,8 +38,10 @@
   --c-neutral-800: 31, 41, 55;
   --c-neutral-900: 17, 24, 39;
   --c-neutral-black: 26, 26, 26;
+
+  --c-neutral-black: 26, 26, 26; // Ovo je crna boja u RGB formatu
 }
 
 .dark\:crni {
-    background-color: rgba(26,26,26); // 1 je za potpunu neprovidnost
+    background-color: rgba(var(--c-neutral-black), 1); // 1 je za potpunu neprovidnost
 }
