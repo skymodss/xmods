@@ -43,5 +43,5 @@
 }
 
 .dark\:crni {
-    background-color: rgba(var(--c-neutral-black3), 1); // 1 je za potpunu neprovidnost
+    background-color: rgba(var(--c-neutral-black3),var(--tw-bg-opacity,1)); // 1 je za potpunu neprovidnost
 }
