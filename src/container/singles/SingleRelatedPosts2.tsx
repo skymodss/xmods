@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import { PostDataFragmentType } from "@/data/types";
 import Card9 from "@/components/Card9/Card9"; // Importamo Card9 komponentu
+import { SectionMagazine1Props } from './SectionMagazine1'
 
 export interface SingleRelatedPostsProps {
   postDatabaseId: number;
@@ -16,17 +17,20 @@ const SingleRelatedPosts2: FC<SingleRelatedPostsProps> = ({
   }
 
   return (
-    <div className="w-full space-y-4">
-      {posts.map((post, index) => (
+    <div className={`nc-SectionMagazine9 relative ${className}`}>
+			<div
+				className={`w-full space-y-4 ${gapClassName}`}
+			>
+				{posts.map((post, index) => (
         <div key={post.databaseId || index} className="mb-4 last:mb-0">
           <Card9 
+            ratio="aspect-w-4 aspect-h-3"
             post={post}
-            ratio="aspect-w-16 aspect-h-9"
-            className="lg:w-[350px] lg:h-[190px] sm:h-[auto] md:h-[190px]" // Za minimalnu i fiksnu visinu
           />
         </div>
       ))}
-    </div>
+			</div>
+		</div>
   );
 };
 
