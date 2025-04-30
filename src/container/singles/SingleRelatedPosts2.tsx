@@ -22,7 +22,7 @@ const SingleRelatedPosts: FC<SingleRelatedPostsProps> = ({
           <Card9 
             post={post}
             ratio="aspect-w-3 aspect-h-3"
-            className="lg:max-w-[360px] lg:max-h-[190px] sm:h-[100px] md:h-[190px]" // Za minimalnu i fiksnu visinu
+            className="lg:max-w-[360px] lg:max-h-[190px]" // Za minimalnu i fiksnu visinu
           />
         </div>
       ))}
