@@ -309,7 +309,7 @@ const SingleType1: FC<SingleType1Props> = ({ post, showRightSidebar }) => {
                                 <div className="rounded-2xl border text-card-foreground shadow-sm sticky top-15 bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 lg:w-[400px] h-[auto] bg-[rgb(255,255,255)]">
                                     <div className="flex flex-col space-y-1.5 p-6 pb-3">
 					<div className="w-full space-y-4">
-				        	<SingleRelatedPosts
+				        	<SingleRelatedPosts2
                                         		posts={relatedPosts}
                                         		postDatabaseId={databaseId}
                 				/>
