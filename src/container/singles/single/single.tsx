@@ -61,7 +61,7 @@ const SingleType1: FC<SingleType1Props> = ({ post, showRightSidebar }) => {
       skip: !databaseId
     });
 
-    const relatedPosts = (relatedPostsData?.posts?.nodes || []).slice(0, 4);
+    const relatedPosts = (relatedPostsData?.posts?.nodes || []).slice(0, 1);
 
     // Hook za meta podatke
     const { loading: loadingRelatedMeta } = useGetPostsNcmazMetaByIds({
@@ -308,6 +308,18 @@ const SingleType1: FC<SingleType1Props> = ({ post, showRightSidebar }) => {
                                 <div className="rounded-2xl border text-card-foreground shadow-sm sticky top-15 bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 flex justify-center h-[auto] pb-[15px] lg:h-[860px] bg-[rgb(255,255,255)]">
                                     <div className="flex flex-col space-y-1.5 p-6 pb-3">
                                       <SingleRelatedPosts2
+                                        posts={relatedPosts}
+                                        postDatabaseId={databaseId}
+                                      />
+				      <SingleRelatedPosts2
+                                        posts={relatedPosts}
+                                        postDatabaseId={databaseId}
+                                      />
+				      <SingleRelatedPosts2
+                                        posts={relatedPosts}
+                                        postDatabaseId={databaseId}
+                                      />
+				      <SingleRelatedPosts2
                                         posts={relatedPosts}
                                         postDatabaseId={databaseId}
                                       />
