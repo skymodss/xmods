@@ -75,7 +75,7 @@ const SearchPageLayout: FC<Props> = ({
 								className="border-opacity-0 text-base shadow-md dark:!bg-neutral-800"
 								sizeClass="h-16 ps-14 py-4 pe-3 sm:pe-5 md:ps-16"
 								fontClass="text-base text-neutral-800 dark:text-neutral-200"
-								rounded="rounded-full"
+								rounded="rounded-2xl"
 								defaultValue={search || ''}
 							/>
 							<span className="absolute start-5 top-1/2 -translate-y-1/2 transform text-2xl md:start-6">
