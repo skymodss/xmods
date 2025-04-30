@@ -16,9 +16,9 @@ const SingleRelatedPosts2: FC<SingleRelatedPostsProps> = ({
   }
 
   return (
-    <div className={`nc-SectionMagazine9 relative ${className}`}>
+    <div className={`nc-SectionMagazine9 relative`}>
 			<div
-				className={`w-full space-y-4 ${gapClassName}`}
+				className={`w-full space-y-4`}
 			>
 				{posts.map((post, index) => (
         <div key={post.databaseId || index} className="mb-4 last:mb-0">
