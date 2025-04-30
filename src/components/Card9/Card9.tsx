@@ -16,8 +16,8 @@ export interface Card9Props extends CommonPostCardProps {
 }
 
 const Card9: FC<Card9Props> = ({
-	className = '',
-	ratio = '',
+	className = 'h-full',
+	ratio = 'aspect-w-3 aspect-h-3 sm:aspect-h-4',
 	post,
 	hoverClass = '',
 }) => {
@@ -89,7 +89,7 @@ const Card9: FC<Card9Props> = ({
 					<MyImage
 						fill
 						alt={title || ''}
-						className="h-full w-full rounded-3xl object-cover aspect-video object-cover transition-transform duration-500 group-hover:scale-105"
+						className="h-full w-full rounded-3xl object-cover"
 						src={featuredImage?.sourceUrl || ''}
 						sizes="(max-width: 600px) 480px, 500px"
 					/>
