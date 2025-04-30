@@ -16,12 +16,11 @@ const SingleRelatedPosts2: FC<SingleRelatedPostsProps> = ({
   }
 
   return (
-    <div className="w-full space-y-4">
+    <div className="aspect-w-16 w-full relative sm:aspect-h-6 aspect-h-9">
       {posts.map((post, index) => (
         <div key={post.databaseId || index} className="mb-4 last:mb-0">
           <Card9 
             post={post}
-            ratio="aspect-w-16 w-full relative sm:aspect-h-6 aspect-h-9"
           />
         </div>
       ))}
