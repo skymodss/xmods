@@ -7,7 +7,7 @@ export interface SingleRelatedPostsProps {
   posts: PostDataFragmentType[] | null;
 }
 
-const SingleRelatedPosts2: FC<SingleRelatedPostsProps> = ({
+const SingleRelatedPosts: FC<SingleRelatedPostsProps> = ({
   postDatabaseId,
   posts,
 }) => {
@@ -16,11 +16,13 @@ const SingleRelatedPosts2: FC<SingleRelatedPostsProps> = ({
   }
 
   return (
-    <div className="aspect-w-16 w-full relative sm:aspect-h-6 aspect-h-9">
+    <div className="w-full space-y-4">
       {posts.map((post, index) => (
         <div key={post.databaseId || index} className="mb-4 last:mb-0">
           <Card9 
             post={post}
+            ratio="aspect-w-3 aspect-h-3"
+            className="lg:w-[350px] lg:h-[190px] sm:h-[100px] md:h-[190px]" // Za minimalnu i fiksnu visinu
           />
         </div>
       ))}
@@ -28,4 +30,4 @@ const SingleRelatedPosts2: FC<SingleRelatedPostsProps> = ({
   );
 };
 
-export default SingleRelatedPosts2;
+export default SingleRelatedPosts;
