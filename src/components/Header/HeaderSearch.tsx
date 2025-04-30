@@ -51,7 +51,7 @@ export const HeaderSearchForm2 = () => {
 				/>
 				<button
 					type="submit"
-					className="absolute inset-y-0 end-0 flex items-center justify-center rounded-full pe-3 ps-2 text-neutral-500 dark:text-neutral-400"
+					className="absolute inset-y-0 end-0 flex items-center justify-center rounded-2xl pe-3 ps-2 text-neutral-500 dark:text-neutral-400"
 				>
 					<SearchIcon className="h-5 w-5" />
 				</button>
@@ -70,7 +70,7 @@ export const SearchIconBtn = ({
 	const renderTrigger = () => {
 		return (
 			<div className={`relative block self-center ${className}`}>
-				<button className="flex h-10 w-10 items-center justify-center rounded-full text-neutral-700 hover:bg-neutral-100 focus:outline-none sm:h-12 sm:w-12 dark:text-neutral-300 dark:hover:bg-neutral-800">
+				<button className="flex h-10 w-10 items-center justify-center rounded-2xl text-neutral-700 hover:bg-neutral-100 focus:outline-none sm:h-12 sm:w-12 dark:text-neutral-300 dark:hover:bg-neutral-800">
 					<SearchIcon className="h-5 w-5" />
 				</button>
 			</div>
