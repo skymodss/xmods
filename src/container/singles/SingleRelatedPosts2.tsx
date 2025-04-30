@@ -21,14 +21,8 @@ const SingleRelatedPosts: FC<SingleRelatedPostsProps> = ({
       {/* RELATED  */}
       <div className="container">
         <div>
-          <Heading
-            className="mb-10 text-neutral-900 dark:text-neutral-50"
-            desc=""
-          >
-            Related posts
-          </Heading>
 
-          <SectionSliderPosts postCardName="card4" posts={posts || []} />
+          <SectionSliderPosts postCardName="card7" posts={posts || []} />
         </div>
       </div>
     </div>
