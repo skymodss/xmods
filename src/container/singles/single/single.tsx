@@ -25,7 +25,6 @@ import PageLayout from '@/container/PageLayout'
 import MyWordPressBlockViewer from '@/components/MyWordPressBlockViewer'
 import { flatListToHierarchical } from '@faustwp/core'
 import { ContentBlock } from '@faustwp/blocks/dist/mjs/components/WordPressBlocksViewer'
-import Card9 from "@/components/Card9/Card9"; // Importamo Card9 komponentu
 
 
 
