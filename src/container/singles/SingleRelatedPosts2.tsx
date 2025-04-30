@@ -16,7 +16,7 @@ const SingleRelatedPosts: FC<SingleRelatedPostsProps> = ({
   }
 
   return (
-    <div className="w-full space-y-4 lg:max-w-[360px] lg:max-h-[190px]">
+    <div className="aspect-w-16 w-full relative rounded-20 group sm:aspect-h-6 aspect-h-9">
       {posts.map((post, index) => (
         <div key={post.databaseId || index} className="mb-4 last:mb-0">
           <Card9 
