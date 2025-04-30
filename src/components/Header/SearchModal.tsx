@@ -384,7 +384,7 @@ const CardPost = ({ post, focus }: { post: TPostCard; focus: boolean }) => {
 			</div>
 
 			<div
-				className={`relative z-0 hidden h-50 w-50 flex-shrink-0 overflow-hidden rounded-2xl sm:block`}
+				className={`relative z-0 hidden max-h-[50px] max-w-[50px] flex-shrink-0 overflow-hidden rounded-2xl sm:block`}
 			>
 				<MyImage
 					sizes="(max-width: 600px) 180px, 400px"
