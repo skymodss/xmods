@@ -24,6 +24,7 @@ import PageLayout from '@/container/PageLayout'
 import MyWordPressBlockViewer from '@/components/MyWordPressBlockViewer'
 import { flatListToHierarchical } from '@faustwp/core'
 import { ContentBlock } from '@faustwp/blocks/dist/mjs/components/WordPressBlocksViewer'
+import Card9 from "@/components/Card9/Card9"; // Importamo Card9 komponentu
 
 
 
@@ -307,11 +308,17 @@ const SingleType1: FC<SingleType1Props> = ({ post, showRightSidebar }) => {
                             <aside className="script-similar-scripts lg:col-span-1">
                                 <div className="rounded-2xl border text-card-foreground shadow-sm sticky top-15 bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 lg:w-[400px] h-[auto] bg-[rgb(255,255,255)]">
                                     <div className="flex flex-col space-y-1.5 p-6 pb-3">
-                                      <SingleRelatedPosts2
-                                        posts={relatedPosts}
-                                        postDatabaseId={databaseId}
-                                      />
-					    
+					<div className="w-full space-y-4">
+      						{posts.map((post, index) => (
+        					  <div key={post.databaseId || index} className="mb-4 last:mb-0">
+          						<Card9 
+            						    post={relatedPosts}
+            						    ratio="aspect-w-16 aspect-h-9"
+                                                            className="lg:w-[350px] lg:h-[190px] sm:h-[auto] md:h-[190px]" // Za minimalnu i fiksnu visinu
+          						/>
+        					   </div>
+      						))}
+   					 </div>
                                     </div>
                                 </div>
                             </aside>
