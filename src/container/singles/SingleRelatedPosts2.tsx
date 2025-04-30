@@ -1,7 +1,6 @@
 import React, { FC } from "react";
 import { PostDataFragmentType } from "@/data/types";
 import Card9 from "@/components/Card9/Card9"; // Importamo Card9 komponentu
-import { SectionMagazine1Props } from './SectionMagazine1'
 
 export interface SingleRelatedPostsProps {
   postDatabaseId: number;
