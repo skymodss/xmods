@@ -16,20 +16,17 @@ const SingleRelatedPosts2: FC<SingleRelatedPostsProps> = ({
   }
 
   return (
-    <div className={`nc-SectionMagazine9 relative`}>
-			<div
-				className={`w-full space-y-4`}
-			>
-				{posts.map((post, index) => (
+    <div className="w-full space-y-4">
+      {posts.map((post, index) => (
         <div key={post.databaseId || index} className="mb-4 last:mb-0">
           <Card9 
-            ratio="aspect-w-4 aspect-h-3"
             post={post}
+            ratio="aspect-w-4 aspect-h-3"
+            className="lg:w-[350px] lg:h-[190px] sm:h-[auto] md:h-[190px]" // Za minimalnu i fiksnu visinu
           />
         </div>
       ))}
-			</div>
-		</div>
+    </div>
   );
 };
 
