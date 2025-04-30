@@ -18,7 +18,7 @@ export const HeaderSearchForm = () => {
 					rounded="rounded-full"
 					disabled
 				/>
-				<div className="absolute inset-y-0 end-0 flex items-center justify-center rounded-full pe-3 ps-2 text-neutral-500 dark:text-neutral-400">
+				<div className="absolute inset-y-0 end-0 flex items-center justify-center rounded-2xl pe-3 ps-2 text-neutral-500 dark:text-neutral-400">
 					<SearchIcon className="h-5 w-5" />
 				</div>
 			</div>
