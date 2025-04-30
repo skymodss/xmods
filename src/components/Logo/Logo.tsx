@@ -32,7 +32,7 @@ const Logo: React.FC<LogoProps> = ({ className = '', imageClassName }) => {
 			<MyImage
 				className={'hidden w-12 sm:w-14 dark:block ' + imageClassName}
 				src={logoLightSrc || ''}
-				alt={'veci'}
+				alt={'Logo'}
 				width={56}
 				height={56}
 			/>
