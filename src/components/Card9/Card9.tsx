@@ -92,6 +92,9 @@ const Card9: FC<Card9Props> = ({
 						className="h-full w-full rounded-3xl object-cover"
 						src={featuredImage?.sourceUrl || ''}
 						sizes="(max-width: 600px) 480px, 500px"
+						style={{
+        						boxShadow: 'inset 0 0 0 2px rgba(255, 255, 255, 0.5)', // Ovdje postavljaš unutrašnji border
+    						}}
 					/>
 					<PostTypeFeaturedIcon
 						className="absolute left-3 top-3 group-hover:hidden"
