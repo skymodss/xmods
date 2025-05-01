@@ -183,7 +183,7 @@ const PostCardLikeAction2: FC<PostCardLikeActionProps> = ({
 			onMouseLeave={() => setShowTooltip(false)}
 		>
 			<div
-				className={`absolute -top-13 left-1/2 transform -translate-x-1/2 bg-[rgb(255,255,255)] rounded-2xl border shadow-xl bg-card text-start text-neutral-900 transition-transform duration-200 dark:text-neutral-200 px-2 py-1 pl-[12px] pr-[12px] pt-[12px] pb-[12px] ${
+				className={`absolute -top-12 left-1/2 transform -translate-x-1/2 bg-[rgb(255,255,255)] rounded-2xl border shadow-xl bg-card text-start text-neutral-900 transition-transform duration-200 dark:text-neutral-200 px-2 py-1 pl-[12px] pr-[12px] pt-[12px] pb-[12px] ${
 					showTooltip ? 'scale-100 opacity-100' : 'scale-75 opacity-0'
 				}`}
 				style={{
