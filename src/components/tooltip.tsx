@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 
+
 interface TooltipProps {
   children: React.ReactNode;
   content: string;
@@ -17,7 +18,7 @@ const Tooltip: React.FC<TooltipProps> = ({ children, content }) => {
       {children}
 
       {isVisible && (
-        <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 rounded bg-gray-800 text-white text-sm">
+        <div className="rounded-2xl border text-card-foreground bg-[rgb(255,255,255)]">
           {content}
         </div>
       )}
