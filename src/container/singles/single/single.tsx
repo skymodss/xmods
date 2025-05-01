@@ -158,7 +158,7 @@ const SingleType1: FC<SingleType1Props> = ({ post, showRightSidebar }) => {
 								alt={title}
 								containerClassName=""
 								src={featuredImage?.sourceUrl || ''}
-								className={`mx-auto rounded-xl ${
+								className={`mx-auto rounded-2xl ${
 									imgWidth <= 768 && ncPostMetaData?.showRightSidebar
 										? 'w-full max-w-screen-md'
 										: ''
