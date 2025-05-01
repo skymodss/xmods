@@ -238,7 +238,7 @@ const SingleType1: FC<SingleType1Props> = ({ post, showRightSidebar }) => {
                                 <section className="script-description">
                                     <div className="border bg-card text-card-foreground shadow-sm bg-[rgb(255,255,255)] rounded-2xl">
                                         <div className="flex flex-col space-y-1.5 p-6">
-                                            <div className="text-2xl font-semibold leading-none tracking-tight">
+                                            <div className="text-2xl font-bold leading-none tracking-tight">
                                                 <h2>Description</h2>
                                             </div>
                                         </div>
@@ -257,7 +257,7 @@ const SingleType1: FC<SingleType1Props> = ({ post, showRightSidebar }) => {
                                     <div className="border bg-card text-card-foreground shadow-sm bg-[rgb(255,255,255)] rounded-2xl">
                                         <div className="flex flex-col space-y-1.5 p-6">
                                             <div className="font-semibold leading-none tracking-tight">
-                                                <h2 className="text-2xl font-semibold leading-none tracking-tight">Comments ({commentCount})</h2> 
+                                                <h2 className="text-2xl font-bold leading-none tracking-tight">Comments ({commentCount})</h2> 
                                             </div>
                                         </div>
                                         <div className="p-6 pt-0 space-y-4">
@@ -306,6 +306,9 @@ const SingleType1: FC<SingleType1Props> = ({ post, showRightSidebar }) => {
                                 </section>
                             </div>
                              <aside className="script-similar-scripts lg:col-span-1">
+				      <div className="font-bold leading-none tracking-tight">
+                                              <h2 className="text-2xl font-bold leading-none tracking-tight">Similar Mods</h2> 
+                                      </div>
 				      <SingleRelatedPosts2
                                         posts={relatedPosts}
                                         postDatabaseId={databaseId}
