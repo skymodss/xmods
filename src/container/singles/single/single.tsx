@@ -84,7 +84,7 @@ const SingleType1: FC<SingleType1Props> = ({ post, showRightSidebar }) => {
 
     return (
         <>
-            <div className="bg-[#fafafa] __className_3a0388 min-h-screen">
+            <div className="bg-[#fafafa] min-h-screen">
                 <div className="absolute -top-[370px] hidden h-[50rem] w-full md:block"></div>
                 <div className="min-h-screen bg-background">
                      <main className="container px-4 py-6 lg:px-14 max-w-[1400px] mx-auto">
