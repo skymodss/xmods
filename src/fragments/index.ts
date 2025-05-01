@@ -464,7 +464,7 @@ export const NC_USER_SHORT_FOR_POST_CARD_FRAGMENT = gql(/* GraphQL */ `
 	}
 `)
 
-export const NC_USER_FULL_FIELDS_FRAGMENT3 = gql(/* GraphQL */ `
+export const NC_USER_FULL_FIELDS_FRAGMENT = gql(/* GraphQL */ `
 	fragment on User {
 		id
 		databaseId
@@ -497,7 +497,7 @@ export const NC_USER_FULL_FIELDS_FRAGMENT3 = gql(/* GraphQL */ `
 	}
 `)
 
-export const NC_USER_FULL_FIELDS_FRAGMENT = gql(/* GraphQL */ `
+export const NC_USER_FULL_FIELDS_FRAGMENT3 = gql(/* GraphQL */ `
 	fragment NcmazFcUserFullFields on User {
 		id
 		databaseId
