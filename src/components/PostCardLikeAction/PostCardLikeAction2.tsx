@@ -31,6 +31,7 @@ const PostCardLikeAction2: FC<PostCardLikeActionProps> = ({
 	postDatabseId,
 }) => {
 	const [likeCountState, setLikeCountState] = useState(likeCountProp)
+	const [showTooltip, setShowTooltip] = useState(false)
 	const { openLoginModal } = useLoginModal()
 	//
 	const [handleUpdateReactionCount, { loading, error, data, called }] =
@@ -64,7 +65,6 @@ const PostCardLikeAction2: FC<PostCardLikeActionProps> = ({
 	) => {
 		let newViewerReactionPosts = viewerReactionPosts
 
-		// neu type === Added -> them vao list binh thuong
 		if (type === NcmazFcUserReactionPostUpdateResuiltEnum.Added) {
 			newViewerReactionPosts = [
 				...(viewerReactionPosts || []).filter(
@@ -83,7 +83,6 @@ const PostCardLikeAction2: FC<PostCardLikeActionProps> = ({
 		}
 
 		if (type === NcmazFcUserReactionPostUpdateResuiltEnum.Removed) {
-			// neu type === Remove -> xoa khoi list binh thuong
 			newViewerReactionPosts = (viewerReactionPosts || []).map((post) => {
 				if (!post.title?.includes(`${postDatabseId},LIKE`)) {
 					return post
@@ -96,52 +95,20 @@ const PostCardLikeAction2: FC<PostCardLikeActionProps> = ({
 					}
 				}
 			})
-			// update like count
 			setLikeCountState(likeCountState > 0 ? likeCountState - 1 : 0)
-		}
-
-		if (type === NcmazFcUserReactionPostUpdateResuiltEnum.Error) {
-			// neu type === Error -> kiem tra xem hanh dong nay la dang remove hay add,
-			// vi la Error nen se phai thuc hien nguoc lai voi hanh dong truoc do, vi truoc do da thuc hien dispatch tam 1 lan len redux roi
-			// neu la remove -> them lai vao list.
-			if (number === NcmazFcUserReactionPostNumberUpdateEnum.Remove_1) {
-				newViewerReactionPosts = [
-					...(viewerReactionPosts || []).filter(
-						(p) => !p.title?.includes(`${postDatabseId},LIKE`),
-					),
-					{
-						title: `${postDatabseId},LIKE`,
-						id: String(new Date()),
-					},
-				]
-				// update like count
-				setLikeCountState(likeCountState + 1)
-			}
-			// Neu la add -> xoa khoi list
-			if (number === NcmazFcUserReactionPostNumberUpdateEnum.Add_1) {
-				newViewerReactionPosts = (viewerReactionPosts || []).filter(
-					(post) => !post.title?.includes(`${postDatabseId},LIKE`),
-				)
-
-				// update like count
-				setLikeCountState(likeCountState > 0 ? likeCountState - 1 : 0)
-			}
 		}
 
 		dispatch(updateViewerAllReactionPosts(newViewerReactionPosts))
 	}
-	//
 
 	// check is isLiked
 	const isLiked = useMemo(() => {
-		// for user logged in
 		return viewerReactionPosts?.some(
 			(post) =>
 				post.title?.trim() == `${postDatabseId},LIKE` &&
 				!post.isNewUnLikeFromClient,
 		)
 	}, [viewer, viewerReactionPosts])
-	//
 
 	// handle update viewerReactionPosts to redux store
 	useEffect(() => {
@@ -156,7 +123,6 @@ const PostCardLikeAction2: FC<PostCardLikeActionProps> = ({
 		) {
 			console.log('___NcBookmark___error', { error, data })
 			toast.error('An error occurred, please try again later.')
-			// dispatch update viewer reaction posts -> when update have error
 			handleDispatchUpdateViewerReactionPosts(
 				postDatabseId,
 				NcmazFcUserReactionPostUpdateResuiltEnum.Error,
@@ -166,7 +132,6 @@ const PostCardLikeAction2: FC<PostCardLikeActionProps> = ({
 		}
 	}, [data, error, loading, isReady])
 
-	// handle click like action
 	const handleClickAction = () => {
 		if (!isReady) {
 			toast.error('Please wait a moment, data is being prepared.')
@@ -183,7 +148,6 @@ const PostCardLikeAction2: FC<PostCardLikeActionProps> = ({
 			return
 		}
 
-		// check isload like count from server
 		const loadingDOM = document.querySelectorAll(
 			'.getPostsNcmazMetaByIds_is_loading',
 		)
@@ -192,7 +156,6 @@ const PostCardLikeAction2: FC<PostCardLikeActionProps> = ({
 			return
 		}
 
-		// dispatch pre update viewer reaction posts -> when prepare update to server. Will have a update again when have result from server
 		handleDispatchUpdateViewerReactionPosts(
 			postDatabseId,
 			isLiked
@@ -200,7 +163,6 @@ const PostCardLikeAction2: FC<PostCardLikeActionProps> = ({
 				: NcmazFcUserReactionPostUpdateResuiltEnum.Added,
 		)
 
-		//  update like count for database
 		handleUpdateReactionCount({
 			variables: {
 				post_id: postDatabseId,
@@ -213,7 +175,6 @@ const PostCardLikeAction2: FC<PostCardLikeActionProps> = ({
 		})
 	}
 
-	// handle update like count when have update from store
 	const actualLikeCount = useMemo(() => {
 		if (!viewerReactionPosts?.length) {
 			return likeCountState
@@ -233,22 +194,21 @@ const PostCardLikeAction2: FC<PostCardLikeActionProps> = ({
 				isLiked
 					? 'text-rose-600 dark:text-rose-500'
 					: 'text-neutral-700 hover:text-rose-600 dark:text-neutral-200 dark:hover:text-rose-400'
-			} `}
+			}`}
 			onClick={handleClickAction}
-			<div
-  			  className={`absolute -top-8 left-1/2 transform -translate-x-1/2 rounded bg-black text-white text-sm px-2 py-1 ${
-    				showTooltip ? 'block' : 'hidden'
-  			  }`}
-			>
-  			  {isLiked ? 'Unlike' : 'Like'}
-			</div>
+			onMouseEnter={() => setShowTooltip(true)}
+			onMouseLeave={() => setShowTooltip(false)}
 		>
 			<div
-				className={`${sizeClassName} flex flex-shrink-0 items-center justify-center rounded-full transition-colors duration-75 ${
-					isLiked
-						? ''
-						: ''
+				className={`absolute -top-8 left-1/2 transform -translate-x-1/2 rounded bg-black text-white text-sm px-2 py-1 ${
+					showTooltip ? 'block' : 'hidden'
 				}`}
+			>
+				{isLiked ? 'Unlike' : 'Like'}
+			</div>
+
+			<div
+				className={`${sizeClassName} flex flex-shrink-0 items-center justify-center rounded-full transition-colors duration-75`}
 			>
 				<FavouriteIcon
 					color={'currentColor'}
