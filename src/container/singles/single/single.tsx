@@ -27,7 +27,6 @@ import { flatListToHierarchical } from '@faustwp/core'
 import { ContentBlock } from '@faustwp/blocks/dist/mjs/components/WordPressBlocksViewer'
 
 
-
 export interface SingleType1Props {
     post: FragmentTypePostFullFields;
     showRightSidebar?: boolean;
