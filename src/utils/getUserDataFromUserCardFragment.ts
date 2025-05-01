@@ -8,7 +8,7 @@ import { NcmazFcImageFieldsFragment } from "@/__generated__/graphql";
 
 export function getUserDataFromUserCardFragment(
   user:
-    | FragmentType<typeof NC_USER_FULL_FIELDS_FRAGMENT33>
+    | FragmentType<typeof NC_USER_FULL_FIELDS_FRAGMENT3>
     | FragmentType<typeof NC_USER_SHORT_FOR_POST_CARD_FRAGMENT>
 ) {
   let query = useFragment(
