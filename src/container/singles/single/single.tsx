@@ -152,13 +152,13 @@ const SingleType1: FC<SingleType1Props> = ({ post, showRightSidebar }) => {
                                         </div>
                                         <div className="p-6 pt-0">
                                             <div className="flex flex-col gap-6 lg:flex-row">
-                                                <div className="group relative w-full overflow-hidden rounded-xl lg:w-7/12">
+                                                <div className="group relative w-full overflow-hidden rounded-2xl lg:w-7/12">
                                                     {!!hasFeaturedImage && (
 							<NcImage
 								alt={title}
 								containerClassName=""
 								src={featuredImage?.sourceUrl || ''}
-								className={`mx-auto rounded-2xl ${
+								className={`mx-auto rounded-xl ${
 									imgWidth <= 768 && ncPostMetaData?.showRightSidebar
 										? 'w-full max-w-screen-md'
 										: ''
