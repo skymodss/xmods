@@ -34,6 +34,5 @@ export function getUserDataFromUserCardFragment(
     username: query.username || "",
     featuredImageMeta,
     bgImageMeta,
-    verified: query.verified?.verified || false,
   };
 }
