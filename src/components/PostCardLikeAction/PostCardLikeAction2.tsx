@@ -33,10 +33,10 @@ const PostCardLikeAction2: FC<PostCardLikeActionProps> = ({
 	const [likeCountState, setLikeCountState] = useState(likeCountProp)
 	const [showTooltip, setShowTooltip] = useState(false)
 	const { openLoginModal } = useLoginModal()
-	//
-	const [handleUpdateReactionCount, { loading, error, data, called }] =
+
+	const [handleUpdateReactionCount, { loading, error, data }] =
 		useMutation(NC_MUTATION_UPDATE_USER_REACTION_POST_COUNT)
-	//
+
 	const { viewer, viewerReactionPosts, authorizedUser } = useSelector(
 		(state: RootState) => state.viewer,
 	)
@@ -48,20 +48,15 @@ const PostCardLikeAction2: FC<PostCardLikeActionProps> = ({
 
 	const { isAuthenticated, isReady } = authorizedUser
 
-	//
 	useEffect(() => {
-		if (likesCountOkFromStore == undefined || likesCountOkFromStore == null) {
-			return
+		if (likesCountOkFromStore !== undefined && likesCountOkFromStore !== null) {
+			setLikeCountState(likesCountOkFromStore || 0)
 		}
-
-		setLikeCountState(likesCountOkFromStore || 0)
 	}, [likesCountOkFromStore])
 
-	// handle dispatch update viewer reaction posts
 	const handleDispatchUpdateViewerReactionPosts = (
 		postDatabseId: number,
 		type?: NcmazFcUserReactionPostUpdateResuiltEnum | null,
-		number?: NcmazFcUserReactionPostNumberUpdateEnum | null,
 	) => {
 		let newViewerReactionPosts = viewerReactionPosts
 
@@ -77,8 +72,6 @@ const PostCardLikeAction2: FC<PostCardLikeActionProps> = ({
 					newLikedCount: likeCountState + 1,
 				},
 			]
-
-			// update like count
 			setLikeCountState(likeCountState + 1)
 		}
 
@@ -101,36 +94,29 @@ const PostCardLikeAction2: FC<PostCardLikeActionProps> = ({
 		dispatch(updateViewerAllReactionPosts(newViewerReactionPosts))
 	}
 
-	// check is isLiked
 	const isLiked = useMemo(() => {
 		return viewerReactionPosts?.some(
 			(post) =>
-				post.title?.trim() == `${postDatabseId},LIKE` &&
+				post.title?.trim() === `${postDatabseId},LIKE` &&
 				!post.isNewUnLikeFromClient,
 		)
-	}, [viewer, viewerReactionPosts])
+	}, [viewerReactionPosts, postDatabseId])
 
-	// handle update viewerReactionPosts to redux store
 	useEffect(() => {
-		if (loading || !isReady) {
-			return
-		}
+		if (loading || !isReady) return
 
 		if (
 			error ||
 			data?.ncmazFaustUpdateUserReactionPostCount?.result ===
 				NcmazFcUserReactionPostUpdateResuiltEnum.Error
 		) {
-			console.log('___NcBookmark___error', { error, data })
 			toast.error('An error occurred, please try again later.')
 			handleDispatchUpdateViewerReactionPosts(
 				postDatabseId,
 				NcmazFcUserReactionPostUpdateResuiltEnum.Error,
-				data?.ncmazFaustUpdateUserReactionPostCount?.number,
 			)
-			return
 		}
-	}, [data, error, loading, isReady])
+	}, [data, error, loading, isReady, postDatabseId])
 
 	const handleClickAction = () => {
 		if (!isReady) {
@@ -138,7 +124,7 @@ const PostCardLikeAction2: FC<PostCardLikeActionProps> = ({
 			return
 		}
 
-		if (isAuthenticated === false) {
+		if (!isAuthenticated) {
 			openLoginModal()
 			return
 		}
@@ -151,7 +137,7 @@ const PostCardLikeAction2: FC<PostCardLikeActionProps> = ({
 		const loadingDOM = document.querySelectorAll(
 			'.getPostsNcmazMetaByIds_is_loading',
 		)
-		if (!!loadingDOM?.length) {
+		if (loadingDOM.length > 0) {
 			toast.error('Please wait a moment, data is being refreshed.')
 			return
 		}
@@ -180,13 +166,10 @@ const PostCardLikeAction2: FC<PostCardLikeActionProps> = ({
 			return likeCountState
 		}
 		const viewerReactionPost = viewerReactionPosts?.find(
-			(post) => post.title?.trim() == `${postDatabseId},LIKE`,
+			(post) => post.title?.trim() === `${postDatabseId},LIKE`,
 		)
-		if (typeof viewerReactionPost?.newLikedCount === 'number') {
-			return viewerReactionPost?.newLikedCount
-		}
-		return likeCountState
-	}, [likeCountState, viewerReactionPosts])
+		return viewerReactionPost?.newLikedCount ?? likeCountState
+	}, [likeCountState, viewerReactionPosts, postDatabseId])
 
 	return (
 		<button
@@ -200,9 +183,12 @@ const PostCardLikeAction2: FC<PostCardLikeActionProps> = ({
 			onMouseLeave={() => setShowTooltip(false)}
 		>
 			<div
-				className={`absolute -top-8 left-1/2 transform -translate-x-1/2 bg-[rgb(255,255,255)] rounded-2xl border bg-card text-start text-neutral-900 transition-colors duration-75 dark:text-neutral-200 pl-[10px] pr-[10px] pt-[10px] pb-[10px] px-2 py-1 ${
-					showTooltip ? 'block' : 'hidden'
+				className={`absolute -top-8 left-1/2 transform -translate-x-1/2 bg-[rgb(255,255,255)] rounded-2xl border bg-card text-start text-neutral-900 transition-transform duration-200 dark:text-neutral-200 px-2 py-1 ${
+					showTooltip ? 'scale-100 opacity-100' : 'scale-75 opacity-0'
 				}`}
+				style={{
+					transition: 'transform 0.2s ease-in-out, opacity 0.2s ease-in-out',
+				}}
 			>
 				{isLiked ? 'Unlike' : 'Like'}
 			</div>
@@ -220,8 +206,8 @@ const PostCardLikeAction2: FC<PostCardLikeActionProps> = ({
 			<span
 				className={`ml-[0px] flex-shrink-0 text-start transition-colors duration-75 ${
 					isLiked
-						? 'text-rose-600 dark:text-rose-500 ml-[0px]'
-						: 'text-neutral-900 dark:text-neutral-200 ml-[0px]'
+						? 'text-rose-600 dark:text-rose-500'
+						: 'text-neutral-900 dark:text-neutral-200'
 				}`}
 			>
 				{actualLikeCount ? convertNumbThousand(actualLikeCount) : 0}
