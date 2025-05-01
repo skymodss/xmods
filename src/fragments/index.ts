@@ -474,8 +474,8 @@ export const NC_USER_FULL_FIELDS_FRAGMENT = gql(/* GraphQL */ `
 		description
 		registeredDate
   		verified {
-        	  fieldGroupName?: string | null;
-                  verified?: boolean | null;
+        	  fieldGroupName
+                  verified
       		}
 		ncUserMeta {
 			buymeacoffeUrl
