@@ -200,7 +200,7 @@ const PostCardLikeAction2: FC<PostCardLikeActionProps> = ({
 			onMouseLeave={() => setShowTooltip(false)}
 		>
 			<div
-				className={`absolute -top-8 left-1/2 transform -translate-x-1/2 bg-[rgb(255,255,255)] rounded-2xl border bg-card text-black text-sm px-2 py-1 ${
+				className={`absolute -top-8 left-1/2 transform -translate-x-1/2 bg-[rgb(255,255,255)] rounded-2xl border bg-card text-start text-neutral-900 transition-colors duration-75 dark:text-neutral-200 pl-[10px] pr-[10px] pt-[10px] pb-[10px] px-2 py-1 ${
 					showTooltip ? 'block' : 'hidden'
 				}`}
 			>
