@@ -254,7 +254,7 @@ const SingleType1: FC<SingleType1Props> = ({ post, showRightSidebar }) => {
                                     </div>
                                 </section>
 				<section className="script-description">
-                                    <div className="rounded-lg border bg-card text-card-foreground shadow-sm">
+                                    <div className="border bg-card text-card-foreground shadow-sm bg-[rgb(255,255,255)] rounded-2xl">
                                         <div className="flex flex-col space-y-1.5 p-6">
                                             <div className="font-semibold leading-none tracking-tight">
                                                 <h2 className="text-2xl font-semibold leading-none tracking-tight">Comments ({commentCount})</h2> 
@@ -278,7 +278,7 @@ const SingleType1: FC<SingleType1Props> = ({ post, showRightSidebar }) => {
                                     </div>
                                 </section>
 				<section className="script-description">
-                                    <div className="rounded-lg border bg-card text-card-foreground shadow-sm">
+                                    <div className="border bg-card text-card-foreground shadow-sm bg-[rgb(255,255,255)] rounded-2xl">
                                         <div className="flex flex-col space-y-1.5 p-6">
                                             <div className="text-2xl font-semibold leading-none tracking-tight">
                                                 <h2>Tags</h2>
