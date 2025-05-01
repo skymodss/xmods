@@ -306,9 +306,6 @@ const SingleType1: FC<SingleType1Props> = ({ post, showRightSidebar }) => {
                                 </section>
                             </div>
                              <aside className="script-similar-scripts lg:col-span-1">
-				      <div className="font-bold leading-none tracking-tight">
-                                              <h2 className="text-2xl font-bold leading-none tracking-tight">Similar Mods</h2> 
-                                      </div>
 				      <SingleRelatedPosts2
                                         posts={relatedPosts}
                                         postDatabaseId={databaseId}
