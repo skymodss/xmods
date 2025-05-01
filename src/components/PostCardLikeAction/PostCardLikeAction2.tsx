@@ -236,7 +236,8 @@ const PostCardLikeAction2: FC<PostCardLikeActionProps> = ({
 					: 'text-neutral-700 hover:text-rose-600 dark:text-neutral-200 dark:hover:text-rose-400'
 			} `}
 			onClick={handleClickAction}
-			<Tooltip content={isLiked ? 'Unlike' : 'Like this post'}></Tooltip>
+			title={isLiked ? 'Unlike' : 'Like this post'}
+			<Tooltip content={isLiked ? 'Unlike' : 'Like this post'}>
 		>
 			<div
 				className={`${sizeClassName} flex flex-shrink-0 items-center justify-center rounded-full transition-colors duration-75 ${
@@ -251,6 +252,7 @@ const PostCardLikeAction2: FC<PostCardLikeActionProps> = ({
 					className="h-[18px] w-[18px]"
 				/>
 			</div>
+		       </Tooltip>
 
 			<span
 				className={`ml-[0px] flex-shrink-0 text-start transition-colors duration-75 ${
