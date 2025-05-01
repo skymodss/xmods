@@ -1,7 +1,7 @@
 import { FragmentType, useFragment } from "../__generated__";
 import {
   NC_IMAGE_MEDIA_FRAGMENT,
-  NC_USER_FULL_FIELDS_FRAGMENT33,
+  NC_USER_FULL_FIELDS_FRAGMENT3,
   NC_USER_SHORT_FOR_POST_CARD_FRAGMENT,
 } from "../fragments";
 import { NcmazFcImageFieldsFragment } from "@/__generated__/graphql";
