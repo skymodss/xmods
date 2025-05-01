@@ -250,7 +250,6 @@ const PostCardLikeAction2: FC<PostCardLikeActionProps> = ({
 					className="h-[18px] w-[18px]"
 				/>
 			</div>
-		       </Tooltip>
 
 			<span
 				className={`ml-[0px] flex-shrink-0 text-start transition-colors duration-75 ${
