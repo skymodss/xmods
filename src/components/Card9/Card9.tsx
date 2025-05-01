@@ -61,7 +61,7 @@ const Card9: FC<Card9Props> = ({
 
 	return (
 		<div
-			className={`nc-Card9 group relative z-0 flex flex-col overflow-hidden rounded-3xl ${hoverClass} ${className}`}
+			className={`nc-Card9 group relative z-0 flex flex-col overflow-hidden rounded-2xl ${hoverClass} ${className}`}
 		>
 			<div className="absolute inset-x-0 top-0 z-[-1] flex items-center justify-between p-3 opacity-0 transition-all duration-300 group-hover:z-10 group-hover:opacity-100">
 				<PostCardLikeAndComment
@@ -89,7 +89,7 @@ const Card9: FC<Card9Props> = ({
 					<MyImage
 						fill
 						alt={title || ''}
-						className="h-full w-full rounded-3xl object-cover"
+						className="h-full w-full rounded-2xl object-cover"
 						src={featuredImage?.sourceUrl || ''}
 						sizes="(max-width: 600px) 480px, 500px"
 						style={{
