@@ -14,7 +14,6 @@ import {
 import { updateViewerAllReactionPosts } from '@/stores/viewer/viewerSlice'
 import { useLoginModal } from '@/hooks/useLoginModal'
 
-import Tooltip from '@/components/tooltip'
 import toast from 'react-hot-toast'
 import { FavouriteIcon } from '../Icons/Icons'
 
@@ -236,8 +235,7 @@ const PostCardLikeAction2: FC<PostCardLikeActionProps> = ({
 					: 'text-neutral-700 hover:text-rose-600 dark:text-neutral-200 dark:hover:text-rose-400'
 			} `}
 			onClick={handleClickAction}
-			title={isLiked ? 'Unlike' : 'Like this post'}
-			<Tooltip content={isLiked ? 'Unlike' : 'Like this post'}>
+			title={isLiked ? 'Unlike' : 'Like'}
 		>
 			<div
 				className={`${sizeClassName} flex flex-shrink-0 items-center justify-center rounded-full transition-colors duration-75 ${
