@@ -3,7 +3,7 @@ import Avatar from '@/components/Avatar/Avatar'
 import Link from 'next/link'
 import { NcmazFcUserFullFieldsFragment } from '@/__generated__/graphql'
 import { FragmentType } from '@/__generated__'
-import { NC_USER_FULL_FIELDS_FRAGMENT } from '@/fragments'
+import { NC_USER_FULL_FIELDS_FRAGMENT3 } from '@/fragments'
 import ncFormatDate from '@/utils/formatDate'
 import { getUserDataFromUserCardFragment } from '@/utils/getUserDataFromUserCardFragment'
 import getTrans from '@/utils/getTrans'
@@ -12,7 +12,7 @@ const T = getTrans()
 
 export interface CardAuthor2Props {
 	author:
-		| FragmentType<typeof NC_USER_FULL_FIELDS_FRAGMENT>
+		| FragmentType<typeof NC_USER_FULL_FIELDS_FRAGMENT3>
 		| NcmazFcUserFullFieldsFragment
 	date: string
 	className?: string
@@ -29,7 +29,7 @@ const CardAuthor2: FC<CardAuthor2Props> = ({
 }) => {
 	const { databaseId, uri, name, featuredImageMeta } =
 		getUserDataFromUserCardFragment(
-			author as FragmentType<typeof NC_USER_FULL_FIELDS_FRAGMENT>,
+			author as FragmentType<typeof NC_USER_FULL_FIELDS_FRAGMENT3>,
 		)
 
 	return (
