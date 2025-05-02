@@ -8,6 +8,7 @@ import ncFormatDate from '@/utils/formatDate'
 import { getUserDataFromUserCardFragment } from '@/utils/getUserDataFromUserCardFragment'
 import getTrans from '@/utils/getTrans'
 
+
 const T = getTrans()
 
 export interface CardAuthor2Props {
