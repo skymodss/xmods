@@ -18,6 +18,7 @@ export interface CardAuthor2Props {
 	className?: string
 	readingTime?: number
 	hoverReadingTime?: boolean
+	verified?: Boolean
 }
 
 const CardAuthor2: FC<CardAuthor2Props> = ({
