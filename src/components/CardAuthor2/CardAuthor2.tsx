@@ -11,7 +11,9 @@ import getTrans from '@/utils/getTrans'
 const T = getTrans()
 
 export interface CardAuthor2Props {
-	author: NcmazFcUserFullFieldsFragment
+	author:
+		| FragmentType<typeof NC_USER_FULL_FIELDS_FRAGMENT>
+		| NcmazFcUserFullFieldsFragment
 	date: string
 	className?: string
 	readingTime?: number
@@ -27,8 +29,9 @@ const CardAuthor2: FC<CardAuthor2Props> = ({
 }) => {
 	const { databaseId, uri, name, featuredImageMeta } =
 		getUserDataFromUserCardFragment(
-        		author as NcmazFcUserFullFieldsFragment
-    		);
+			author as FragmentType<typeof NC_USER_FULL_FIELDS_FRAGMENT>,
+		)
+
 	return (
 		<Link
 			href={uri || ''}
