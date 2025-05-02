@@ -2,8 +2,6 @@ import { FC } from 'react'
 import Avatar from '@/components/Avatar/Avatar'
 import Link from 'next/link'
 import { NcmazFcUserFullFieldsFragment } from '@/__generated__/graphql'
-import { FragmentType } from '@/__generated__'
-import { NC_USER_FULL_FIELDS_FRAGMENT } from '@/fragments'
 import ncFormatDate from '@/utils/formatDate'
 import { getUserDataFromUserCardFragment } from '@/utils/getUserDataFromUserCardFragment'
 import getTrans from '@/utils/getTrans'
@@ -11,17 +9,11 @@ import getTrans from '@/utils/getTrans'
 const T = getTrans()
 
 export interface CardAuthor2Props {
-	author:
-		| FragmentType<typeof NC_USER_FULL_FIELDS_FRAGMENT>
-		| NcmazFcUserFullFieldsFragment
-	
+	author: NcmazFcUserFullFieldsFragment
 	date: string
 	className?: string
 	readingTime?: number
 	hoverReadingTime?: boolean
-	verified?: {
-  		verified?: boolean;
-	}
 }
 
 const CardAuthor2: FC<CardAuthor2Props> = ({
@@ -31,10 +23,8 @@ const CardAuthor2: FC<CardAuthor2Props> = ({
 	date,
 	hoverReadingTime = false,
 }) => {
-	const { databaseId, uri, name, featuredImageMeta } =
-		getUserDataFromUserCardFragment(
-			author as FragmentType<typeof NC_USER_FULL_FIELDS_FRAGMENT>,
-		)
+	const { databaseId, uri, name, featuredImageMeta, verified } =
+		getUserDataFromUserCardFragment(author)
 
 	return (
 		<Link
@@ -52,12 +42,11 @@ const CardAuthor2: FC<CardAuthor2Props> = ({
 				<h2 className="text-sm font-medium capitalize text-neutral-700 hover:text-black dark:text-neutral-300 dark:hover:text-white">
 					{name}
 				</h2>
-				if (user.verified?.verified) {
-					<h2 className="text-sm font-medium capitalize text-neutral-700 hover:text-black dark:text-neutral-300 dark:hover:text-white">
+				{verified?.verified ? (
+					<h2 className="text-xs font-semibold text-green-600 dark:text-green-400">
 						verificiran
-				} else {
-  				// nije verificiran ili ništa ne ispisuj
-				}
+					</h2>
+				) : null}
 				<span className="mt-1 flex flex-wrap items-center text-xs text-neutral-500 dark:text-neutral-400">
 					<span>{ncFormatDate(date || '')}</span>
 					{readingTime && (
