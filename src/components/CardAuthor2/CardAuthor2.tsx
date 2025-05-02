@@ -52,6 +52,12 @@ const CardAuthor2: FC<CardAuthor2Props> = ({
 				<h2 className="text-sm font-medium capitalize text-neutral-700 hover:text-black dark:text-neutral-300 dark:hover:text-white">
 					{name}
 				</h2>
+				if (user.verified?.verified) {
+					<h2 className="text-sm font-medium capitalize text-neutral-700 hover:text-black dark:text-neutral-300 dark:hover:text-white">
+						verificiran
+				} else {
+  				// nije verificiran ili ništa ne ispisuj
+				}
 				<span className="mt-1 flex flex-wrap items-center text-xs text-neutral-500 dark:text-neutral-400">
 					<span>{ncFormatDate(date || '')}</span>
 					{readingTime && (
