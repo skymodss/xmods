@@ -26,7 +26,9 @@ const CardAuthor2: FC<CardAuthor2Props> = ({
 	hoverReadingTime = false,
 }) => {
 	const { databaseId, uri, name, featuredImageMeta } =
-		  getUserDataFromUserCardFragment(author);
+		getUserDataFromUserCardFragment(
+        		author as NcmazFcUserFullFieldsFragment
+    		);
 	return (
 		<Link
 			href={uri || ''}
