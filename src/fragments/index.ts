@@ -531,18 +531,3 @@ export const NC_USER_FULL_FIELDS_FRAGMENT = gql(/* GraphQL */ `
 		}
 	}
 `)
-
-export const GetUserVerificationDocument = gql(`
-  query GetUserVerification {
-    users {
-      nodes {
-        id
-        name
-        verified {
-          fieldGroupName
-          verified
-        }
-      }
-    }
-  }
-`)
