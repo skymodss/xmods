@@ -106,10 +106,7 @@ export const NC_COMMENT_FULL_FRAGMENT = gql(/* GraphQL */ `
 					uri
 					url
 					name
-					verified {
-						fieldGroupName
-						verified
-					}
+					verified
 					ncUserMeta {
 						featuredImage {
 							node {
