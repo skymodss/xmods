@@ -21,10 +21,7 @@ export const POST_CARD_FIELDS = gql(`
       node {
         name
         uri
-        verified {
-          fieldGroupName
-          verified
-        }
+        verified
         avatar {
           url
         }
