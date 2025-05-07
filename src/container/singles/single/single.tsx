@@ -176,7 +176,12 @@ const SingleType1: FC<SingleType1Props> = ({ post, showRightSidebar }) => {
                                                             <a className="flex items-center gap-2">
 								    <PostCardMeta
                                                         		className="text-sm"
-                                                        		meta={{ author }}
+                                                        		meta={{
+								        	author: {
+           		 								author, // Proverite da li `author` već ima atribut `verified3`
+            										verified3: author?.verified3 || false, // Dodajte `verified3` (podrazumevano `false` ako nije definisan)
+        									},
+									}}
                                                        	 		hiddenAvatar={false}
                                                         		avatarSize="h-10 w-10 text-sm"
                                                     		    />
