@@ -29,3 +29,8 @@ export const POST_CARD_FIELDS = gql(`
     }
   }
 `);
+
+// Funkcija za dohvat verified3
+export function getVerified3FromPost(post: any): boolean | null {
+  return post?.author?.node?.verified3 || null;
+}
