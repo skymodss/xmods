@@ -465,7 +465,7 @@ export const NC_USER_SHORT_FOR_POST_CARD_FRAGMENT = gql(/* GraphQL */ `
 `)
 
 export const NC_USER_FULL_FIELDS_FRAGMENT = gql(/* GraphQL */ `
-	fragment NcmazFcUserFullFields on User {
+	fragment on User {
 		id
 		databaseId
 		uri
@@ -473,6 +473,7 @@ export const NC_USER_FULL_FIELDS_FRAGMENT = gql(/* GraphQL */ `
 		name
 		description
 		registeredDate
+  		verified3
 		ncUserMeta {
 			buymeacoffeUrl
 			color
