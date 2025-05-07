@@ -178,7 +178,6 @@ const SingleType1: FC<SingleType1Props> = ({ post, showRightSidebar }) => {
                                                         		className="text-sm"
                                                         		meta={{
 								        	author: {
-           		 								author, // Proverite da li `author` već ima atribut `verified3`
             										verified3: author?.verified3 || false, // Dodajte `verified3` (podrazumevano `false` ako nije definisan)
         									},
 									}}
