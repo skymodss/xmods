@@ -126,7 +126,7 @@ export type BlockWithSupportsAnchor = {
 };
 
 /** The category type */
-export type Category = DatabaseIdentifier & HierarchicalNode & HierarchicalTermNode & MenuItemLinkable & Node & TermNode & UniformResourceIdentifiable & WithAcfNcTaxonomyMeta & WithAcfVerified & {
+export type Category = DatabaseIdentifier & HierarchicalNode & HierarchicalTermNode & MenuItemLinkable & Node & TermNode & UniformResourceIdentifiable & WithAcfNcTaxonomyMeta & {
   __typename?: 'Category';
   /** The ancestors of the node. Default ordered as lowest (closest to the child) to highest (closest to the root). */
   ancestors?: Maybe<CategoryToAncestorsCategoryConnection>;
@@ -192,8 +192,6 @@ export type Category = DatabaseIdentifier & HierarchicalNode & HierarchicalTermN
   termTaxonomyId?: Maybe<Scalars['Int']['output']>;
   /** The unique resource identifier path */
   uri?: Maybe<Scalars['String']['output']>;
-  /** Fields of the Verified ACF Field Group */
-  verified?: Maybe<Verified>;
 };
 
 
@@ -598,7 +596,7 @@ export type CategoryToTaxonomyConnectionEdge = Edge & OneToOneConnection & Taxon
 };
 
 /** A Comment object */
-export type Comment = DatabaseIdentifier & Node & UniformResourceIdentifiable & WithAcfVerified & {
+export type Comment = DatabaseIdentifier & Node & UniformResourceIdentifiable & {
   __typename?: 'Comment';
   /** User agent used to post the comment. This field is equivalent to WP_Comment-&gt;comment_agent and the value matching the &quot;comment_agent&quot; column in SQL. */
   agent?: Maybe<Scalars['String']['output']>;
@@ -664,8 +662,6 @@ export type Comment = DatabaseIdentifier & Node & UniformResourceIdentifiable & 
   type?: Maybe<Scalars['String']['output']>;
   /** The unique resource identifier path */
   uri?: Maybe<Scalars['String']['output']>;
-  /** Fields of the Verified ACF Field Group */
-  verified?: Maybe<Verified>;
 };
 
 
@@ -1209,8 +1205,6 @@ export type ContentNode = {
   templates?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   /** The unique resource identifier path */
   uri?: Maybe<Scalars['String']['output']>;
-  /** Fields of the Verified ACF Field Group */
-  verified?: Maybe<Verified>;
 };
 
 
@@ -1370,8 +1364,6 @@ export type ContentNodeToEnqueuedStylesheetConnectionPageInfo = EnqueuedStyleshe
 export type ContentTemplate = {
   /** The name of the template */
   templateName?: Maybe<Scalars['String']['output']>;
-  /** Fields of the Verified ACF Field Group */
-  verified?: Maybe<Verified>;
 };
 
 /** An Post Type object */
@@ -7766,12 +7758,10 @@ export type DateQueryInput = {
 };
 
 /** The template assigned to the node */
-export type DefaultTemplate = ContentTemplate & WithAcfVerified & {
+export type DefaultTemplate = ContentTemplate & {
   __typename?: 'DefaultTemplate';
   /** The name of the template */
   templateName?: Maybe<Scalars['String']['output']>;
-  /** Fields of the Verified ACF Field Group */
-  verified?: Maybe<Verified>;
 };
 
 /** Input for the deleteCategory mutation. */
@@ -8277,7 +8267,7 @@ export enum GlobalStylesheetTypesEnum {
 }
 
 /** The graphqlDocument type */
-export type GraphqlDocument = ContentNode & DatabaseIdentifier & Node & NodeWithContentEditor & NodeWithTemplate & NodeWithTitle & UniformResourceIdentifiable & WithAcfVerified & {
+export type GraphqlDocument = ContentNode & DatabaseIdentifier & Node & NodeWithContentEditor & NodeWithTemplate & NodeWithTitle & UniformResourceIdentifiable & {
   __typename?: 'GraphqlDocument';
   /** Alias names for saved GraphQL query documents */
   alias?: Maybe<Array<Scalars['String']['output']>>;
@@ -8380,8 +8370,6 @@ export type GraphqlDocument = ContentNode & DatabaseIdentifier & Node & NodeWith
   title?: Maybe<Scalars['String']['output']>;
   /** The unique resource identifier path */
   uri?: Maybe<Scalars['String']['output']>;
-  /** Fields of the Verified ACF Field Group */
-  verified?: Maybe<Verified>;
 };
 
 
@@ -8494,7 +8482,7 @@ export type GraphqlDocumentGraphqlDocumentGroupsNodeInput = {
 };
 
 /** The graphqlDocumentGroup type */
-export type GraphqlDocumentGroup = DatabaseIdentifier & Node & TermNode & UniformResourceIdentifiable & WithAcfVerified & {
+export type GraphqlDocumentGroup = DatabaseIdentifier & Node & TermNode & UniformResourceIdentifiable & {
   __typename?: 'GraphqlDocumentGroup';
   /** @deprecated Deprecated in favor of using Next.js pages */
   conditionalTags?: Maybe<ConditionalTags>;
@@ -8548,8 +8536,6 @@ export type GraphqlDocumentGroup = DatabaseIdentifier & Node & TermNode & Unifor
   termTaxonomyId?: Maybe<Scalars['Int']['output']>;
   /** The unique resource identifier path */
   uri?: Maybe<Scalars['String']['output']>;
-  /** Fields of the Verified ACF Field Group */
-  verified?: Maybe<Verified>;
 };
 
 
@@ -9091,8 +9077,6 @@ export type HierarchicalContentNode = {
   templates?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   /** The unique resource identifier path */
   uri?: Maybe<Scalars['String']['output']>;
-  /** Fields of the Verified ACF Field Group */
-  verified?: Maybe<Verified>;
 };
 
 
@@ -9347,8 +9331,6 @@ export type HierarchicalTermNode = {
   termTaxonomyId?: Maybe<Scalars['Int']['output']>;
   /** The unique resource identifier path */
   uri?: Maybe<Scalars['String']['output']>;
-  /** Fields of the Verified ACF Field Group */
-  verified?: Maybe<Verified>;
 };
 
 
@@ -9512,7 +9494,7 @@ export type MediaDetailsSizesArgs = {
 };
 
 /** The mediaItem type */
-export type MediaItem = ContentNode & DatabaseIdentifier & HierarchicalContentNode & HierarchicalNode & Node & NodeWithAuthor & NodeWithComments & NodeWithTemplate & NodeWithTitle & UniformResourceIdentifiable & WithAcfVerified & {
+export type MediaItem = ContentNode & DatabaseIdentifier & HierarchicalContentNode & HierarchicalNode & Node & NodeWithAuthor & NodeWithComments & NodeWithTemplate & NodeWithTitle & UniformResourceIdentifiable & {
   __typename?: 'MediaItem';
   /** Alternative text to display when resource is not displayed */
   altText?: Maybe<Scalars['String']['output']>;
@@ -9634,8 +9616,6 @@ export type MediaItem = ContentNode & DatabaseIdentifier & HierarchicalContentNo
   title?: Maybe<Scalars['String']['output']>;
   /** The unique resource identifier path */
   uri?: Maybe<Scalars['String']['output']>;
-  /** Fields of the Verified ACF Field Group */
-  verified?: Maybe<Verified>;
 };
 
 
@@ -9960,7 +9940,7 @@ export type MediaSize = {
 };
 
 /** Menus are the containers for navigation items. Menus can be assigned to menu locations, which are typically registered by the active theme. */
-export type Menu = DatabaseIdentifier & Node & WithAcfVerified & {
+export type Menu = DatabaseIdentifier & Node & {
   __typename?: 'Menu';
   /** The number of items in the menu */
   count?: Maybe<Scalars['Int']['output']>;
@@ -9983,8 +9963,6 @@ export type Menu = DatabaseIdentifier & Node & WithAcfVerified & {
   name?: Maybe<Scalars['String']['output']>;
   /** The url friendly name of the menu. Equivalent to WP_Term-&gt;slug */
   slug?: Maybe<Scalars['String']['output']>;
-  /** Fields of the Verified ACF Field Group */
-  verified?: Maybe<Verified>;
 };
 
 
@@ -10028,7 +10006,7 @@ export type MenuConnectionPageInfo = {
 };
 
 /** Navigation menu items are the individual items assigned to a menu. These are rendered as the links in a navigation menu. */
-export type MenuItem = DatabaseIdentifier & Node & WithAcfNcmazfaustMenu & WithAcfVerified & {
+export type MenuItem = DatabaseIdentifier & Node & WithAcfNcmazfaustMenu & {
   __typename?: 'MenuItem';
   /** Connection between the MenuItem type and the MenuItem type */
   childItems?: Maybe<MenuItemToMenuItemConnection>;
@@ -10080,8 +10058,6 @@ export type MenuItem = DatabaseIdentifier & Node & WithAcfNcmazfaustMenu & WithA
   uri?: Maybe<Scalars['String']['output']>;
   /** URL or destination of the menu item. */
   url?: Maybe<Scalars['String']['output']>;
-  /** Fields of the Verified ACF Field Group */
-  verified?: Maybe<Verified>;
 };
 
 
@@ -11416,7 +11392,7 @@ export enum OrderEnum {
 }
 
 /** The page type */
-export type Page = ContentNode & DatabaseIdentifier & HierarchicalContentNode & HierarchicalNode & MenuItemLinkable & Node & NodeWithAuthor & NodeWithComments & NodeWithContentEditor & NodeWithEditorBlocks & NodeWithFeaturedImage & NodeWithPageAttributes & NodeWithPageEditorBlocks & NodeWithRevisions & NodeWithTemplate & NodeWithTitle & Previewable & UniformResourceIdentifiable & WithAcfNcPageMeta & WithAcfVerified & {
+export type Page = ContentNode & DatabaseIdentifier & HierarchicalContentNode & HierarchicalNode & MenuItemLinkable & Node & NodeWithAuthor & NodeWithComments & NodeWithContentEditor & NodeWithEditorBlocks & NodeWithFeaturedImage & NodeWithPageAttributes & NodeWithPageEditorBlocks & NodeWithRevisions & NodeWithTemplate & NodeWithTitle & Previewable & UniformResourceIdentifiable & WithAcfNcPageMeta & {
   __typename?: 'Page';
   /** Returns ancestors of the node. Default ordered as lowest (closest to the child) to highest (closest to the root). */
   ancestors?: Maybe<HierarchicalContentNodeToContentNodeAncestorsConnection>;
@@ -11536,8 +11512,6 @@ export type Page = ContentNode & DatabaseIdentifier & HierarchicalContentNode & 
   title?: Maybe<Scalars['String']['output']>;
   /** The unique resource identifier path */
   uri?: Maybe<Scalars['String']['output']>;
-  /** Fields of the Verified ACF Field Group */
-  verified?: Maybe<Verified>;
 };
 
 
@@ -11947,7 +11921,7 @@ export enum PluginStatusEnum {
 }
 
 /** The post type */
-export type Post = ContentNode & DatabaseIdentifier & MenuItemLinkable & Node & NodeWithAuthor & NodeWithComments & NodeWithContentEditor & NodeWithEditorBlocks & NodeWithExcerpt & NodeWithFeaturedImage & NodeWithPostEditorBlocks & NodeWithRevisions & NodeWithTemplate & NodeWithTitle & NodeWithTrackbacks & Previewable & UniformResourceIdentifiable & WithAcfNcPostMetaData & WithAcfNcmazAudioUrl & WithAcfNcmazGalleryImgs & WithAcfNcmazVideoUrl & WithAcfVerified & {
+export type Post = ContentNode & DatabaseIdentifier & MenuItemLinkable & Node & NodeWithAuthor & NodeWithComments & NodeWithContentEditor & NodeWithEditorBlocks & NodeWithExcerpt & NodeWithFeaturedImage & NodeWithPostEditorBlocks & NodeWithRevisions & NodeWithTemplate & NodeWithTitle & NodeWithTrackbacks & Previewable & UniformResourceIdentifiable & WithAcfNcPostMetaData & WithAcfNcmazAudioUrl & WithAcfNcmazGalleryImgs & WithAcfNcmazVideoUrl & {
   __typename?: 'Post';
   /**
    * The ancestors of the content node.
@@ -12087,8 +12061,6 @@ export type Post = ContentNode & DatabaseIdentifier & MenuItemLinkable & Node & 
   toPing?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   /** The unique resource identifier path */
   uri?: Maybe<Scalars['String']['output']>;
-  /** Fields of the Verified ACF Field Group */
-  verified?: Maybe<Verified>;
 };
 
 
@@ -12277,7 +12249,7 @@ export type PostEditorBlock = {
 };
 
 /** The postFormat type */
-export type PostFormat = DatabaseIdentifier & MenuItemLinkable & Node & TermNode & UniformResourceIdentifiable & WithAcfVerified & {
+export type PostFormat = DatabaseIdentifier & MenuItemLinkable & Node & TermNode & UniformResourceIdentifiable & {
   __typename?: 'PostFormat';
   /** @deprecated Deprecated in favor of using Next.js pages */
   conditionalTags?: Maybe<ConditionalTags>;
@@ -12331,8 +12303,6 @@ export type PostFormat = DatabaseIdentifier & MenuItemLinkable & Node & TermNode
   termTaxonomyId?: Maybe<Scalars['Int']['output']>;
   /** The unique resource identifier path */
   uri?: Maybe<Scalars['String']['output']>;
-  /** Fields of the Verified ACF Field Group */
-  verified?: Maybe<Verified>;
 };
 
 
@@ -15920,7 +15890,7 @@ export type Settings = {
 };
 
 /** The tag type */
-export type Tag = DatabaseIdentifier & MenuItemLinkable & Node & TermNode & UniformResourceIdentifiable & WithAcfVerified & {
+export type Tag = DatabaseIdentifier & MenuItemLinkable & Node & TermNode & UniformResourceIdentifiable & {
   __typename?: 'Tag';
   /** @deprecated Deprecated in favor of using Next.js pages */
   conditionalTags?: Maybe<ConditionalTags>;
@@ -15974,8 +15944,6 @@ export type Tag = DatabaseIdentifier & MenuItemLinkable & Node & TermNode & Unif
   termTaxonomyId?: Maybe<Scalars['Int']['output']>;
   /** The unique resource identifier path */
   uri?: Maybe<Scalars['String']['output']>;
-  /** Fields of the Verified ACF Field Group */
-  verified?: Maybe<Verified>;
 };
 
 
@@ -16423,39 +16391,31 @@ export type TaxonomyToTermNodeConnectionPageInfo = PageInfo & TermNodeConnection
 };
 
 /** The template assigned to the node */
-export type Template_PageNoTitle = ContentTemplate & WithAcfVerified & {
+export type Template_PageNoTitle = ContentTemplate & {
   __typename?: 'Template_PageNoTitle';
   /** The name of the template */
   templateName?: Maybe<Scalars['String']['output']>;
-  /** Fields of the Verified ACF Field Group */
-  verified?: Maybe<Verified>;
 };
 
 /** The template assigned to the node */
-export type Template_PageWithSidebar = ContentTemplate & WithAcfVerified & {
+export type Template_PageWithSidebar = ContentTemplate & {
   __typename?: 'Template_PageWithSidebar';
   /** The name of the template */
   templateName?: Maybe<Scalars['String']['output']>;
-  /** Fields of the Verified ACF Field Group */
-  verified?: Maybe<Verified>;
 };
 
 /** The template assigned to the node */
-export type Template_PageWithWideImage = ContentTemplate & WithAcfVerified & {
+export type Template_PageWithWideImage = ContentTemplate & {
   __typename?: 'Template_PageWithWideImage';
   /** The name of the template */
   templateName?: Maybe<Scalars['String']['output']>;
-  /** Fields of the Verified ACF Field Group */
-  verified?: Maybe<Verified>;
 };
 
 /** The template assigned to the node */
-export type Template_SingleWithSidebar = ContentTemplate & WithAcfVerified & {
+export type Template_SingleWithSidebar = ContentTemplate & {
   __typename?: 'Template_SingleWithSidebar';
   /** The name of the template */
   templateName?: Maybe<Scalars['String']['output']>;
-  /** Fields of the Verified ACF Field Group */
-  verified?: Maybe<Verified>;
 };
 
 /** Terms are nodes within a Taxonomy, used to group and relate other nodes. */
@@ -16501,8 +16461,6 @@ export type TermNode = {
   termTaxonomyId?: Maybe<Scalars['Int']['output']>;
   /** The unique resource identifier path */
   uri?: Maybe<Scalars['String']['output']>;
-  /** Fields of the Verified ACF Field Group */
-  verified?: Maybe<Verified>;
 };
 
 
@@ -17316,8 +17274,8 @@ export type User = Commenter & DatabaseIdentifier & Node & UniformResourceIdenti
   userReactionPosts?: Maybe<UserToUserReactionPostConnection>;
   /** Username for the user. This field is equivalent to WP_User-&gt;user_login. */
   username?: Maybe<Scalars['String']['output']>;
-  /** Verification status of the user. */
-  verified: Verified;
+  /** Fields of the Verified ACF Field Group */
+  verified?: Maybe<Verified>;
 };
 
 
@@ -17493,7 +17451,7 @@ export type UserReactionFields_Fields = {
 };
 
 /** The userReactionPost type */
-export type UserReactionPost = ContentNode & DatabaseIdentifier & MenuItemLinkable & Node & NodeWithAuthor & NodeWithTemplate & NodeWithTitle & Previewable & UniformResourceIdentifiable & WithAcfVerified & {
+export type UserReactionPost = ContentNode & DatabaseIdentifier & MenuItemLinkable & Node & NodeWithAuthor & NodeWithTemplate & NodeWithTitle & Previewable & UniformResourceIdentifiable & {
   __typename?: 'UserReactionPost';
   /**
    * The ancestors of the content node.
@@ -17585,8 +17543,6 @@ export type UserReactionPost = ContentNode & DatabaseIdentifier & MenuItemLinkab
    * @deprecated Deprecated in favor of the databaseId field
    */
   userReactionPostId: Scalars['Int']['output'];
-  /** Fields of the Verified ACF Field Group */
-  verified?: Maybe<Verified>;
 };
 
 
@@ -18874,7 +18830,7 @@ export type MyMutationAddContactFormMessMutationVariables = Exact<{
 
 export type MyMutationAddContactFormMessMutation = { __typename?: 'RootMutation', ncmazFaustAddSentMessContactForm?: { __typename?: 'NcmazFaustAddSentMessContactFormPayload', user_email?: string | null, user_full_name?: string | null, success?: boolean | null, errors?: string | null } | null };
 
-export type PostCardFieldsNotNcmazMedia4Fragment = { __typename?: 'Post', databaseId: number, title?: string | null, uri?: string | null, date?: string | null, excerpt?: string | null, featuredImage?: { __typename?: 'NodeWithFeaturedImageToMediaItemConnectionEdge', node: { __typename?: 'MediaItem', sourceUrl?: string | null, altText?: string | null, mediaDetails?: { __typename?: 'MediaDetails', width?: number | null, height?: number | null } | null } } | null, author?: { __typename?: 'NodeWithAuthorToUserConnectionEdge', node: { __typename?: 'User', name?: string | null, uri?: string | null, verified: { __typename?: 'Verified', fieldGroupName?: string | null, verified?: boolean | null }, avatar?: { __typename?: 'Avatar', url?: string | null } | null } } | null } & { ' $fragmentName'?: 'PostCardFieldsNotNcmazMedia4Fragment' };
+export type PostCardFieldsNotNcmazMedia4Fragment = { __typename?: 'Post', databaseId: number, title?: string | null, uri?: string | null, date?: string | null, excerpt?: string | null, featuredImage?: { __typename?: 'NodeWithFeaturedImageToMediaItemConnectionEdge', node: { __typename?: 'MediaItem', sourceUrl?: string | null, altText?: string | null, mediaDetails?: { __typename?: 'MediaDetails', width?: number | null, height?: number | null } | null } } | null, author?: { __typename?: 'NodeWithAuthorToUserConnectionEdge', node: { __typename?: 'User', name?: string | null, uri?: string | null, verified?: { __typename?: 'Verified', fieldGroupName?: string | null, verified?: boolean | null } | null, avatar?: { __typename?: 'Avatar', url?: string | null } | null } } | null } & { ' $fragmentName'?: 'PostCardFieldsNotNcmazMedia4Fragment' };
 
 export type QueryGetPostsNcmazMetadataByIdsQueryVariables = Exact<{
   in?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>> | InputMaybe<Scalars['ID']['input']>>;
@@ -18923,7 +18879,7 @@ export type QueryGetPostsByQuery = { __typename?: 'RootQuery', posts?: { __typen
       & { ' $fragmentRefs'?: { 'NcmazFcPostCardFieldsFragment': NcmazFcPostCardFieldsFragment } }
     )>, pageInfo: { __typename?: 'RootQueryToPostConnectionPageInfo', endCursor?: string | null, hasNextPage: boolean } } | null };
 
-export type NcmazFcCommentFullFieldsFragment = { __typename: 'Comment', status?: CommentStatusEnum | null, parentId?: string | null, parentDatabaseId?: number | null, id: string, date?: string | null, databaseId: number, content?: string | null, author?: { __typename?: 'CommentToCommenterConnectionEdge', node: { __typename?: 'CommentAuthor', id: string, name?: string | null, databaseId: number, url?: string | null, avatar?: { __typename?: 'Avatar', url?: string | null, default?: string | null } | null } | { __typename?: 'User', id: string, databaseId: number, uri?: string | null, url?: string | null, name?: string | null, verified: { __typename?: 'Verified', fieldGroupName?: string | null, verified?: boolean | null }, ncUserMeta?: { __typename?: 'NcUserMeta', featuredImage?: { __typename?: 'AcfMediaItemConnectionEdge', node: (
+export type NcmazFcCommentFullFieldsFragment = { __typename: 'Comment', status?: CommentStatusEnum | null, parentId?: string | null, parentDatabaseId?: number | null, id: string, date?: string | null, databaseId: number, content?: string | null, author?: { __typename?: 'CommentToCommenterConnectionEdge', node: { __typename?: 'CommentAuthor', id: string, name?: string | null, databaseId: number, url?: string | null, avatar?: { __typename?: 'Avatar', url?: string | null, default?: string | null } | null } | { __typename?: 'User', id: string, databaseId: number, uri?: string | null, url?: string | null, name?: string | null, verified?: { __typename?: 'Verified', fieldGroupName?: string | null, verified?: boolean | null } | null, ncUserMeta?: { __typename?: 'NcUserMeta', featuredImage?: { __typename?: 'AcfMediaItemConnectionEdge', node: (
             { __typename?: 'MediaItem' }
             & { ' $fragmentRefs'?: { 'NcmazFcImageFieldsFragment': NcmazFcImageFieldsFragment } }
           ) } | null } | null } } | null } & { ' $fragmentName'?: 'NcmazFcCommentFullFieldsFragment' };
