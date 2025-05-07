@@ -13,7 +13,7 @@ const T = getTrans()
 
 export interface CardAuthor2Props {
 	author:
-		| FragmentType<typeof NC_USER_FULL_FIELDS_FRAGMENT>
+		| NcUserFullFields<typeof NC_USER_FULL_FIELDS_FRAGMENT>
 		| NcmazFcUserFullFieldsFragment
 	date: string
 	className?: string
@@ -30,7 +30,7 @@ const CardAuthor2: FC<CardAuthor2Props> = ({
 }) => {
 	const { databaseId, uri, name, featuredImageMeta } =
 		getUserDataFromUserCardFragment(
-			author as FragmentType<typeof NC_USER_FULL_FIELDS_FRAGMENT>,
+			author as NcUserFullFields<typeof NC_USER_FULL_FIELDS_FRAGMENT>,
 		)
 
 	return (
