@@ -500,16 +500,5 @@ export const NC_USER_FULL_FIELDS_FRAGMENT = gql(/* GraphQL */ `
 				}
 			}
 		}
-  		author {
-      			node {
-        			name
-        			uri
-        			verified3
-       				avatar {
-          				url
-        				}
-      				}
-    			}
-		}
 `)
 
