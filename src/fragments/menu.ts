@@ -1,5 +1,6 @@
 import { gql } from '@/__generated__'
 
+
 export const NC_PRIMARY_MENU_QUERY_FRAGMENT = gql(`
     fragment NcPrimaryMenuFieldsFragment on MenuItem {  
         id  
