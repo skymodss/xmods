@@ -27,6 +27,41 @@ import { flatListToHierarchical } from '@faustwp/core'
 import { ContentBlock } from '@faustwp/blocks/dist/mjs/components/WordPressBlocksViewer'
 
 
+export const POST_CARD_FIELDS = gql(`
+  fragment PostCardFieldsNOTNcmazMEDIA4 on Post {
+    databaseId
+    title
+    uri
+    date
+    excerpt
+    featuredImage {
+      node {
+        sourceUrl
+        altText
+        mediaDetails {
+          width
+          height
+        }
+      }
+    }
+    author {
+      node {
+        name
+        uri
+        verified3
+        avatar {
+          url
+        }
+      }
+    }
+  }
+`)
+
+export function getVerified3FromPost(post: any): boolean | null {
+  return post?.author?.node?.verified3 || null
+}
+
+
 export interface SingleType1Props {
     post: FragmentTypePostFullFields;
     showRightSidebar?: boolean;
@@ -62,6 +97,10 @@ const SingleType1: FC<SingleType1Props> = ({ post, showRightSidebar }) => {
     });
 
     const relatedPosts = (relatedPostsData?.posts?.nodes || []);
+
+    const isVerified = getVerified3FromPost({
+	    author: { node: author } // Adaptacija strukture za funkciju
+    })
 
     // Hook za meta podatke
     const { loading: loadingRelatedMeta } = useGetPostsNcmazMetaByIds({
@@ -180,6 +219,9 @@ const SingleType1: FC<SingleType1Props> = ({ post, showRightSidebar }) => {
                                                        	 		hiddenAvatar={false}
                                                         		avatarSize="h-10 w-10 text-sm"
                                                     		    />
+								    <span className="text-xs text-gray-500">
+									    ({isVerified ? 'verificiran' : 'nije verificiran'})
+								    </span>
                                                             </a>
 							    <a className="flex items-center gap-2">
 								    <PostActionDropdown
