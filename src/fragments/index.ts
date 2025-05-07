@@ -504,7 +504,7 @@ export const NC_USER_FULL_FIELDS_FRAGMENT = gql(/* GraphQL */ `
 	}
 `)
 
-export type NC_USER_FULL_FIELDS_FRAGMENT = {
+export type NcUserFullFields = {
   id: string;
   databaseId: number;
   uri: string;
