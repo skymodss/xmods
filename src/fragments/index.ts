@@ -504,6 +504,50 @@ export const NC_USER_FULL_FIELDS_FRAGMENT = gql(/* GraphQL */ `
 	}
 `)
 
+export type NcUserFullFields = {
+  id: string;
+  databaseId: number;
+  uri: string;
+  username: string;
+  name: string;
+  description: string;
+  registeredDate: string;
+  verified3: boolean;
+  ncUserMeta: {
+    buymeacoffeUrl?: string;
+    color?: string;
+    facebookUrl?: string;
+    githubUrl?: string;
+    instagramUrl?: string;
+    linkedinUrl?: string;
+    mediumUrl?: string;
+    ncBio?: string;
+    pinterestUrl?: string;
+    twitchUrl?: string;
+    twitterUrl?: string;
+    vimeoUrl?: string;
+    websiteUrl?: string;
+    youtubeUrl?: string;
+    tiktokUrl?: string;
+    featuredImage?: {
+      node: {
+        __typename: string;
+        altText?: string;
+        databaseId: number;
+        sourceUrl: string;
+      };
+    };
+    backgroundImage?: {
+      node: {
+        __typename: string;
+        altText?: string;
+        databaseId: number;
+        sourceUrl: string;
+      };
+    };
+  };
+};
+
 export const NC_USER_FULL_FIELDS_FRAGMENT3 = gql(/* GraphQL */ `
 	fragment on User {
 		id
