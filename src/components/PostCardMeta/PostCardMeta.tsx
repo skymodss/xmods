@@ -6,6 +6,43 @@ import ncFormatDate from '@/utils/formatDate'
 import { FragmentType } from '@/__generated__'
 import { NC_USER_FULL_FIELDS_FRAGMENT } from '@/fragments'
 import { getUserDataFromUserCardFragment } from '@/utils/getUserDataFromUserCardFragment'
+import { gql } from '@/__generated__'
+
+// Definicija fragmenta za post
+export const POST_CARD_FIELDS = gql(`
+  fragment PostCardFieldsNOTNcmazMEDIA4 on Post {
+    databaseId
+    title
+    uri
+    date
+    excerpt
+    featuredImage {
+      node {
+        sourceUrl
+        altText
+        mediaDetails {
+          width
+          height
+        }
+      }
+    }
+    author {
+      node {
+        name
+        uri
+        verified3
+        avatar {
+          url
+        }
+      }
+    }
+  }
+`)
+
+// Funkcija za dohvat verified3
+export function getVerified3FromPost(post: any): boolean | null {
+  return post?.author?.node?.verified3 || null
+}
 
 export interface PostCardMetaProps {
 	className?: string
@@ -31,6 +68,11 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
 		meta.author as FragmentType<typeof NC_USER_FULL_FIELDS_FRAGMENT>,
 	)
 
+	// Dohvat verified3
+	const isVerified = getVerified3FromPost({
+		author: { node: author } // Adaptacija strukture za funkciju
+	})
+
 	if (!author.databaseId && !date) {
 		return null
 	}
@@ -39,7 +81,6 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
 		<div
 			className={`nc-PostCardMeta inline-flex flex-wrap items-center text-neutral-800 dark:text-neutral-200 ${className}`}
 		>
-			
 			{author?.databaseId && (
 				<Link
 					href={author?.uri || ''}
@@ -54,7 +95,10 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
 						/>
 					)}
 					<span className="block font-medium capitalize text-neutral-700 hover:text-black dark:text-neutral-300 dark:hover:text-white">
-						{author?.name || ''}
+						{author?.name || ''}{' '}
+						<span className="text-xs text-gray-500">
+							({isVerified ? 'verificiran' : 'nije verificiran'})
+						</span>
 					</span>
 				</Link>
 			)}
