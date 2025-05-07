@@ -27,9 +27,6 @@ export function getUserDataFromUserCardFragment(
     query.ncUserMeta?.backgroundImage?.node
   );
 
-  // Access verified3 field from the appropriate source
-  const verified3 = query.ncUserMeta?.verified3 || false;
-
   return {
     ...query,
     uri: query.uri || "",
@@ -37,6 +34,5 @@ export function getUserDataFromUserCardFragment(
     username: query.username || "",
     featuredImageMeta,
     bgImageMeta,
-    verified3, // Add verified3 to the returned object
   };
 }
