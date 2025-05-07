@@ -473,7 +473,6 @@ export const NC_USER_FULL_FIELDS_FRAGMENT = gql(/* GraphQL */ `
 		name
 		description
 		registeredDate
-  		verified3
 		ncUserMeta {
 			buymeacoffeUrl
 			color
@@ -501,6 +500,9 @@ export const NC_USER_FULL_FIELDS_FRAGMENT = gql(/* GraphQL */ `
 				}
 			}
 		}
+	}
+ 	fragment PostCardFieldsNOTNcmazMEDIA4 on Post {
+  		verified3
 	}
 `)
 
