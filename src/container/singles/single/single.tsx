@@ -27,6 +27,7 @@ import { flatListToHierarchical } from '@faustwp/core'
 import { ContentBlock } from '@faustwp/blocks/dist/mjs/components/WordPressBlocksViewer'
 
 
+
 export interface SingleType1Props {
     post: FragmentTypePostFullFields;
     showRightSidebar?: boolean;
@@ -53,7 +54,6 @@ const SingleType1: FC<SingleType1Props> = ({ post, showRightSidebar }) => {
 	ncmazVideoUrl,
 	uri,
 	editorBlocks,
-	verified3,
     } = getPostDataFromPostFragment(post || {});
 
     // Fetch related posts
@@ -91,7 +91,7 @@ const SingleType1: FC<SingleType1Props> = ({ post, showRightSidebar }) => {
                         <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
                             <div className="z-10 space-y-6 lg:col-span-2">
                                 <header className="!mt-0">
-                                    <div className="rounded-2xl border text-card-foreground bg-[rgb(255,255,255)]">
+                                    <div className="rounded-2xl border text-card-foreground shadow-sm bg-card/70 backdrop-blur-sm bg-[rgb(255,255,255)]">
                                         <div className="flex flex-col space-y-1.5 p-6 pb-4 pt-[16px]">
                                             <div className="flex flex-col gap-1">
 						    <CategoryBadgeList
@@ -181,9 +181,6 @@ const SingleType1: FC<SingleType1Props> = ({ post, showRightSidebar }) => {
                                                        	 		hiddenAvatar={false}
                                                         		avatarSize="h-10 w-10 text-sm"
                                                     		    />
-								    <span className="text-xs text-gray-500">
-									    ({verified3 ? 'verificiran' : 'nije verificiran'})
-								    </span>
                                                             </a>
 							    <a className="flex items-center gap-2">
 								    <PostActionDropdown
@@ -239,7 +236,7 @@ const SingleType1: FC<SingleType1Props> = ({ post, showRightSidebar }) => {
                                     </div>
                                 </header>
                                 <section className="script-description">
-                                    <div className="border bg-card text-card-foreground bg-[rgb(255,255,255)] rounded-2xl">
+                                    <div className="border bg-card text-card-foreground shadow-sm bg-[rgb(255,255,255)] rounded-2xl">
                                         <div className="flex flex-col space-y-1.5 p-6">
                                             <div className="text-2xl font-bold leading-none tracking-tight">
                                                 <h2>Description</h2>
@@ -257,7 +254,7 @@ const SingleType1: FC<SingleType1Props> = ({ post, showRightSidebar }) => {
                                     </div>
                                 </section>
 				<section className="script-description">
-                                    <div className="border bg-card text-card-foreground bg-[rgb(255,255,255)] rounded-2xl">
+                                    <div className="border bg-card text-card-foreground shadow-sm bg-[rgb(255,255,255)] rounded-2xl">
                                         <div className="flex flex-col space-y-1.5 p-6">
                                             <div className="font-semibold leading-none tracking-tight">
                                                 <h2 className="text-2xl font-bold leading-none tracking-tight">Comments ({commentCount})</h2> 
@@ -281,9 +278,9 @@ const SingleType1: FC<SingleType1Props> = ({ post, showRightSidebar }) => {
                                     </div>
                                 </section>
 				<section className="script-description">
-                                    <div className="border bg-card text-card-foreground bg-[rgb(255,255,255)] rounded-2xl">
+                                    <div className="border bg-card text-card-foreground shadow-sm bg-[rgb(255,255,255)] rounded-2xl">
                                         <div className="flex flex-col space-y-1.5 p-6">
-                                            <div className="text-2xl font-bold leading-none tracking-tight">
+                                            <div className="text-2xl font-semibold leading-none tracking-tight">
                                                 <h2>Tags</h2>
                                             </div>
                                         </div>
