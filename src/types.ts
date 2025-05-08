@@ -20,6 +20,7 @@ export type ViewerType = {
   uri?: string;
   url?: string;
   userId?: number;
+  verified3?: boolean;
   avatar?: {
     url?: string;
   };
