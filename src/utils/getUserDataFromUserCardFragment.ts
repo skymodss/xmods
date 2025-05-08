@@ -3,9 +3,9 @@ import {
   NC_IMAGE_MEDIA_FRAGMENT,
   NC_USER_FULL_FIELDS_FRAGMENT,
   NC_USER_SHORT_FOR_POST_CARD_FRAGMENT,
-  POST_CARD_FIELDS, // Dodajemo novi fragment za verified3
 } from "../fragments";
 import { NcmazFcImageFieldsFragment } from "@/__generated__/graphql";
+import { POST_CARD_FIELDS } from "@/fragments/posts";
 
 export function getUserDataFromUserCardFragment(
   user:
