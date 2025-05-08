@@ -16,12 +16,10 @@ export interface CardAuthor2Props {
 	author:
 		| FragmentType<typeof NC_USER_FULL_FIELDS_FRAGMENT>
 		| NcmazFcUserFullFieldsFragment
-		| PostCardFieldsNotNcmazMedia4Fragment 
 	date: string
 	className?: string
 	readingTime?: number
 	hoverReadingTime?: boolean
-	verified3?: boolean
 }
 
 const CardAuthor2: FC<CardAuthor2Props> = ({
