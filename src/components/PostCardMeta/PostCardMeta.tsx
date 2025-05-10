@@ -38,10 +38,7 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
 		meta.author as FragmentType<typeof NC_USER_FULL_FIELDS_FRAGMENT>,
 	)
 
-	const getVerified3FromUser = (user: any): boolean => {
- 		const isVerified = !!(author?.ncUserMeta?.twitterUrl);
-  		return isVerified;
-	};
+	const isVerified = !!(author?.ncUserMeta?.twitterUrl);
 
 	if (!author.databaseId && !date) {
 		return null
