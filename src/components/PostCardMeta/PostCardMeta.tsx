@@ -62,7 +62,7 @@ export interface PostCardMetaProps {
 			| FragmentType<typeof NC_USER_FULL_FIELDS_FRAGMENT>
 			| NcmazFcUserFullFieldsFragment
 			| FragmentType<typeof NC_USER_FULL_FIELDS_FRAGMENT3>
-			| NcmazFcUserFullFieldsFragment3
+			| NcmazFcUserFullFields3Fragment
 	}
 	hiddenAvatar?: boolean
 	avatarSize?: string
