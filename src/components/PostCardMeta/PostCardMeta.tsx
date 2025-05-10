@@ -75,7 +75,7 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
 	const { date } = meta
 
 	const author = getUserDataFromUserCardFragment(
-		meta.author as unknown as FragmentType<typeof NC_USER_FULL_FIELDS_FRAGMENT3>,
+		meta.author as FragmentType<typeof NC_USER_FULL_FIELDS_FRAGMENT>,
 	)
 
 	const isVerified = getVerified3FromUser(author)
