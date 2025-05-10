@@ -502,3 +502,43 @@ export const NC_USER_FULL_FIELDS_FRAGMENT = gql(/* GraphQL */ `
 		}
 	}
 `)
+
+export const NC_USER_FULL_FIELDS_FRAGMENT3 = gql(/* GraphQL */ `
+	fragment NcmazFcUserFullFields3 on User {
+		id
+		databaseId
+		uri
+		username
+		name
+		description
+		registeredDate
+  		verified3
+		ncUserMeta {
+			buymeacoffeUrl
+			color
+			facebookUrl
+			githubUrl
+			instagramUrl
+			linkedinUrl
+			mediumUrl
+			ncBio
+			pinterestUrl
+			twitchUrl
+			twitterUrl
+			vimeoUrl
+			websiteUrl
+			youtubeUrl
+			tiktokUrl
+			featuredImage {
+				node {
+					...NcmazFcImageFields
+				}
+			}
+			backgroundImage {
+				node {
+					...NcmazFcImageFields
+				}
+			}
+		}
+	}
+`)
