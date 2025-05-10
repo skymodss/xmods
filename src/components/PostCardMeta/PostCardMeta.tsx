@@ -1,17 +1,17 @@
 import { FC } from 'react'
 import Avatar from '@/components/Avatar/Avatar'
 import Link from 'next/link'
-import { NcmazFcUserFullFieldsFragment, NcmazFcUserFullFields3Fragment } from '@/__generated__/graphql'
+import { NcmazFcUserFullFieldsFragment } from '@/__generated__/graphql'
 import ncFormatDate from '@/utils/formatDate'
 import { FragmentType } from '@/__generated__'
-import { NC_USER_FULL_FIELDS_FRAGMENT, NC_USER_FULL_FIELDS_FRAGMENT3 } from '@/fragments'
+import { NC_USER_FULL_FIELDS_FRAGMENT } from '@/fragments'
 import { getUserDataFromUserCardFragment } from '@/utils/getUserDataFromUserCardFragment'
 import { gql } from '@/__generated__'
 
 
 // Definicija fragmenta za korisnika
 export const POST_CARD_FIELDS = gql(`
-  fragment NcmazFcUserFullFields3 on User {
+  fragment NcmazFcUserFullFields on User {
     id
     databaseId
     uri
