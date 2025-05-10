@@ -50,22 +50,15 @@ export const POST_CARD_FIELDS = gql(`
 `)
 
 // Funkcija za dohvat verified3
-export function getVerified3FromUser(user: any): boolean | null {
-  return user?.verified3 || null
-}
+// Funkcija za dohvat verified3
+export function getVerified3FromUser(
+	user: NcmazFcUserFullFields3Fragment | null | undefined
+): boolean | null {
+	// Provjera strukture user objekta
+	console.log('getVerified3FromUser - user:', user);
 
-export interface PostCardMetaProps {
-	className?: string
-	meta: {
-		date?: string
-		author?:
-			| FragmentType<typeof NC_USER_FULL_FIELDS_FRAGMENT>
-			| NcmazFcUserFullFieldsFragment
-			| FragmentType<typeof NC_USER_FULL_FIELDS_FRAGMENT3>
-			| NcmazFcUserFullFields3Fragment
-	}
-	hiddenAvatar?: boolean
-	avatarSize?: string
+	// Vraćanje verified3 statusa
+	return user?.verified3 ?? null;
 }
 
 const PostCardMeta: FC<PostCardMetaProps> = ({
@@ -74,23 +67,28 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
 	hiddenAvatar = false,
 	avatarSize = 'h-7 w-7 text-sm',
 }) => {
-	const { date } = meta
+	const { date } = meta;
 
+	// Dohvati autora
 	const author = getUserDataFromUserCardFragment(
-		meta.author as FragmentType<typeof NC_USER_FULL_FIELDS_FRAGMENT>,
-	)
+		meta.author as FragmentType<typeof NC_USER_FULL_FIELDS_FRAGMENT3>,
+	);
 
-	const isVerified = getVerified3FromUser(author)
+	// Log za autora
+	console.log('PostCardMeta - author:', author);
 
-	if (!author.databaseId && !date) {
-		return null
+	// Dohvati verified3 status
+	const isVerified = getVerified3FromUser(author);
+
+	// Ako nema autora ili datuma, vrati null
+	if (!author?.databaseId && !date) {
+		return null;
 	}
 
 	return (
 		<div
 			className={`nc-PostCardMeta inline-flex flex-wrap items-center text-neutral-800 dark:text-neutral-200 ${className}`}
 		>
-			
 			{author?.databaseId && (
 				<Link
 					href={author?.uri || ''}
@@ -100,15 +98,15 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
 						<Avatar
 							radius="rounded-full"
 							sizeClass={avatarSize}
-							imgUrl={author.featuredImageMeta?.sourceUrl || ''}
+							imgUrl={author?.ncUserMeta?.featuredImage?.node?.sourceUrl || ''}
 							userName={author?.name || ''}
 						/>
 					)}
 					<span className="block font-medium capitalize text-neutral-700 hover:text-black dark:text-neutral-300 dark:hover:text-white">
 						{author?.name || ''}
 						<span className="text-xs text-gray-500">
-              				({isVerified ? 'verificiran' : 'nije verificiran'})
-            			</span>
+							({isVerified ? 'verificiran' : 'nije verificiran'})
+						</span>
 					</span>
 				</Link>
 			)}
@@ -123,7 +121,7 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
 				</span>
 			</>
 		</div>
-	)
-}
+	);
+};
 
 export default PostCardMeta
