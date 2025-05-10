@@ -51,7 +51,7 @@ export const POST_CARD_FIELDS = gql(`
 
 // Funkcija za dohvat verified3
 export function getVerified3FromUser(user: any): boolean | null {
-  return user?.verified3 || null
+  return query.verified3 || null
 }
 
 
