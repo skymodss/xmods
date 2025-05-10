@@ -9,47 +9,6 @@ import { getUserDataFromUserCardFragment } from '@/utils/getUserDataFromUserCard
 import { gql } from '@/__generated__'
 
 
-// Definicija fragmenta za korisnika
-export const POST_CARD_FIELDS = gql(`
-  fragment NcmazFcUserFullFields on User {
-    id
-    databaseId
-    uri
-    username
-    name
-    description
-    registeredDate
-    verified3
-    ncUserMeta {
-      buymeacoffeUrl
-      color
-      facebookUrl
-      githubUrl
-      instagramUrl
-      linkedinUrl
-      mediumUrl
-      ncBio
-      pinterestUrl
-      twitchUrl
-      twitterUrl
-      vimeoUrl
-      websiteUrl
-      youtubeUrl
-      tiktokUrl
-      featuredImage {
-        node {
-          ...NcmazFcImageFields
-        }
-      }
-      backgroundImage {
-        node {
-          ...NcmazFcImageFields
-        }
-      }
-    }
-  }
-`)
-
 // Funkcija za dohvat verified3
 export function getVerified3FromUser(user: any): boolean | null {
   return user?.verified3 || null
@@ -79,7 +38,10 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
 		meta.author as FragmentType<typeof NC_USER_FULL_FIELDS_FRAGMENT>,
 	)
 
-	const isVerified = getVerified3FromUser(author)
+	const getVerified3FromUser = (user: any): boolean => {
+ 		const isVerified = !!(author?.ncUserMeta?.twitterUrl);
+  		return isVerified;
+	};
 
 	if (!author.databaseId && !date) {
 		return null
