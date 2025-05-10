@@ -8,6 +8,7 @@ import { NC_USER_FULL_FIELDS_FRAGMENT, NC_USER_FULL_FIELDS_FRAGMENT3 } from '@/f
 import { getUserDataFromUserCardFragment } from '@/utils/getUserDataFromUserCardFragment'
 import { gql } from '@/__generated__'
 
+
 // Definicija fragmenta za korisnika
 export const POST_CARD_FIELDS = gql(`
   fragment NcmazFcUserFullFields3 on User {
