@@ -61,8 +61,6 @@ export interface PostCardMetaProps {
 		author?:
 			| FragmentType<typeof NC_USER_FULL_FIELDS_FRAGMENT>
 			| NcmazFcUserFullFieldsFragment
-			| FragmentType<typeof NC_USER_FULL_FIELDS_FRAGMENT3>
-			| NcmazFcUserFullFields3Fragment
 	}
 	hiddenAvatar?: boolean
 	avatarSize?: string
@@ -77,7 +75,7 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
 	const { date } = meta
 
 	const author = getUserDataFromUserCardFragment(
-		meta.author as FragmentType<typeof NC_USER_FULL_FIELDS_FRAGMENT>,
+		meta.author as unknown as FragmentType<typeof NC_USER_FULL_FIELDS_FRAGMENT3>,
 	)
 
 	const isVerified = getVerified3FromUser(author)
