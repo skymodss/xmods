@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import Avatar from '@/components/Avatar/Avatar'
 import Link from 'next/link'
-import { NcmazFcUserFullFieldsFragment } from '@/__generated__/graphql'
+import { NcmazFcUserFullFieldsFragment, NcmazFcUserFullFields3Fragment } from '@/__generated__/graphql'
 import ncFormatDate from '@/utils/formatDate'
 import { FragmentType } from '@/__generated__'
 import { NC_USER_FULL_FIELDS_FRAGMENT, NC_USER_FULL_FIELDS_FRAGMENT3 } from '@/fragments'
