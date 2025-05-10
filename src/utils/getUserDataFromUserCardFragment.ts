@@ -8,9 +8,9 @@ import {
 import { NcmazFcImageFieldsFragment } from "@/__generated__/graphql";
 
 export function getUserDataFromUserCardFragment(
-  user: NC_USER_FULL_FIELDS_FRAGMENT | NC_USER_SHORT_FOR_POST_CARD_FRAGMENT | NC_USER_FULL_FIELDS_FRAGMENT3 // Directly specify the fragments
+  user: FragmentType<"NC_USER_FULL_FIELDS_FRAGMENT"> | FragmentType<"NC_USER_SHORT_FOR_POST_CARD_FRAGMENT"> | FragmentType<"NC_USER_FULL_FIELDS_FRAGMENT3"> // Use string literals for compatibility
 ) {
-  let query = useFragment(NC_USER_FULL_FIELDS_FRAGMENT, user);
+  let query = useFragment("NC_USER_FULL_FIELDS_FRAGMENT", user);
 
   let featuredImageMeta: NcmazFcImageFieldsFragment | undefined | null = null;
   featuredImageMeta = useFragment(
@@ -23,8 +23,8 @@ export function getUserDataFromUserCardFragment(
     query.ncUserMeta?.backgroundImage?.node
   );
 
-  // Extract the verified3 field if the user is of type NC_USER_FULL_FIELDS_FRAGMENT3
-  const verified3 = (user as NC_USER_FULL_FIELDS_FRAGMENT3).verified3 || null;
+  // Extract the verified3 field if it's part of the user object
+  const verified3 = (user as FragmentType<"NC_USER_FULL_FIELDS_FRAGMENT3">).verified3 || null;
 
   return {
     ...query,
@@ -33,6 +33,6 @@ export function getUserDataFromUserCardFragment(
     username: query.username || "",
     featuredImageMeta,
     bgImageMeta,
-    verified3, // Add the verified3 field to the return object
+    verified3,
   };
 }
