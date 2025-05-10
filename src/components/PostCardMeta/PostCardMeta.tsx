@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { NcmazFcUserFullFieldsFragment } from '@/__generated__/graphql'
 import ncFormatDate from '@/utils/formatDate'
 import { FragmentType } from '@/__generated__'
-import { NC_USER_FULL_FIELDS_FRAGMENT } from '@/fragments'
+import { NC_USER_FULL_FIELDS_FRAGMENT, NC_USER_FULL_FIELDS_FRAGMENT3 } from '@/fragments'
 import { getUserDataFromUserCardFragment } from '@/utils/getUserDataFromUserCardFragment'
 import { gql } from '@/__generated__'
 
