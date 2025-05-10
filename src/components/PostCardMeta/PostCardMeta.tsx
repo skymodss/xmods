@@ -51,9 +51,8 @@ export const POST_CARD_FIELDS = gql(`
 
 // Funkcija za dohvat verified3
 export function getVerified3FromUser(user: any): boolean | null {
-  return query.verified3 || null
+  return user?.verified3 || null
 }
-
 
 export interface PostCardMetaProps {
 	className?: string
@@ -62,6 +61,8 @@ export interface PostCardMetaProps {
 		author?:
 			| FragmentType<typeof NC_USER_FULL_FIELDS_FRAGMENT>
 			| NcmazFcUserFullFieldsFragment
+			| FragmentType<typeof NC_USER_FULL_FIELDS_FRAGMENT3>
+			| NcmazFcUserFullFieldsFragment3
 	}
 	hiddenAvatar?: boolean
 	avatarSize?: string
