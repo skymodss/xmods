@@ -26,6 +26,10 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
 	hiddenAvatar = false,
 	avatarSize = 'h-7 w-7 text-sm',
 }) => {
+	const { databaseId, description, name, ncUserMeta } = useFragment(
+		NC_USER_FULL_FIELDS_FRAGMENT,
+		user || {},
+	)
 	// Ekstrakcija podataka iz meta objekta
 	const { date } = meta
 
