@@ -8,7 +8,6 @@ import { NC_USER_FULL_FIELDS_FRAGMENT } from '@/fragments'
 import { getUserDataFromUserCardFragment } from '@/utils/getUserDataFromUserCardFragment'
 import { gql } from '@/__generated__'
 
-
 export interface PostCardMetaProps {
 	className?: string
 	meta: {
@@ -35,8 +34,6 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
 		meta.author as FragmentType<typeof NC_USER_FULL_FIELDS_FRAGMENT>,
 	)
 
-	// Provjera je li korisnik verificiran na temelju twitterUrl
-
 	// Povratak null ako nema autora i datuma
 	if (!author.databaseId && !date) {
 		return null
@@ -49,7 +46,7 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
 			{/* Provjera i prikaz autora */}
 			{author?.databaseId && (
 				<Link
-					href={author?ncUserMeta?.twitterUrl || ''}
+					href={author?.ncUserMeta?.twitterUrl || ''}
 					className="relative flex items-center space-x-2 rtl:space-x-reverse"
 				>
 					{/* Prikaz avatara ako nije sakriven */}
