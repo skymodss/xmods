@@ -65,7 +65,7 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
 						{author?.name || ''}
 						{/* Provjera i prikaz statusa (verificiran/nije verificiran) */}
 						<span className="text-xs text-gray-500">
-							{author?.ncUserMeta?.twitterUrl}
+							{author?.ncUserMeta?.twitterUrl ? 'verificiran' : 'nije verificiran'}
 						</span>
 					</span>
 				</Link>
