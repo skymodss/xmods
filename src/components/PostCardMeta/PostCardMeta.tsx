@@ -6,7 +6,7 @@ import ncFormatDate from '@/utils/formatDate'
 import { FragmentType } from '@/__generated__'
 import { NC_USER_FULL_FIELDS_FRAGMENT } from '@/fragments'
 import { getUserDataFromUserCardFragment } from '@/utils/getUserDataFromUserCardFragment'
-import { gql } from '@/__generated__'
+import { gql, useFragment } from '@/__generated__'
 
 export interface PostCardMetaProps {
 	className?: string
