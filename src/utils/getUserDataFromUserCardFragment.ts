@@ -6,6 +6,7 @@ import {
 } from "../fragments";
 import { NcmazFcImageFieldsFragment } from "@/__generated__/graphql";
 
+
 export function getUserDataFromUserCardFragment(
   user:
     | FragmentType<typeof NC_USER_FULL_FIELDS_FRAGMENT>
