@@ -28,7 +28,7 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
 }) => {
 	const { databaseId, description, name, ncUserMeta } = useFragment(
 		NC_USER_FULL_FIELDS_FRAGMENT,
-		user || {},
+		author || {},
 	)
 	// Ekstrakcija podataka iz meta objekta
 	const { date } = meta
