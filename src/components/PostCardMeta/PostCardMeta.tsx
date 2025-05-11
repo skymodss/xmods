@@ -8,7 +8,8 @@ import { NC_USER_FULL_FIELDS_FRAGMENT } from '@/fragments'
 import { getUserDataFromUserCardFragment } from '@/utils/getUserDataFromUserCardFragment'
 import { gql } from '@/__generated__'
 import { useRouter } from 'next/router'
- 
+
+
 export interface PostCardMetaProps {
 	className?: string
 	meta: {
