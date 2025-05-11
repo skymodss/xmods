@@ -18,6 +18,7 @@ export interface PostCardMetaProps {
 	}
 	hiddenAvatar?: boolean
 	avatarSize?: string
+	user: FragmentType<typeof NC_USER_FULL_FIELDS_FRAGMENT>
 }
 
 const PostCardMeta: FC<PostCardMetaProps> = ({
@@ -25,8 +26,10 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
 	meta,
 	hiddenAvatar = false,
 	avatarSize = 'h-7 w-7 text-sm',
+	user,
 }) => {
 	const { databaseId, description, name, ncUserMeta } = useFragment(
+		user || {},
 		NC_USER_FULL_FIELDS_FRAGMENT,
 	)
 	// Ekstrakcija podataka iz meta objekta
