@@ -25,7 +25,6 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
 	meta,
 	hiddenAvatar = false,
 	avatarSize = 'h-7 w-7 text-sm',
-	user,
 }) => {
 	// Ekstrakcija podataka iz meta objekta
 	const { date } = meta
