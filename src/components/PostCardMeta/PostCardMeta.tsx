@@ -49,7 +49,7 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
 		>
 			{/* Provjera i prikaz autora */}
 			{author?.databaseId && (
-				<Link
+				<a
 					href={author?.ncUserMeta?.twitterUrl || ''}
 					className="relative flex items-center space-x-2 rtl:space-x-reverse"
 				>
