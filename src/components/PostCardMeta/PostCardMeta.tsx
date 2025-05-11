@@ -6,7 +6,7 @@ import ncFormatDate from '@/utils/formatDate'
 import { FragmentType } from '@/__generated__'
 import { NC_USER_FULL_FIELDS_FRAGMENT } from '@/fragments'
 import { getUserDataFromUserCardFragment } from '@/utils/getUserDataFromUserCardFragment'
-import { gql, useFragment } from '@/__generated__'
+import { gql } from '@/__generated__'
 
 export interface PostCardMetaProps {
 	className?: string
@@ -18,7 +18,6 @@ export interface PostCardMetaProps {
 	}
 	hiddenAvatar?: boolean
 	avatarSize?: string
-	user: FragmentType<typeof NC_USER_FULL_FIELDS_FRAGMENT>
 }
 
 const PostCardMeta: FC<PostCardMetaProps> = ({
@@ -28,10 +27,6 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
 	avatarSize = 'h-7 w-7 text-sm',
 	user,
 }) => {
-	const { databaseId, description, name, ncUserMeta } = useFragment(
-		user || {},
-		NC_USER_FULL_FIELDS_FRAGMENT,
-	)
 	// Ekstrakcija podataka iz meta objekta
 	const { date } = meta
 
