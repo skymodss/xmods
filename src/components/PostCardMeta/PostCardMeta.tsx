@@ -70,7 +70,7 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
 							{author?.ncUserMeta?.twitterUrl ? 'verificiran' : 'nije verificiran'} 
 						</span>
 					</span>
-				</Link>
+				</a>
 			)}
 			<>
 				{/* Separator između autora i datuma */}
