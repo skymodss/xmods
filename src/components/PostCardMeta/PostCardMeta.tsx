@@ -35,7 +35,6 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
 	)
 
 	// Provjera je li korisnik verificiran na temelju twitterUrl
-	const isVerified = !!author?.ncUserMeta?.twitterUrl
 
 	// Povratak null ako nema autora i datuma
 	if (!author.databaseId && !date) {
@@ -66,7 +65,7 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
 						{author?.name || ''}
 						{/* Provjera i prikaz statusa (verificiran/nije verificiran) */}
 						<span className="text-xs text-gray-500">
-							({isVerified ? 'verificiran' : 'nije verificiran'})
+							{author?.ncUserMeta?.twitterUrl}
 						</span>
 					</span>
 				</Link>
