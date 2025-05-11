@@ -8,7 +8,6 @@ import { NC_USER_FULL_FIELDS_FRAGMENT } from '@/fragments'
 import { getUserDataFromUserCardFragment } from '@/utils/getUserDataFromUserCardFragment'
 import { gql } from '@/__generated__'
 import { useRouter } from 'next/router'
-import React, { FC } from 'react'
  
 export interface PostCardMetaProps {
 	className?: string
@@ -51,7 +50,7 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
 			{/* Provjera i prikaz autora */}
 			{author?.databaseId && (
 				<Link
-					href={author?.ncUserMeta?.twitterUrl || ''} 
+					href: author?.ncUserMeta?.twitterUrl || '',
 					className="relative flex items-center space-x-2 rtl:space-x-reverse"
 				>
 					{/* Prikaz avatara ako nije sakriven */}
