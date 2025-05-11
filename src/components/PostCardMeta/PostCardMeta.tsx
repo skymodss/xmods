@@ -50,7 +50,7 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
 		>
 			{/* Provjera i prikaz autora */}
 			{author?.databaseId && (
-				<a
+				<Link
 					href={author?.ncUserMeta?.twitterUrl || ''}
 					className="relative flex items-center space-x-2 rtl:space-x-reverse"
 				>
@@ -71,7 +71,7 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
 							{author?.ncUserMeta?.twitterUrl ? 'verificiran' : 'nije verificiran'} 
 						</span>
 					</span>
-				</a>
+				</Link>
 			)}
 			<>
 				{/* Separator između autora i datuma */}
