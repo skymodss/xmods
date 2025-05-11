@@ -32,7 +32,7 @@ export function getUserDataFromUserCardFragment(
     ...query,
     uri: query.uri || "",
     name: query.name || "",
-    twitterUrl: query.ncUserMeta?.twitterUrl || "",
+    twitterUrl: query?.ncUserMeta?.twitterUrl || "",
     username: query.username || "",
     featuredImageMeta,
     bgImageMeta,
