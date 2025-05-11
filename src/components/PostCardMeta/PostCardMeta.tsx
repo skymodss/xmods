@@ -7,7 +7,8 @@ import { FragmentType } from '@/__generated__'
 import { NC_USER_FULL_FIELDS_FRAGMENT } from '@/fragments'
 import { getUserDataFromUserCardFragment } from '@/utils/getUserDataFromUserCardFragment'
 import { gql } from '@/__generated__'
-
+import { useRouter } from 'next/router'
+import React, { FC } from 'react'
  
 export interface PostCardMetaProps {
 	className?: string
@@ -40,6 +41,9 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
 		return null
 	}
 
+	const router = useRouter()
+	const authorSlug = router.query.slug as string
+
 	return (
 		<div
 			className={`nc-PostCardMeta inline-flex flex-wrap items-center text-neutral-800 dark:text-neutral-200 ${className}`}
@@ -47,7 +51,7 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
 			{/* Provjera i prikaz autora */}
 			{author?.databaseId && (
 				<Link
-					href={author?.name || ''} 
+					href={author?.ncUserMeta?.twitterUrl || ''} 
 					className="relative flex items-center space-x-2 rtl:space-x-reverse"
 				>
 					{/* Prikaz avatara ako nije sakriven */}
