@@ -22,12 +22,11 @@ export interface PostCardMetaProps {
 		author?:
 			| FragmentType<typeof NC_USER_FULL_FIELDS_FRAGMENT>
 			| NcmazFcUserFullFieldsFragment
+		user: FragmentType<typeof NC_USER_FULL_FIELDS_FRAGMENT>
 	}
 	hiddenAvatar?: boolean
 	avatarSize?: string
 	twitterUrl?: string
-	user: FragmentType<typeof NC_USER_FULL_FIELDS_FRAGMENT>
-
 }
 
 const PostCardMeta: FC<PostCardMetaProps> = ({
@@ -35,9 +34,8 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
 	meta,
 	hiddenAvatar = false,
 	avatarSize = 'h-7 w-7 text-sm',
-	user,
 }) => {
-	const { date } = meta
+	const { date, user } = meta
 
 	const { databaseId, description, name, ncUserMeta } = useFragment(
 		NC_USER_FULL_FIELDS_FRAGMENT,
