@@ -18,10 +18,9 @@ interface Props {
 	user: FragmentType<typeof NC_USER_FULL_FIELDS_FRAGMENT>
 }
 
-export const getTwitterLinkStatus = (twitterUrl: string | undefined): number => {
-	return twitterUrl ? 1 : 0
-}
-
+export const getTwitterLinkStatusForUser = (user: { twitterUrl?: string }): number => {
+    return user.twitterUrl ? 1 : 0;
+};
 const AuthorLayout: FC<Props> = ({ className = '', children, user }) => {
 	const { databaseId, description, name, ncUserMeta } = useFragment(
 		NC_USER_FULL_FIELDS_FRAGMENT,
