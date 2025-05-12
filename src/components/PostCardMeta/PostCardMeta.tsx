@@ -6,7 +6,7 @@ import ncFormatDate from '@/utils/formatDate'
 import { FragmentType } from '@/__generated__'
 import { NC_USER_FULL_FIELDS_FRAGMENT } from '@/fragments'
 import { getUserDataFromUserCardFragment } from '@/utils/getUserDataFromUserCardFragment'
-import { getTwitterLinkStatus } from '@/container/AuthorPageLayout'  
+import { getTwitterLinkStatusForUser } from '@/container/AuthorPageLayout'  
 import VerifyIcon from '@/components/VerifyIcon'
 
 export interface PostCardMetaProps {
@@ -39,7 +39,7 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
 	}
 
 	// Get Twitter link status
-	const twitterLinkStatus = getTwitterLinkStatus(author?.uri || '')
+	const twitterLinkStatus = getTwitterLinkStatusForUser(author?.ncUserMeta?.twitterUrl || '')
 
 	return (
 		<div
