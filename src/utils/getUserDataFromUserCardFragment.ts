@@ -38,6 +38,6 @@ export function getUserDataFromUserCardFragment(
     username: query.username || "",
     featuredImageMeta,
     bgImageMeta,
-    twitterUrl: query?.ncUserMeta?.twitterUrl || "",
+    twitterUrl: query?.viewerProfile.ncUserMeta?.twitterUrl || "",
   };
 }
