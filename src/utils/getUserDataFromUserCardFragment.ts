@@ -30,12 +30,6 @@ export function getUserDataFromUserCardFragment(
     query.ncUserMeta?.backgroundImage?.node
   );
   
-	let userSocials: TSocialsItem[] = [
-		{
-			name: 'Twitter',
-			href: query?.ncUserMeta?.twitterUrl || '',
-		},
-	];
 
   return {
     ...query,
@@ -44,6 +38,6 @@ export function getUserDataFromUserCardFragment(
     username: query.username || "",
     featuredImageMeta,
     bgImageMeta,
-    userSocials,
+    twitterUrl: query?.ncUserMeta?.twitterUrl || "",
   };
 }
