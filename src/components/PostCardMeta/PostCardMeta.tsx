@@ -25,7 +25,7 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
 }) => {
 	const { date } = meta
 
-	const { databaseId, name, ncUserMeta, uri, featuredImage } = meta.author
+	const { databaseId, name, ncUserMeta, uri } = meta.author
 
 	if (!meta.author.databaseId && !date) {
 		return null
@@ -45,7 +45,7 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
 						<Avatar
 							radius="rounded-full"
 							sizeClass={avatarSize}
-							imgUrl={meta?.author?.featuredImage?.sourceUrl || ''}
+							imgUrl={meta?.author?.ncUserMeta?.featuredImage?.sourceUrl || ''}
 							userName={meta?.author?.name || ''}
 						/>
 					)}
