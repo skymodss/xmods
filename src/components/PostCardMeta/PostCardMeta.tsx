@@ -27,7 +27,7 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
 
 	const { databaseId, name, ncUserMeta, uri } = meta.author
 
-	if (!meta.author.databaseId && !date) {
+	if (!databaseId && !date) {
 		return null
 	}
 
@@ -35,10 +35,9 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
 		<div
 			className={`nc-PostCardMeta inline-flex flex-wrap items-center text-neutral-800 dark:text-neutral-200 ${className}`}
 		>
-			
-			{meta?.author?.databaseId && (
+			{databaseId && (
 				<Link
-					href={meta?.author?.ncUserMeta?.twitterUrl || ''}
+					href={ncUserMeta?.twitterUrl || ''}
 					className="relative flex items-center space-x-2 rtl:space-x-reverse"
 				>
 					{!hiddenAvatar && (
@@ -46,24 +45,22 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
 							radius="rounded-full"
 							sizeClass={avatarSize}
 							imgUrl={""}
-							userName={meta?.author?.name || ''}
+							userName={name || ''}
 						/>
 					)}
 					<span className="block font-medium capitalize text-neutral-700 hover:text-black dark:text-neutral-300 dark:hover:text-white">
-						{meta?.author?.name || ''}
+						{name || ''}
 					</span>
 				</Link>
 			)}
-			<>
-				{{meta?.author?.databaseId && (
-					<span className="mx-[6px] font-medium text-neutral-500 dark:text-neutral-400">
-						·
-					</span>
-				)}
-				<span className="font-normal text-neutral-500 dark:text-neutral-400">
-					{ncFormatDate(date || '')}
+			{databaseId && (
+				<span className="mx-[6px] font-medium text-neutral-500 dark:text-neutral-400">
+					·
 				</span>
-			</>
+			)}
+			<span className="font-normal text-neutral-500 dark:text-neutral-400">
+				{ncFormatDate(date || '')}
+			</span>
 		</div>
 	)
 }
