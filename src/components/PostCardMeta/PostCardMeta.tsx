@@ -64,7 +64,7 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
 					{twitterLinkStatus === 1 ? (
 						<VerifyIcon />
 					) : (
-						<p></p>
+						<p>sdsdsd</p>
 					)}
 				</Link>
 			)}
