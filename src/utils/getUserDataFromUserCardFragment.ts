@@ -5,6 +5,9 @@ import {
   NC_USER_SHORT_FOR_POST_CARD_FRAGMENT,
 } from "../fragments";
 import { NcmazFcImageFieldsFragment } from "@/__generated__/graphql";
+import SocialsList, { TSocialsItem } from '@/components/SocialsList/SocialsList'
+import { useRouter } from 'next/router'
+import React, { FC } from 'react'
 
 export function getUserDataFromUserCardFragment(
   user:
@@ -26,14 +29,21 @@ export function getUserDataFromUserCardFragment(
     NC_IMAGE_MEDIA_FRAGMENT,
     query.ncUserMeta?.backgroundImage?.node
   );
+  
+	let userSocials: TSocialsItem[] = [
+		{
+			name: 'Twitter',
+			href: query?.ncUserMeta?.twitterUrl || '',
+		},
+	];
 
   return {
     ...query,
     uri: query.uri || "",
     name: query.name || "",
-    twitterUrl: query?.ncUserMeta?.twitterUrl || "",
     username: query.username || "",
     featuredImageMeta,
     bgImageMeta,
+    userSocials,
   };
 }
