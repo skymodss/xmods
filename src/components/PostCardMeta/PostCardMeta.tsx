@@ -26,9 +26,12 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
 }) => {
 	const { date } = meta
 
-	const { databaseId, name, ncUserMeta, uri } = meta.author
+	const { databaseId, name, ncUserMeta, uri } = useFragment(
+		NC_USER_FULL_FIELDS_FRAGMENT,
+		meta.author || {},
+	)
 
-	const ver = {href: ncUserMeta?.twitterUrl || ''}
+	const ver = ncUserMeta?.twitterUrl || ''
 
 	if (!databaseId && !date) {
 		return null
