@@ -37,6 +37,5 @@ export function getUserDataFromUserCardFragment(
     username: query.username || "",
     featuredImageMeta,
     bgImageMeta,
-    ncUserMeta: query?.ncUserMeta,
   };
 }
