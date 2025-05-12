@@ -1,6 +1,5 @@
 import { FC, useState } from 'react';
 
-
 export interface VerifyIconProps {
 	className?: string;
 	iconClass?: string;
@@ -14,7 +13,7 @@ const VerifyIcon: FC<VerifyIconProps> = ({
 
 	return (
 		<span
-			className={className}
+			className={`relative inline-flex ${className}`}
 			onMouseEnter={() => setShowTooltip(true)}
 			onMouseLeave={() => setShowTooltip(false)}
 			onFocus={() => setShowTooltip(true)} // Podrška za tastaturu
@@ -39,15 +38,16 @@ const VerifyIcon: FC<VerifyIconProps> = ({
 					strokeLinejoin="round"
 				/>
 			</svg>
-			{showTooltip && ( // Tooltip se prikazuje samo kada je aktivan
+			{showTooltip && (
 				<div
 					id="tooltip"
-					className="absolute -top-9 left-1/2 transform -translate-x-1/2 bg-white rounded-2xl border shadow-xl text-neutral-900 dark:text-neutral-200 px-3 py-2 transition-transform duration-200"
+					className="absolute z-10 bg-white dark:bg-neutral-800 text-neutral-900 dark:text-neutral-200 rounded-xl shadow-lg px-3 py-2 transition-all duration-200 ease-in-out"
 					style={{
-						transform: showTooltip
-							? 'scale(1) translateY(0)'
-							: 'scale(0.75) translateY(-10px)',
+						top: '-40px', // Razmak iznad ikone
+						left: '50%',
+						transform: 'translateX(-50%)',
 						opacity: showTooltip ? 1 : 0,
+						transition: 'opacity 0.2s ease-in-out, transform 0.2s ease-in-out',
 					}}
 				>
 					{'Verified Creator'}
