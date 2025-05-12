@@ -33,6 +33,7 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
 	}
 
 	return (
+		
 		<div
 			className={`nc-PostCardMeta inline-flex flex-wrap items-center text-neutral-800 dark:text-neutral-200 ${className}`}
 		>
@@ -41,14 +42,6 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
 					href={ncUserMeta?.twitterUrl || ''}
 					className="relative flex items-center space-x-2 rtl:space-x-reverse"
 				>
-					{!hiddenAvatar && (
-						<Avatar
-							radius="rounded-full"
-							sizeClass={avatarSize}
-							imgUrl={""}
-							userName={name || ''}
-						/>
-					)}
 					<span className="block font-medium capitalize text-neutral-700 hover:text-black dark:text-neutral-300 dark:hover:text-white">
 						{name || ''}
 					</span>
