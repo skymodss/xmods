@@ -1,3 +1,5 @@
+'use client'
+
 import { FC } from 'react'
 import Avatar from '@/components/Avatar/Avatar'
 import Link from 'next/link'
