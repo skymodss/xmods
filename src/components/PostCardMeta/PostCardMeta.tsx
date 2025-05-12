@@ -51,7 +51,7 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
 	let userSocials: TSocialsItem[] = [
 		{
 			name: 'Twitter',
-			href: ncUserMeta?.twitterUrl || '',
+			href: author?.ncUserMeta?.twitterUrl || '',
 			icon: (
 				<svg
 					fill="currentColor"
