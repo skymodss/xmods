@@ -55,7 +55,7 @@ const Card11: FC<Card11Props> = ({
 
 			<div className="flex flex-1 flex-col space-y-3 rounded-b-3xl border border-t-0 border-neutral-100 px-3.5 py-4 dark:border-neutral-800">
 				{!hiddenAuthor ? (
-					<PostCardMeta meta={{ author, date, user }} />
+					<PostCardMeta user={user} meta={{ author, date }} />
 				) : (
 					<span className="text-xs text-neutral-500">{date}</span>
 				)}
