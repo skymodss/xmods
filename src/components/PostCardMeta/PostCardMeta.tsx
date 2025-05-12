@@ -3,7 +3,7 @@ import Avatar from '@/components/Avatar/Avatar'
 import Link from 'next/link'
 import { NcmazFcUserFullFieldsFragment } from '@/__generated__/graphql'
 import ncFormatDate from '@/utils/formatDate'
-import { FragmentType } from '@/__generated__'
+import { FragmentType, useFragment } from '@/__generated__'
 import { NC_USER_FULL_FIELDS_FRAGMENT } from '@/fragments'
 import { getUserDataFromUserCardFragment } from '@/utils/getUserDataFromUserCardFragment'
 import { getTwitterLinkStatus } from '@/container/AuthorPageLayout'  
@@ -24,6 +24,8 @@ export interface PostCardMetaProps {
 	hiddenAvatar?: boolean
 	avatarSize?: string
 	twitterUrl?: string
+	user: FragmentType<typeof NC_USER_FULL_FIELDS_FRAGMENT>
+
 }
 
 const PostCardMeta: FC<PostCardMetaProps> = ({
@@ -31,8 +33,14 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
 	meta,
 	hiddenAvatar = false,
 	avatarSize = 'h-7 w-7 text-sm',
+	user,
 }) => {
 	const { date } = meta
+
+	const { databaseId, description, name, ncUserMeta } = useFragment(
+		NC_USER_FULL_FIELDS_FRAGMENT,
+		user || {},
+	)
 
 	const author = getUserDataFromUserCardFragment(
 		meta.author as FragmentType<typeof NC_USER_FULL_FIELDS_FRAGMENT>,
@@ -51,7 +59,7 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
 	let userSocials: TSocialsItem[] = [
 		{
 			name: 'Twitter',
-			href: author?.ncUserMeta?.twitterUrl || '',
+			href: ncUserMeta?.twitterUrl || '',
 			icon: (
 				<svg
 					fill="currentColor"
