@@ -41,7 +41,7 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
 		>
 			{databaseId && (
 				<a
-					href={ver}
+					href={""}
 					className="relative flex items-center space-x-2 rtl:space-x-reverse"
 				>
 					<span className="block font-medium capitalize text-neutral-700 hover:text-black dark:text-neutral-300 dark:hover:text-white">
@@ -50,7 +50,7 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
 				</a>
 			)}
 			<span className="font-normal text-neutral-500 dark:text-neutral-400">
-				{meta?.author?.ncUserMeta?.twitterUrl || ''}
+				{ver}
 			</span>
 			{databaseId && (
 				<span className="mx-[6px] font-medium text-neutral-500 dark:text-neutral-400">
