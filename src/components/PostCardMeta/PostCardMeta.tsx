@@ -9,7 +9,6 @@ import { getUserDataFromUserCardFragment } from '@/utils/getUserDataFromUserCard
 import { gql } from '@/__generated__'
 import { useRouter } from 'next/router'
 
-
 export interface PostCardMetaProps {
 	className?: string
 	meta: {
