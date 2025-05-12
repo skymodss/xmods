@@ -72,7 +72,7 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
 				{ncFormatDate(date || '')}
 			</span>
 			{twitterLinkStatus === 1 ? (
-				<VerifyIcon
+				<VerifyIcon />
 			) : (
 				<p></p>
 			)}
