@@ -39,7 +39,7 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
 	}
 
 	// Get Twitter link status
-	const twitterLinkStatus = getTwitterLinkStatus(author?.ncUserMeta?.twitterUrl || '')
+	const twitterLinkStatus = getTwitterLinkStatus(author?.twitterUrl || '')
 
 	return (
 		<div
