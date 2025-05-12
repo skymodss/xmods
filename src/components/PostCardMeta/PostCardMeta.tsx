@@ -27,6 +27,7 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
 	meta,
 	hiddenAvatar = false,
 	avatarSize = 'h-7 w-7 text-sm',
+	author,
 }) => {
 	// Ekstrakcija podataka iz meta objekta
 	const { date } = meta
@@ -34,6 +35,11 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
 	// Dohvaćanje podataka autora iz fragmenta
 	const author = getUserDataFromUserCardFragment(
 		meta.author as FragmentType<typeof NC_USER_FULL_FIELDS_FRAGMENT>,
+	)
+
+	const { databaseId, description, name, ncUserMeta } = useFragment(
+		NC_USER_FULL_FIELDS_FRAGMENT,
+		author || {},
 	)
 
 	const twitterUrl3 = author?.ncUserMeta?.twitterUrl || "";
