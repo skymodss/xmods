@@ -25,7 +25,7 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
 }) => {
 	const { date } = meta
 
-	const { databaseId, name, ncUserMeta, uri } = author
+	const { databaseId, name, ncUserMeta, uri } = meta.author
 
 	if (!author.databaseId && !date) {
 		return null
