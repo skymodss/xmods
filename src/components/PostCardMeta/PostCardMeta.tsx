@@ -40,7 +40,7 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
 		...(getViewerProfileResult.data?.viewer || {}),
 	})
 
-	const twitterUrl3 = author?.viewerProfile.ncUserMeta?.twitterUrl || "";
+	const twitterUrl3 = author.ncUserMeta?.twitterUrl || "";
 
 	// Povratak null ako nema autora i datuma
 	if (!author.databaseId && !date) {
