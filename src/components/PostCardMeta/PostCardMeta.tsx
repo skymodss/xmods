@@ -29,7 +29,7 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
 	avatarSize = 'h-7 w-7 text-sm',
 }) => {
 	// Ekstrakcija podataka iz meta objekta
-	const { date } = meta
+	const { date, ncUserMeta } = meta
 
 	// Dohvaćanje podataka autora iz fragmenta
 	const author = getUserDataFromUserCardFragment(
