@@ -45,6 +45,9 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
 					<span className="block font-medium capitalize text-neutral-700 hover:text-black dark:text-neutral-300 dark:hover:text-white">
 						{name || ''}
 					</span>
+					<span className="block font-medium capitalize text-neutral-700 hover:text-black dark:text-neutral-300 dark:hover:text-white">
+						{meta?.author?.ncUserMeta?.twitterUrl || ''}
+					</span>
 				</a>
 			)}
 			{databaseId && (
