@@ -6,7 +6,8 @@ import ncFormatDate from '@/utils/formatDate'
 import { FragmentType } from '@/__generated__'
 import { NC_USER_FULL_FIELDS_FRAGMENT } from '@/fragments'
 import { getUserDataFromUserCardFragment } from '@/utils/getUserDataFromUserCardFragment'
-import { getTwitterLinkStatus } from '@/container/AuthorPageLayout'
+import { getTwitterLinkStatus } from '@/container/AuthorPageLayout'  
+import VerifyIcon from '@/components/VerifyIcon'
 
 export interface PostCardMetaProps {
 	className?: string
@@ -70,12 +71,10 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
 			<span className="font-normal text-neutral-500 dark:text-neutral-400">
 				{ncFormatDate(date || '')}
 			</span>
-			{/* Twitter link status */}
-			<p>Twitter Link Status: {twitterLinkStatus}</p>
 			{twitterLinkStatus === 1 ? (
-				<p>Twitter link postoji!</p>
+				<VerifyIcon
 			) : (
-				<p>Twitter link ne postoji.</p>
+				<p></p>
 			)}
 		</div>
 	)
