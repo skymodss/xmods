@@ -36,7 +36,7 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
 		meta.author as FragmentType<typeof NC_USER_FULL_FIELDS_FRAGMENT>,
 	)
 
-	const twitterUrl3 = author?.data?.viewer?.twitterUrl || "";
+	const twitterUrl3 = author?.ncUserMeta?.twitterUrl || "";
 
 	// Povratak null ako nema autora i datuma
 	if (!author.databaseId && !date) {
