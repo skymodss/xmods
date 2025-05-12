@@ -7,8 +7,10 @@ export interface VerifyIconProps {
 
 const VerifyIcon: FC<VerifyIconProps> = ({
 	className = 'ml-1',
-	iconClass = 'w-5 h-5',
-}) => {
+	iconClass = 'w-5 h-5', }) => {
+
+	const [showTooltip, setShowTooltip] = useState(false)
+	
 	return (
 		<span className={className}>
 			<svg className={iconClass} viewBox="0 0 17 17" fill="none">
