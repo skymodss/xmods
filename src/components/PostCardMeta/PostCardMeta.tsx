@@ -11,46 +11,38 @@ import { useRouter } from 'next/router'
 
 export interface PostCardMetaProps {
 	className?: string
-	meta: {
-		date?: string
-		author?:
-			| FragmentType<typeof NC_USER_FULL_FIELDS_FRAGMENT>
-			| NcmazFcUserFullFieldsFragment
-	}
+	user: FragmentType<typeof NC_USER_FULL_FIELDS_FRAGMENT>
 	hiddenAvatar?: boolean
 	avatarSize?: string
 }
 
 const PostCardMeta: FC<PostCardMetaProps> = ({
 	className = 'leading-none text-xs',
-	meta,
 	hiddenAvatar = false,
 	avatarSize = 'h-7 w-7 text-sm',
+	user,
 }) => {
-	// Ekstrakcija podataka iz meta objekta
-	const { date } = meta
 
-	// Dohvaćanje podataka autora iz fragmenta
-	const author = getUserDataFromUserCardFragment(
-		meta.author as FragmentType<typeof NC_USER_FULL_FIELDS_FRAGMENT>,
+	const { databaseId, description, name, ncUserMeta } = useFragment(
+		NC_USER_FULL_FIELDS_FRAGMENT,
+		user || {},
 	)
+	const router = useRouter()
+	const userSlug = router.query.slug as string
 	
-	const twitterUrl3 = author.ncUserMeta?.twitterUrl || "";
+	const twitterUrl3 = user.ncUserMeta?.twitterUrl || "";
 
 	// Povratak null ako nema autora i datuma
-	if (!author.databaseId && !date) {
+	if (!user.databaseId && !date) {
 		return null
 	}
-
-	const router = useRouter()
-	const authorSlug = router.query.slug as string
 
 	return (
 		<div
 			className={`nc-PostCardMeta inline-flex flex-wrap items-center text-neutral-800 dark:text-neutral-200 ${className}`}
 		>
 			{/* Provjera i prikaz autora */}
-			{author?.databaseId && (
+			{user?.databaseId && (
 				<Link
 					href={twitterUrl3}
 					className="relative flex items-center space-x-2 rtl:space-x-reverse"
@@ -60,30 +52,29 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
 						<Avatar
 							radius="rounded-full"
 							sizeClass={avatarSize}
-							imgUrl={author.featuredImageMeta?.sourceUrl || ''}
-							userName={author?.name || ''}
+							imgUrl={user.featuredImageMeta?.sourceUrl || ''}
+							userName={user?.name || ''}
 						/>
 					)}
 					{/* Prikaz imena autora i statusa verificiranosti */}
 					<span className="block font-medium capitalize text-neutral-700 hover:text-black dark:text-neutral-300 dark:hover:text-white">
-						{author?.name || ''}
+						{user?.name || ''}
 						{/* Provjera i prikaz statusa (verificiran/nije verificiran) */}
 						<span className="text-xs text-gray-500">
-							{author?.ncUserMeta?.twitterUrl ? 'verificiran' : 'nije verificiran'} 
+							{user?.ncUserMeta?.twitterUrl ? 'verificiran' : 'nije verificiran'} 
 						</span>
 					</span>
 				</Link>
 			)}
 			<>
 				{/* Separator između autora i datuma */}
-				{author?.databaseId && (
+				{user?.databaseId && (
 					<span className="mx-[6px] font-medium text-neutral-500 dark:text-neutral-400">
 						·
 					</span>
 				)}
 				{/* Prikaz datuma */}
 				<span className="font-normal text-neutral-500 dark:text-neutral-400">
-					{ncFormatDate(date || '')}
 				</span>
 			</>
 		</div>
