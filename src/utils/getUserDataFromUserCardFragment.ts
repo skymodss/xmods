@@ -29,7 +29,6 @@ export function getUserDataFromUserCardFragment(
     NC_IMAGE_MEDIA_FRAGMENT,
     query.ncUserMeta?.backgroundImage?.node
   );
-  
 
   return {
     ...query,
