@@ -55,7 +55,7 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
 			{/* Provjera i prikaz autora */}
 			{author?.databaseId && (
 				<Link
-					href={twitterUrl3 || ''}
+					href={twitterUrl3}
 					className="relative flex items-center space-x-2 rtl:space-x-reverse"
 				>
 					{/* Prikaz avatara ako nije sakriven */}
