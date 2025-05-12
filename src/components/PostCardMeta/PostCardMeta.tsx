@@ -61,6 +61,11 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
 					<span className="block font-medium capitalize text-neutral-700 hover:text-black dark:text-neutral-300 dark:hover:text-white">
 						{author?.name || ''}
 					</span>
+					{twitterLinkStatus === 1 ? (
+						<VerifyIcon />
+					) : (
+						<p></p>
+					)}
 				</Link>
 			)}
 			{author?.databaseId && (
@@ -71,11 +76,6 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
 			<span className="font-normal text-neutral-500 dark:text-neutral-400">
 				{ncFormatDate(date || '')}
 			</span>
-			{twitterLinkStatus === 1 ? (
-				<VerifyIcon />
-			) : (
-				<p></p>
-			)}
 		</div>
 	)
 }
