@@ -12,11 +12,6 @@ import { GlobeAltIcon } from '@heroicons/react/24/outline'
 import { useRouter } from 'next/router'
 import React, { FC } from 'react'
 
-export const getTwitterLinkStatus = (twitterUrl: string | undefined): number => {
-	return twitterUrl ? 1 : 0
-}
-
-
 interface Props {
 	className?: string
 	children?: React.ReactNode
@@ -224,6 +219,10 @@ const AuthorLayout: FC<Props> = ({ className = '', children, user }) => {
 	]
 
 	userSocials = userSocials.filter((item) => !!item.href)
+
+	export const getTwitterLinkStatus = (twitterUrl: string | undefined): number => {
+		return twitterUrl ? 1 : 0
+	}
 
 	return (
 		<div className="">
