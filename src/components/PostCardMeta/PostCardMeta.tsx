@@ -28,6 +28,8 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
 
 	const { databaseId, name, ncUserMeta, uri } = meta.author
 
+	const ver = {href: ncUserMeta?.twitterUrl || ''}
+
 	if (!databaseId && !date) {
 		return null
 	}
@@ -39,7 +41,7 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
 		>
 			{databaseId && (
 				<a
-					href={meta?.author?.ncUserMeta?.twitterUrl || ''}
+					href={ver}
 					className="relative flex items-center space-x-2 rtl:space-x-reverse"
 				>
 					<span className="block font-medium capitalize text-neutral-700 hover:text-black dark:text-neutral-300 dark:hover:text-white">
