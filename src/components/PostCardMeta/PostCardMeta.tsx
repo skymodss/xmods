@@ -6,6 +6,7 @@ import ncFormatDate from '@/utils/formatDate'
 import { FragmentType } from '@/__generated__'
 import { NC_USER_FULL_FIELDS_FRAGMENT } from '@/fragments'
 import { getUserDataFromUserCardFragment } from '@/utils/getUserDataFromUserCardFragment'
+import { getTwitterLinkStatus } from '@/container/AuthorPageLayout'
 
 export interface PostCardMetaProps {
 	className?: string
@@ -17,6 +18,7 @@ export interface PostCardMetaProps {
 	}
 	hiddenAvatar?: boolean
 	avatarSize?: string
+	twitterUrl?: string
 }
 
 const PostCardMeta: FC<PostCardMetaProps> = ({
@@ -35,11 +37,13 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
 		return null
 	}
 
+	// Get Twitter link status
+	const twitterLinkStatus = getTwitterLinkStatus(author?.uri || '')
+
 	return (
 		<div
 			className={`nc-PostCardMeta inline-flex flex-wrap items-center text-neutral-800 dark:text-neutral-200 ${className}`}
 		>
-			
 			{author?.databaseId && (
 				<Link
 					href={author?.uri || ''}
@@ -58,16 +62,21 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
 					</span>
 				</Link>
 			)}
-			<>
-				{author?.databaseId && (
-					<span className="mx-[6px] font-medium text-neutral-500 dark:text-neutral-400">
-						·
-					</span>
-				)}
-				<span className="font-normal text-neutral-500 dark:text-neutral-400">
-					{ncFormatDate(date || '')}
+			{author?.databaseId && (
+				<span className="mx-[6px] font-medium text-neutral-500 dark:text-neutral-400">
+					·
 				</span>
-			</>
+			)}
+			<span className="font-normal text-neutral-500 dark:text-neutral-400">
+				{ncFormatDate(date || '')}
+			</span>
+			{/* Twitter link status */}
+			<p>Twitter Link Status: {twitterLinkStatus}</p>
+			{twitterLinkStatus === 1 ? (
+				<p>Twitter link postoji!</p>
+			) : (
+				<p>Twitter link ne postoji.</p>
+			)}
 		</div>
 	)
 }
