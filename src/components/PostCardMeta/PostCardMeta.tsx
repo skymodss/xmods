@@ -39,7 +39,7 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
 		>
 			{databaseId && (
 				<Link
-					href={ncUserMeta?.twitterUrl || ''}
+					href={meta?.author?.ncUserMeta?.twitterUrl || ''}
 					className="relative flex items-center space-x-2 rtl:space-x-reverse"
 				>
 					<span className="block font-medium capitalize text-neutral-700 hover:text-black dark:text-neutral-300 dark:hover:text-white">
