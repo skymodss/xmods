@@ -45,7 +45,7 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
 						<Avatar
 							radius="rounded-full"
 							sizeClass={avatarSize}
-							imgUrl={meta?.author?.ncUserMeta?.featuredImage?.sourceUrl || ''}
+							imgUrl={meta?.author?.ncUserMeta?.featuredImage || ''}
 							userName={meta?.author?.name || ''}
 						/>
 					)}
