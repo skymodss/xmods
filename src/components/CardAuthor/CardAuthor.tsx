@@ -31,7 +31,7 @@ const CardAuthor: FC<CardAuthorProps> = ({ className = '', author }) => {
 					{name}
 				</h2>
 				<span className="mt-[2px] block text-xs text-neutral-500 dark:text-neutral-400">
-					{ncUserMeta?.twitterUrl}
+					{ncUserMeta?.twitterUrl || ''}
 				</span>
 			</div>
 		</Link>
