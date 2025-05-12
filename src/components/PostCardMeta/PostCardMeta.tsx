@@ -36,6 +36,10 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
 		meta.author as FragmentType<typeof NC_USER_FULL_FIELDS_FRAGMENT>,
 	)
 
+	const twitterUrl3 = getUserDataFromUserCardFragment(
+		author?.ncUserMeta?.twitterUrl as FragmentType<typeof NC_USER_FULL_FIELDS_FRAGMENT>,
+	)
+
 	// Povratak null ako nema autora i datuma
 	if (!author.databaseId && !date) {
 		return null
@@ -51,7 +55,7 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
 			{/* Provjera i prikaz autora */}
 			{author?.databaseId && (
 				<Link
-					href={author?.twitterUrl || ''}
+					href={twitterUrl3 || ''}
 					className="relative flex items-center space-x-2 rtl:space-x-reverse"
 				>
 					{/* Prikaz avatara ako nije sakriven */}
