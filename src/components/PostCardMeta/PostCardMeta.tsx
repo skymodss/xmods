@@ -38,14 +38,14 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
 			className={`nc-PostCardMeta inline-flex flex-wrap items-center text-neutral-800 dark:text-neutral-200 ${className}`}
 		>
 			{databaseId && (
-				<Link
+				<a
 					href={meta?.author?.ncUserMeta?.twitterUrl || ''}
 					className="relative flex items-center space-x-2 rtl:space-x-reverse"
 				>
 					<span className="block font-medium capitalize text-neutral-700 hover:text-black dark:text-neutral-300 dark:hover:text-white">
 						{name || ''}
 					</span>
-				</Link>
+				</a>
 			)}
 			{databaseId && (
 				<span className="mx-[6px] font-medium text-neutral-500 dark:text-neutral-400">
