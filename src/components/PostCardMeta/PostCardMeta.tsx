@@ -7,6 +7,7 @@ import { FragmentType } from '@/__generated__'
 import { NC_USER_FULL_FIELDS_FRAGMENT } from '@/fragments'
 import { getUserDataFromUserCardFragment } from '@/utils/getUserDataFromUserCardFragment'
 
+
 export interface PostCardMetaProps {
 	className?: string
 	meta: {
