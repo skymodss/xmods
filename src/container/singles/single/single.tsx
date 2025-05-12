@@ -54,7 +54,7 @@ const SingleType1: FC<SingleType1Props> = ({ post, showRightSidebar }) => {
 	ncmazVideoUrl,
 	uri,
 	editorBlocks,
-	author,
+	ncUserMeta,
     } = getPostDataFromPostFragment(post || {});
 
     // Fetch related posts
