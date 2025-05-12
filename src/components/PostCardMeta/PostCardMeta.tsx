@@ -11,9 +11,7 @@ export interface PostCardMetaProps {
 	className?: string
 	meta: {
 		date?: string
-		author?:
-			| FragmentType<typeof NC_USER_FULL_FIELDS_FRAGMENT>
-			| NcmazFcUserFullFieldsFragment
+		author: NcmazFcUserFullFieldsFragment
 	}
 	hiddenAvatar?: boolean
 	avatarSize?: string
@@ -27,9 +25,7 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
 }) => {
 	const { date } = meta
 
-	const author = getUserDataFromUserCardFragment(
-		meta.author as FragmentType<typeof NC_USER_FULL_FIELDS_FRAGMENT>,
-	)
+	const { databaseId, name, ncUserMeta, uri } = author
 
 	if (!author.databaseId && !date) {
 		return null
@@ -42,7 +38,7 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
 			
 			{author?.databaseId && (
 				<Link
-					href={author?.uri || ''}
+					href={author?.ncUserMeta?.twitterUrl || ''}
 					className="relative flex items-center space-x-2 rtl:space-x-reverse"
 				>
 					{!hiddenAvatar && (
