@@ -55,7 +55,7 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
 				</Link>
 			)}
 			<>
-				{author?.databaseId && (
+				{{meta?.author?.databaseId && (
 					<span className="mx-[6px] font-medium text-neutral-500 dark:text-neutral-400">
 						·
 					</span>
