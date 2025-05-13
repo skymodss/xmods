@@ -7,6 +7,7 @@ import { getPostDataFromPostFragment } from '@/utils/getPostDataFromPostFragment
 import SingleHeader from '../SingleHeader';
 import { FragmentTypePostFullFields } from '@/container/type';
 import PostCardMeta from '@/components/PostCardMeta/PostCardMeta';
+import PostCardMeta2 from '@/components/PostCardMeta/PostCardMeta2';
 import useGetPostsNcmazMetaByIds from "@/hooks/useGetPostsNcmazMetaByIds";
 import { gql, useQuery } from '@apollo/client';
 import { TPostCard } from '@/components/Card2/Card2';
@@ -175,7 +176,7 @@ const SingleType1: FC<SingleType1Props> = ({ post, showRightSidebar }) => {
                                                     <div className="space-y-4">
                                                         <div className="flex items-center justify-between">
                                                             <a className="flex items-center gap-2">
-								    <PostCardMeta
+								    <PostCardMeta2
                                                         		className="text-sm"
                                                         		meta={{ author }}
                                                        	 		hiddenAvatar={false}
