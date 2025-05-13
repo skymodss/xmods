@@ -68,13 +68,12 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
 				</Link>
 			)}
 			{author?.databaseId && (
-				<h2 className="text-neutral-900 truncate text-xl font-bold sm:text-2xl dark:text-neutral-100">{author?.ncUserMeta?.color}</h2>
 				<span className="mx-[6px] font-medium text-neutral-500 dark:text-neutral-400">
 					·
 				</span>
 			)}
 			<span className="font-normal text-neutral-500 dark:text-neutral-400">
-				{ncFormatDate(date || '')}
+				{author?.ncUserMeta?.color || ''}
 			</span>
 		</div>
 	)
