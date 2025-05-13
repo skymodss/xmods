@@ -40,11 +40,11 @@ const VerifyIcon: FC<VerifyIconProps> = ({
 				/>
 			</svg>
 			<div
-				className={`absolute bg-[rgb(255,255,255)] rounded-xl border shadow-sm bg-card text-start text-neutral-900 transition-transform duration-200 dark:text-neutral-200 px-2 py-1 pl-[8px] pr-[8px] pt-[8px] pb-[8px] ${
+				className={`absolute z-10 bg-[rgb(255,255,255)] rounded-xl border shadow-sm bg-card text-start text-neutral-900 transition-all duration-200 ease-in-out dark:text-neutral-200 px-2 py-1 pl-[8px] pr-[8px] pt-[8px] pb-[8px] ${
 					showTooltip ? 'scale-100 opacity-100' : 'scale-75 opacity-0'
 				}`}
 				style={{
-					top: '-40px', // Razmak iznad ikone
+					top: '-35px', // Razmak iznad ikone
 					left: '50%',
 					transform: 'translateX(-50%)',
 					opacity: showTooltip ? 1 : 0,
