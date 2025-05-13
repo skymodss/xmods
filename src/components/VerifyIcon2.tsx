@@ -44,14 +44,14 @@ const VerifyIcon2: FC<VerifyIcon2Props> = ({
 					showTooltip ? 'scale-100 opacity-100' : 'scale-75 opacity-0'
 				}`}
 				style={{
-					top: '-60px', // Razmak iznad ikone
+					top: '-25px', // Razmak iznad ikone
 					left: '50%',
 					transform: 'translateX(-50%)',
 					opacity: showTooltip ? 1 : 0,
 					transition: 'transform 0.2s ease-in-out, opacity 0.2s ease-in-out',
 				}}
 			>
-				 <h2 className="flex-shrink-0 font-semibold text-neutral-900 transition-colors duration-75 dark:text-neutral-200">{'Verified'}</h2>
+				 <h2 className="flex-shrink-0 text-neutral-900 transition-colors duration-75 dark:text-neutral-200">{'Verified'}</h2>
 			</div>
 		</span>
 	);
