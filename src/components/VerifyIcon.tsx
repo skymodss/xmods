@@ -42,12 +42,8 @@ const VerifyIcon: FC<VerifyIconProps> = ({
 			{showTooltip && (
 				<div
 					id="tooltip"
-					className="absolute z-10 bg-white dark:bg-neutral-800 text-neutral-900 dark:text-neutral-200 rounded-xl shadow-lg px-3 py-2 transition-all duration-200 ease-in-out"
+					className="absolute -top-9 left-1/2 transform -translate-x-1/2 bg-[rgb(255,255,255)] rounded-2xl border shadow-xl bg-card text-start text-neutral-900 transition-transform duration-200 dark:text-neutral-200 px-2 py-1 pl-[12px] pr-[12px] pt-[12px] pb-[12px]"
 					style={{
-						top: '-80px', // Razmak iznad ikone
-						left: '50%',
-						transform: 'translateX(-50%)',
-						opacity: showTooltip ? 1 : 0,
 						transition: 'transform 0.2s ease-in-out, opacity 0.2s ease-in-out',
 					}}
 				>
