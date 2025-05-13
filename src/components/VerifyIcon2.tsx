@@ -44,7 +44,7 @@ const VerifyIcon2: FC<VerifyIcon2Props> = ({
 					showTooltip ? 'scale-100 opacity-100' : 'scale-75 opacity-0'
 				}`}
 				style={{
-					top: '-220%', // Razmak iznad ikone
+					top: '-60px', // Razmak iznad ikone
 					left: '50%',
 					transform: 'translateX(-50%)',
 					opacity: showTooltip ? 1 : 0,
