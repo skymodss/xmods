@@ -62,18 +62,9 @@ const PostCardMeta2: FC<PostCardMeta2Props> = ({
 					{result === 1 ? (
 						<VerifyIcon2 />
 					) : (
-						<p></p>
 					)}
 				</Link>
 			)}
-			{author?.databaseId && (
-				<span className="mx-[6px] font-medium text-neutral-500 dark:text-neutral-400">
-					·
-				</span>
-			)}
-			<span className="font-normal text-neutral-500 dark:text-neutral-400">
-				{ncFormatDate(date || '')}
-			</span>
 		</div>
 	)
 }
