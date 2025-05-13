@@ -33,11 +33,11 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
 		meta.author as FragmentType<typeof NC_USER_FULL_FIELDS_FRAGMENT>,
 	)
 
+	const result = (author?.username || '').toLowerCase() === 'jovica33' ? 1 : 0 ;
+
 	if (!author.databaseId && !date) {
 		return null
 	}
-
-	const result = (author?.username || '').toLowerCase() === 'jovica33' ? 1 : 0;
 
 	return (
 		<div
