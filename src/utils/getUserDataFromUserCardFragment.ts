@@ -30,7 +30,6 @@ export function getUserDataFromUserCardFragment(
     query.ncUserMeta?.backgroundImage?.node
   );
   
-
   return {
     ...query,
     uri: query.uri || "",
