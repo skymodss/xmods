@@ -1,12 +1,12 @@
 import { FC, useState } from 'react';
 
-export interface VerifyIconProps {
+export interface VerifyIcon2Props {
 	className?: string;
 	iconClass?: string;
 }
 
 
-const VerifyIcon: FC<VerifyIconProps> = ({
+const VerifyIcon2: FC<VerifyIcon2Props> = ({
 	className = 'ml-1',
 	iconClass = 'w-5 h-5',
 }) => {
@@ -40,21 +40,21 @@ const VerifyIcon: FC<VerifyIconProps> = ({
 				/>
 			</svg>
 			<div
-				className={`absolute z-10 bg-white dark:bg-neutral-800 text-neutral-900 dark:text-neutral-200 rounded-xl shadow-lg px-3 py-2 transition-all duration-200 ease-in-out ${
+				className={`absolute bg-[rgb(255,255,255)] rounded-xl border shadow-sm bg-card text-start text-neutral-900 transition-transform duration-200 dark:text-neutral-200 px-2 py-1 pl-[8px] pr-[8px] pt-[8px] pb-[8px] ${
 					showTooltip ? 'scale-100 opacity-100' : 'scale-75 opacity-0'
 				}`}
 				style={{
-					top: '-220%', // Razmak iznad ikone
+					top: '-60px', // Razmak iznad ikone
 					left: '50%',
 					transform: 'translateX(-50%)',
 					opacity: showTooltip ? 1 : 0,
 					transition: 'transform 0.2s ease-in-out, opacity 0.2s ease-in-out',
 				}}
 			>
-				{'Verified Creator'}
+				<h2 className="text-sm font-medium leading-none tracking-tight">{'Verified'}</h2>
 			</div>
 		</span>
 	);
 };
 
-export default VerifyIcon;
+export default VerifyIcon2;
