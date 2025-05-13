@@ -37,6 +37,7 @@ export function getUserDataFromUserCardFragment(
     username: query.username || "",
     featuredImageMeta,
     twitterUrl: query.ncUserMeta?.twitterUrl || "",
-    bgImageMeta,
+    color: query.ncUserMeta?.color || "",
+    bgImageMeta, 
   };
 }
