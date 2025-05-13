@@ -6,7 +6,6 @@ import ncFormatDate from '@/utils/formatDate'
 import { FragmentType } from '@/__generated__'
 import { NC_USER_FULL_FIELDS_FRAGMENT } from '@/fragments'
 import { getUserDataFromUserCardFragment } from '@/utils/getUserDataFromUserCardFragment'
-import { getTwitterLinkStatus } from '@/container/AuthorPageLayout'  
 import VerifyIcon from '@/components/VerifyIcon'
 
 export interface PostCardMetaProps {
@@ -37,8 +36,6 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
 	if (!author.databaseId && !date) {
 		return null
 	}
-
-	const twitterLinkStatus = getTwitterLinkStatus(author?.ncUserMeta?.twitterUrl || '')
 
 	const result = (author?.username || '').toLowerCase() === 'jovica33' ? 1 : 0;
 
