@@ -51,7 +51,7 @@ const VerifyIcon2: FC<VerifyIcon2Props> = ({
 					transition: 'transform 0.2s ease-in-out, opacity 0.2s ease-in-out',
 				}}
 			>
-				 <h2 className="flex-shrink-0 font-semibold text-neutral-900 transition-colors duration-75 dark:text-neutral-200">{'Verified Creator'}</h2>
+				 <h2 className="flex-shrink-0 font-semibold text-neutral-900 transition-colors duration-75 dark:text-neutral-200">{'Verified'}</h2>
 			</div>
 		</span>
 	);
