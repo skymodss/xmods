@@ -48,6 +48,7 @@ const VerifyIcon: FC<VerifyIconProps> = ({
 					}}
 				>
 					{'Verified Creator'}
+		
 				</div>
 			)}
 		</span>
