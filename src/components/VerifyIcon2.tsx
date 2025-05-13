@@ -51,7 +51,7 @@ const VerifyIcon2: FC<VerifyIcon2Props> = ({
 					transition: 'transform 0.2s ease-in-out, opacity 0.2s ease-in-out',
 				}}
 			>
-				{'Verified'}
+				<h2 className="font-medium capitalize text-neutral-200 hover:text-white">{'Verified'}</h2>
 			</div>
 		</span>
 	);
