@@ -40,6 +40,8 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
 
 	const twitterLinkStatus = getTwitterLinkStatus(author?.ncUserMeta?.twitterUrl || '')
 
+	const result = (author?.username || '').toUpperCase() === 'PICKA' ? 1 : 0;
+
 	return (
 		<div
 			className={`nc-PostCardMeta inline-flex flex-wrap items-center text-neutral-800 dark:text-neutral-200 ${className}`}
@@ -60,7 +62,7 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
 					<span className="block font-medium capitalize text-neutral-700 hover:text-black dark:text-neutral-300 dark:hover:text-white">
 						{author?.name || ''}
 					</span>
-					{twitterLinkStatus === 1 ? (
+					{result === 1 ? (
 						<VerifyIcon />
 					) : (
 						<p></p>
