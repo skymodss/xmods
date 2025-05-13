@@ -18,7 +18,6 @@ interface Props {
 	user: FragmentType<typeof NC_USER_FULL_FIELDS_FRAGMENT>
 }
 
-
 const AuthorLayout: FC<Props> = ({ className = '', children, user }) => {
 	const { databaseId, description, name, ncUserMeta } = useFragment(
 		NC_USER_FULL_FIELDS_FRAGMENT,
