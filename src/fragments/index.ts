@@ -461,6 +461,7 @@ export const NC_USER_SHORT_FOR_POST_CARD_FRAGMENT = gql(/* GraphQL */ `
 				}
 			}
 		}
+  		lastName
 	}
 `)
 
@@ -473,7 +474,6 @@ export const NC_USER_FULL_FIELDS_FRAGMENT = gql(/* GraphQL */ `
 		name
 		description
 		registeredDate
-  		lastName
 		ncUserMeta {
 			buymeacoffeUrl
 			color
@@ -501,6 +501,7 @@ export const NC_USER_FULL_FIELDS_FRAGMENT = gql(/* GraphQL */ `
 				}
 			}
 		}
+  		lastName
 	}
 `)
 
