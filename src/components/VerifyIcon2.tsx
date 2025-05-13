@@ -57,4 +57,4 @@ const VerifyIcon2: FC<VerifyIcon2Props> = ({
 	);
 };
 
-export default VerifyIcon22;
+export default VerifyIcon2;
