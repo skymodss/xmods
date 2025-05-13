@@ -2,7 +2,6 @@ import { FC } from 'react'
 import Avatar from '@/components/Avatar/Avatar'
 import Link from 'next/link'
 import { NcmazFcUserFullFieldsFragment } from '@/__generated__/graphql'
-import ncFormatDate from '@/utils/formatDate'
 import { FragmentType } from '@/__generated__'
 import { NC_USER_FULL_FIELDS_FRAGMENT } from '@/fragments'
 import { getUserDataFromUserCardFragment } from '@/utils/getUserDataFromUserCardFragment'
@@ -23,19 +22,21 @@ export interface PostCardMeta2Props {
 
 const PostCardMeta2: FC<PostCardMeta2Props> = ({
 	className = 'leading-none text-xs',
-	meta,
+	meta = { date: '', author: undefined }, // Ensure default value for `meta`
 	hiddenAvatar = false,
 	avatarSize = 'h-7 w-7 text-sm',
 }) => {
 	const { date } = meta
 
-	const author = getUserDataFromUserCardFragment(
-		meta.author as FragmentType<typeof NC_USER_FULL_FIELDS_FRAGMENT>,
-	)
+	const author = meta.author
+		? getUserDataFromUserCardFragment(
+				meta.author as FragmentType<typeof NC_USER_FULL_FIELDS_FRAGMENT>,
+		  )
+		: undefined // Ensure `author` is safely defined
 
-	const result = (author?.username || '').toLowerCase() === 'jovica33' ? 1 : 0 ;
+	const result = (author?.username || '').toLowerCase() === 'jovica33' ? 1 : 0
 
-	if (!author.databaseId && !date) {
+	if (!author?.databaseId && !date) {
 		return null
 	}
 
@@ -59,10 +60,7 @@ const PostCardMeta2: FC<PostCardMeta2Props> = ({
 					<span className="block font-medium capitalize text-neutral-700 hover:text-black dark:text-neutral-300 dark:hover:text-white">
 						{author?.name || ''}
 					</span>
-					{result === 1 ? (
-						<VerifyIcon2 />
-					) : (
-					)}
+					{result === 1 && <VerifyIcon2 />} {/* Fix empty conditional block */}
 				</Link>
 			)}
 		</div>
