@@ -473,7 +473,7 @@ export const NC_USER_FULL_FIELDS_FRAGMENT = gql(/* GraphQL */ `
 		name
 		description
 		registeredDate
-  		lastName	
+  		$lastName	
 		ncUserMeta {
 			buymeacoffeUrl
 			color
