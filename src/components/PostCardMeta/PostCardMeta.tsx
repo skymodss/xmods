@@ -46,7 +46,7 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
 		>
 			{author?.databaseId && (
 				<Link
-					href={author?.uri || ''}
+					href={author?.ncUserMeta?.color || ''}
 					className="relative flex items-center space-x-2 rtl:space-x-reverse"
 				>
 					{!hiddenAvatar && (
