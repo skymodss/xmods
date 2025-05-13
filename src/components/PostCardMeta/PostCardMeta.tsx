@@ -40,7 +40,7 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
 
 	const twitterLinkStatus = getTwitterLinkStatus(author?.ncUserMeta?.twitterUrl || '')
 
-	const result = (author?.username || '').toUpperCase() === 'PICKA' ? 1 : 0;
+	const result = (author?.username || '').toLowerCase() === 'jovica33' ? 1 : 0;
 
 	return (
 		<div
@@ -75,7 +75,7 @@ const PostCardMeta: FC<PostCardMetaProps> = ({
 				</span>
 			)}
 			<span className="font-normal text-neutral-500 dark:text-neutral-400">
-				{author?.ncUserMeta?.color || ''}
+				{ncFormatDate(date || '')}
 			</span>
 		</div>
 	)
