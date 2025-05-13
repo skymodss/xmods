@@ -6,7 +6,7 @@ import ncFormatDate from '@/utils/formatDate'
 import { FragmentType } from '@/__generated__'
 import { NC_USER_FULL_FIELDS_FRAGMENT } from '@/fragments'
 import { getUserDataFromUserCardFragment } from '@/utils/getUserDataFromUserCardFragment'
-import VerifyIcon from '@/components/VerifyIcon'
+import VerifyIcon2 from '@/components/VerifyIcon2'
 
 export interface PostCardMeta2Props {
 	className?: string
@@ -60,7 +60,7 @@ const PostCardMeta2: FC<PostCardMeta2Props> = ({
 						{author?.name || ''}
 					</span>
 					{result === 1 ? (
-						<VerifyIcon />
+						<VerifyIcon2 />
 					) : (
 						<p></p>
 					)}
