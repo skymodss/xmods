@@ -40,7 +40,7 @@ const VerifyIcon2: FC<VerifyIcon2Props> = ({
 				/>
 			</svg>
 			<div
-				className={`absolute bg-[rgb(255,255,255)] rounded-2xl border shadow-xl bg-card text-start text-neutral-900 transition-transform duration-200 dark:text-neutral-200 px-2 py-1 pl-[8px] pr-[8px] pt-[8px] pb-[8px] ${
+				className={`absolute bg-[rgb(255,255,255)] rounded-2xl border shadow-sm bg-card text-start text-neutral-900 transition-transform duration-200 dark:text-neutral-200 px-2 py-1 pl-[8px] pr-[8px] pt-[8px] pb-[8px] ${
 					showTooltip ? 'scale-100 opacity-100' : 'scale-75 opacity-0'
 				}`}
 				style={{
@@ -51,7 +51,7 @@ const VerifyIcon2: FC<VerifyIcon2Props> = ({
 					transition: 'transform 0.2s ease-in-out, opacity 0.2s ease-in-out',
 				}}
 			>
-				<h2 className="font-medium capitalize text-neutral-200 hover:text-white">{'Verified'}</h2>
+				<h2 className="text-sm font-semibold leading-none tracking-tight">{'Verified'}</h2>
 			</div>
 		</span>
 	);
