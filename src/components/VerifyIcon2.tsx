@@ -40,7 +40,7 @@ const VerifyIcon2: FC<VerifyIcon2Props> = ({
 				/>
 			</svg>
 			<div
-				className={`absolute transform -translate-x-1/2 bg-[rgb(255,255,255)] rounded-2xl border shadow-xl bg-card text-start text-neutral-900 transition-transform duration-200 dark:text-neutral-200 px-2 py-1 ${
+				className={`absolute -translate-x-1/2 bg-[rgb(255,255,255)] rounded-2xl border shadow-xl bg-card text-start text-neutral-900 transition-transform duration-200 dark:text-neutral-200 px-2 py-1 ${
 					showTooltip ? 'scale-100 opacity-100' : 'scale-75 opacity-0'
 				}`}
 				style={{
