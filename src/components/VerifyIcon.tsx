@@ -1,12 +1,12 @@
 import { FC, useState } from 'react';
 
-export interface VerifyIcon2Props {
+export interface VerifyIconProps {
 	className?: string;
 	iconClass?: string;
 }
 
 
-const VerifyIcon2: FC<VerifyIcon2Props> = ({
+const VerifyIcon: FC<VerifyIconProps> = ({
 	className = 'ml-1',
 	iconClass = 'w-5 h-5',
 }) => {
@@ -57,4 +57,4 @@ const VerifyIcon2: FC<VerifyIcon2Props> = ({
 	);
 };
 
-export default VerifyIcon2;
+export default VerifyIcon;
