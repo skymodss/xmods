@@ -104,7 +104,7 @@ const PostFeaturedMedia: FC<PostFeaturedMediaProps> = ({
 					href={uri || ''}
 					className={`absolute inset-0 block ${
 						!postType || postType === 'standard'
-							? 'bg-black/20 opacity-0 transition-opacity group-hover:opacity-100 transition-transform duration-500 group-hover:scale-105'
+							? 'opacity-0 transition-opacity group-hover:opacity-100 transition-transform duration-500 group-hover:scale-105'
 							: ''
 					}`}
 				/>
