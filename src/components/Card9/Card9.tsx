@@ -102,7 +102,7 @@ const Card9: FC<Card9Props> = ({
 						wrapSize="w-7 h-7"
 						iconSize="w-4 h-4"
 					/>
-					<span className="absolute inset-0 bg-black bg-opacity-10 opacity-0 transition-opacity group-hover:opacity-100"></span>
+					<span className="absolute inset-0 bg-black bg-opacity-10 opacity-0"></span>
 				</Link>
 			)}
 			<Link
