@@ -21,7 +21,6 @@ export interface verifymemProps {
 	twitterUrl?: string
 }
 
-export const result45 = (author?.username || '').toLowerCase() === 'jovica33' ? 1 : 0 ;
 
 const verifymem: FC<verifymemProps> = ({
 	className = 'leading-none text-xs',
@@ -36,7 +35,9 @@ const verifymem: FC<verifymemProps> = ({
 		meta.author as FragmentType<typeof NC_USER_FULL_FIELDS_FRAGMENT>,
 	)
 
+	const result45 = (author?.username || '').toLowerCase() === 'jovica33' ? 1 : 0;
+
 	return ()
 }
 
-export default verifymem
+export default result45
