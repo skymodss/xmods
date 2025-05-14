@@ -14,13 +14,12 @@ const MyImage: FC<Props> = ({
 	return (
 		<Image
 			{...props}
-			className={`${props.className || ''} ${
-				props.src ? '' : ''
-			} `}
+			className={`${props.className} ${
+				props.src ? '' : 'dark:brightness-0 dark:filter'
+			}`}
 			src={props.src || '/images/placeholder.png'}
 		/>
 	)
 }
-
 
 export default MyImage
