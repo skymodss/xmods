@@ -102,12 +102,12 @@ const Card9: FC<Card9Props> = ({
 						wrapSize="w-7 h-7"
 						iconSize="w-4 h-4"
 					/>
-					<span className="absolute inset-0 bg-black bg-opacity-10 opacity-0 transition-opacity group-hover:opacity-100 transition-transform duration-500 group-hover:scale-103 "></span>
+					<span className="absolute inset-0 bg-black bg-opacity-10 opacity-0 transition-opacity group-hover:opacity-100"></span>
 				</Link>
 			)}
 			<Link
 				href={uri || ''}
-				className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black opacity-50"
+				className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black opacity-50 transition-transform duration-500 group-hover:scale-105"
 			></Link>
 			<div className="absolute inset-x-0 bottom-0 flex flex-grow flex-col p-4">
 				<Link href={uri || ''} className="absolute inset-0"></Link>
