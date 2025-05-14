@@ -72,7 +72,7 @@ const PostCardMetaV2: FC<PostCardMetaV2Props> = ({
 							{author?.name || ''}
 						</span>
 						{result === 1 ? (
-							<VerifyIcon />
+							<p>Kreten</p>
 						) : (
 							<p></p>
 						)}
@@ -80,7 +80,7 @@ const PostCardMetaV2: FC<PostCardMetaV2Props> = ({
 							·
 						</span>
 						<span className="font-normal text-neutral-500 dark:text-neutral-400">
-							{author?.name || ''}
+							{ncFormatDate(date || '')}
 						</span>
 					</Link>
 				</div>
