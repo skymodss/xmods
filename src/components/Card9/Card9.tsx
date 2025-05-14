@@ -89,7 +89,7 @@ const Card9: FC<Card9Props> = ({
 					<MyImage
 						fill
 						alt={title || ''}
-						className="h-full w-full rounded-2xl object-cover transition-transform duration-500 group-hover:scale-103"
+						className="h-full w-full rounded-2xl object-cover"
 						src={featuredImage?.sourceUrl || ''}
 						sizes="(max-width: 600px) 480px, 500px"
 						style={{
@@ -102,7 +102,7 @@ const Card9: FC<Card9Props> = ({
 						wrapSize="w-7 h-7"
 						iconSize="w-4 h-4"
 					/>
-					<span className="absolute inset-0 bg-black bg-opacity-10 opacity-0 transition-opacity group-hover:opacity-100 "></span>
+					<span className="absolute inset-0 bg-black bg-opacity-10 opacity-0 transition-opacity group-hover:opacity-100 transition-transform duration-500 group-hover:scale-103 "></span>
 				</Link>
 			)}
 			<Link
