@@ -6,6 +6,7 @@ import { FragmentType } from '@/__generated__'
 import { NC_USER_FULL_FIELDS_FRAGMENT } from '@/fragments'
 import { getUserDataFromUserCardFragment } from '@/utils/getUserDataFromUserCardFragment'
 import VerifyIcon2 from '@/components/VerifyIcon2'
+import verifymem from '@/verifymem'
 
 export interface PostCardMeta2Props {
 	className?: string
@@ -34,7 +35,7 @@ const PostCardMeta2: FC<PostCardMeta2Props> = ({
 		  )
 		: undefined // Ensure `author` is safely defined
 
-	const result = (author?.username || '').toLowerCase() === 'jovica33' ? 1 : 0
+	const result = verifymem.includes((author?.username || '').toLowerCase()) ? 1 : 0 ;
 
 	if (!author?.databaseId && !date) {
 		return null
