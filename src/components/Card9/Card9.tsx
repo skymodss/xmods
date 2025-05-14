@@ -89,7 +89,7 @@ const Card9: FC<Card9Props> = ({
 					<MyImage
 						fill
 						alt={title || ''}
-						className="h-full w-full rounded-2xl object-cover transition-transform duration-500 group-hover:scale-103"
+						className="h-full w-full rounded-2xl object-cover"
 						src={featuredImage?.sourceUrl || ''}
 						sizes="(max-width: 600px) 480px, 500px"
 						style={{
@@ -107,7 +107,7 @@ const Card9: FC<Card9Props> = ({
 			)}
 			<Link
 				href={uri || ''}
-				className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black opacity-50 transition-transform duration-500 group-hover:scale-103 "
+				className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black opacity-50"
 			></Link>
 			<div className="absolute inset-x-0 bottom-0 flex flex-grow flex-col p-4">
 				<Link href={uri || ''} className="absolute inset-0"></Link>
