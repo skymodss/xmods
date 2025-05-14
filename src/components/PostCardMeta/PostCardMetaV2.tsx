@@ -80,7 +80,7 @@ const PostCardMetaV2: FC<PostCardMetaV2Props> = ({
 							·
 						</span>
 						<span className="font-normal text-neutral-500 dark:text-neutral-400">
-							{ncFormatDate(date || '')}
+							{author?.name || ''}
 						</span>
 					</Link>
 				</div>
