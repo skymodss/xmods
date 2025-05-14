@@ -73,6 +73,7 @@ const PostCardMetaV2: FC<PostCardMetaV2Props> = ({
 						{result === 1 ? (
 							<VerifyIcon />
 						) : (
+							<p></p>
 						)}
 						<span className="mx-[6px] font-medium text-neutral-500 dark:text-neutral-400">
 							·
