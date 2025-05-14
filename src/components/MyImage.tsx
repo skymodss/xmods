@@ -22,4 +22,5 @@ const MyImage: FC<Props> = ({
 	)
 }
 
+
 export default MyImage
