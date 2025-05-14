@@ -6,6 +6,7 @@ import { FragmentType } from '@/__generated__'
 import { NC_USER_FULL_FIELDS_FRAGMENT } from '@/fragments'
 import ncFormatDate from '@/utils/formatDate'
 import { getUserDataFromUserCardFragment } from '@/utils/getUserDataFromUserCardFragment'
+import verifymem from '@/verifymem'
 
 export interface PostCardMetaV2Props {
 	meta: {
@@ -34,6 +35,8 @@ const PostCardMetaV2: FC<PostCardMetaV2Props> = ({
 	const author = getUserDataFromUserCardFragment(
 		meta.author as FragmentType<typeof NC_USER_FULL_FIELDS_FRAGMENT>,
 	)
+
+	const result = verifymem.includes((author?.username || '').toLowerCase()) ? 1 : 0 ;
 
 	if (!author?.databaseId && !date) {
 		return null
@@ -67,6 +70,9 @@ const PostCardMetaV2: FC<PostCardMetaV2Props> = ({
 						<span className="block font-medium capitalize text-neutral-700 hover:text-black dark:text-neutral-300 dark:hover:text-white">
 							{author?.name || ''}
 						</span>
+						{result === 1 ? (
+							<VerifyIcon />
+						) : ()}
 						<span className="mx-[6px] font-medium text-neutral-500 dark:text-neutral-400">
 							·
 						</span>
