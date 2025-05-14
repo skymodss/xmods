@@ -10,11 +10,31 @@ import VerifyIcon from '@/components/VerifyIcon'
 
 export interface verifymemProps {
 	className?: string
+	meta: {
+		date?: string
+		author?:
+			| FragmentType<typeof NC_USER_FULL_FIELDS_FRAGMENT>
+			| NcmazFcUserFullFieldsFragment
+	}
+	hiddenAvatar?: boolean
+	avatarSize?: string
+	twitterUrl?: string
 }
 
 export const result45 = (author?.username || '').toLowerCase() === 'jovica33' ? 1 : 0 ;
 
-const verifymem: FC<verifymemProps> = ({}) => {
+const verifymem: FC<verifymemProps> = ({
+	className = 'leading-none text-xs',
+	meta,
+	hiddenAvatar = false,
+	avatarSize = 'h-7 w-7 text-sm',
+}) => {
+
+	const { date } = meta
+
+	const author = getUserDataFromUserCardFragment(
+		meta.author as FragmentType<typeof NC_USER_FULL_FIELDS_FRAGMENT>,
+	)
 
 	return ()
 }
