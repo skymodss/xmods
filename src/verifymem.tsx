@@ -37,7 +37,6 @@ const verifymem: FC<verifymemProps> = ({
 
 	const result45 = (author?.username || '').toLowerCase() === 'jovica33' ? 1 : 0;
 
-	return ()
 }
 
 export default result45
