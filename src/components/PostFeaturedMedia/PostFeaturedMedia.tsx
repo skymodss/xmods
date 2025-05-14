@@ -80,7 +80,7 @@ const PostFeaturedMedia: FC<PostFeaturedMediaProps> = ({
 		return isPostMedia() ? (
 			<span className="absolute inset-0 flex items-center justify-center">
 				<PostTypeFeaturedIcon
-					className="transform cursor-pointer transition-transform hover:scale-105"
+					className="transform cursor-pointer"
 					postType={postType}
 				/>
 			</span>
@@ -93,7 +93,7 @@ const PostFeaturedMedia: FC<PostFeaturedMediaProps> = ({
 				<MyImage
 					alt={title || 'Post Featured Image'}
 					fill
-					className="object-cover duration-300 group-hover:scale-104"
+					className="object-cover duration-300 group-hover:scale-103"
 					src={featuredImage?.sourceUrl || ''}
 					sizes="(max-width: 600px) 480px, 800px"
 				/>
