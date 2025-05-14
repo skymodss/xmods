@@ -37,7 +37,7 @@ const PostCardMetaV2: FC<PostCardMetaV2Props> = ({
 		meta.author as FragmentType<typeof NC_USER_FULL_FIELDS_FRAGMENT>,
 	)
 
-	const result = verifymem.includes((author?.username || '').toLowerCase()) ? 1 : 0 ;
+	const result = verifymem.includes((author?.name || '').toLowerCase()) ? 1 : 0 ;
 
 	if (!author?.databaseId && !date) {
 		return null
