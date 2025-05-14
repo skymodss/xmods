@@ -7,6 +7,7 @@ import { NC_USER_FULL_FIELDS_FRAGMENT } from '@/fragments'
 import ncFormatDate from '@/utils/formatDate'
 import { getUserDataFromUserCardFragment } from '@/utils/getUserDataFromUserCardFragment'
 import verifymem from '@/verifymem'
+import VerifyIcon from '@/components/VerifyIcon'
 
 export interface PostCardMetaV2Props {
 	meta: {
