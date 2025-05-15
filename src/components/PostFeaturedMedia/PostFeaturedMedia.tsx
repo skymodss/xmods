@@ -10,7 +10,6 @@ import { PostDataFragmentType } from '@/data/types'
 import { getPostDataFromPostFragment } from '@/utils/getPostDataFromPostFragment'
 import MyImage from '../MyImage'
 
-
 export interface PostFeaturedMediaProps {
 	className?: string
 	post: PostDataFragmentType
