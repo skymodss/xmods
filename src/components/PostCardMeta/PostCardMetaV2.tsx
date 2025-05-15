@@ -68,7 +68,7 @@ const PostCardMetaV2: FC<PostCardMetaV2Props> = ({
 						></Link>
 					</h2>
 
-					<Link href={author?.uri || ''} className="mt-1.5 flex">
+					<Link href={author?.uri || ''} className="mt-1 relative flex items-center">
 						<span className="block font-medium capitalize text-neutral-700 hover:text-black dark:text-neutral-300 dark:hover:text-white">
 							{author?.name || ''}
 						</span>
