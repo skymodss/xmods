@@ -11,15 +11,6 @@ import VerifyIcon from '@/components/VerifyIcon'
 import convertNumbThousand from '@/utils/convertNumbThousand'
 
 export interface PostCardMetaV2Props {
-	meta: {
-		ncPostMetaData?: NcmazFcPostMetaFullFieldsFragment | null | undefined
-		date?: string
-		author?:
-			| FragmentType<typeof NC_USER_FULL_FIELDS_FRAGMENT>
-			| NcmazFcUserFullFieldsFragment
-		title?: string
-		uri?: string
-	}
 	hiddenAvatar?: boolean
 	className?: string
 	titleClassName?: string
@@ -27,17 +18,25 @@ export interface PostCardMetaV2Props {
 }
 
 const PostCardMetaV2: FC<PostCardMetaV2Props> = ({
-	meta,
 	hiddenAvatar = false,
 	className = 'leading-none text-xs',
 	titleClassName = 'text-base',
 	avatarSize = 'h-9 w-9 text-base',
 }) => {
-	const { date, ncPostMetaData, title, uri } = meta
-
-	const author = getUserDataFromUserCardFragment(
-		meta.author as FragmentType<typeof NC_USER_FULL_FIELDS_FRAGMENT>,
-	)
+	const {
+		title,
+		link,
+		date,
+		categories,
+		excerpt,
+		author,
+		postFormats: postType,
+		featuredImage,
+		ncPostMetaData,
+		commentCount,
+		uri,
+		databaseId,
+	} = getPostDataFromPostFragment(post)
 
 	const result = verifymem.includes((author?.name || '').toLowerCase()) ? 1 : 0 ;
 
