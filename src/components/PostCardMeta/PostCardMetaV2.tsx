@@ -23,6 +23,7 @@ const PostCardMetaV2: FC<PostCardMetaV2Props> = ({
 	className = 'leading-none text-xs',
 	titleClassName = 'text-base',
 	avatarSize = 'h-9 w-9 text-base',
+	post,
 }) => {
 	const {
 		title,
