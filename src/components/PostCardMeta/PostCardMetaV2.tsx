@@ -9,6 +9,7 @@ import { getUserDataFromUserCardFragment } from '@/utils/getUserDataFromUserCard
 import verifymem from '@/verifymem'
 import VerifyIcon from '@/components/VerifyIcon'
 import convertNumbThousand from '@/utils/convertNumbThousand'
+import { getPostDataFromPostFragment } from '@/utils/getPostDataFromPostFragment'
 
 export interface PostCardMetaV2Props {
 	hiddenAvatar?: boolean
