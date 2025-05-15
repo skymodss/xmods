@@ -8,7 +8,7 @@ import ncFormatDate from '@/utils/formatDate'
 import { getUserDataFromUserCardFragment } from '@/utils/getUserDataFromUserCardFragment'
 import verifymem from '@/verifymem'
 import VerifyIcon from '@/components/VerifyIcon'
-
+import convertNumbThousand from '@/utils/convertNumbThousand'
 
 export interface PostCardMetaV2Props {
 	meta: {
@@ -83,6 +83,12 @@ const PostCardMetaV2: FC<PostCardMetaV2Props> = ({
 						</span>
 						<span className="font-normal text-neutral-500 dark:text-neutral-400">
 							{ncFormatDate(date || ' ')}
+						</span>
+						<span className="mx-[6px] font-medium text-neutral-500 dark:text-neutral-400">
+							·
+						</span>
+						<span className="font-normal text-neutral-500 dark:text-neutral-400">
+							{convertNumbThousand(ncPostMetaData?.viewsCount || 1)}
 						</span>
 					</Link>
 				</div>
