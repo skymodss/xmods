@@ -72,7 +72,7 @@ const PostCardMetaV2: FC<PostCardMetaV2Props> = ({
 							{author?.name || ''}
 						</span>
 						{result === 1 ? (
-							<p>Kreten</p>
+							<VerifyIcon/>
 						) : (
 							<p></p>
 						)}
