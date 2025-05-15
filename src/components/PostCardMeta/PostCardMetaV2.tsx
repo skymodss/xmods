@@ -9,6 +9,7 @@ import { getUserDataFromUserCardFragment } from '@/utils/getUserDataFromUserCard
 import verifymem from '@/verifymem'
 import VerifyIcon from '@/components/VerifyIcon'
 
+
 export interface PostCardMetaV2Props {
 	meta: {
 		date?: string
