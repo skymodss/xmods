@@ -70,12 +70,12 @@ const PostCardMetaV2: FC<PostCardMetaV2Props> = ({
 					<Link href={author?.uri || ''} className="mt-1.5 flex">
 						<span className="block font-medium capitalize text-neutral-700 hover:text-black dark:text-neutral-300 dark:hover:text-white">
 							{author?.name || ''}
+							{result === 1 ? (
+								<VerifyIcon/>
+							) : (
+								<p></p>
+							)}
 						</span>
-						{result === 1 ? (
-							<VerifyIcon/>
-						) : (
-							<p></p>
-						)}
 						<span className="mx-[6px] font-medium text-neutral-500 dark:text-neutral-400">
 							·
 						</span>
