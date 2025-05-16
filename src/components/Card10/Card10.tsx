@@ -9,6 +9,7 @@ import Link from 'next/link'
 import { CommonPostCardProps } from '../Card2/Card2'
 import { getPostDataFromPostFragment } from '@/utils/getPostDataFromPostFragment'
 import convertNumbThousand from '@/utils/convertNumbThousand'
+import Badge from '@/components/Badge/Badge'
 
 export interface Card10Props extends CommonPostCardProps {}
 
@@ -54,6 +55,11 @@ const Card10: FC<Card10Props> = ({ className = 'h-full', post }) => {
 					postDatabseId={databaseId}
 					readingTime={ncPostMetaData?.viewsCount || 1}
 				/>
+				<div className={`flex flex-wrap gap-1.5`}>
+					<Badge
+						name={ncPostMetaData?.viewsCount || 1}
+					/>
+				</div>
 				<span className="font-normal text-neutral-500 dark:text-neutral-400">
 					{ncPostMetaData?.viewsCount || 1}
 				</span>
