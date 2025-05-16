@@ -68,7 +68,7 @@ const Card10: FC<Card10Props> = ({ className = 'h-full', post }) => {
 				</span>
 			</div>
 			<div className="mt-4 space-y-2.5 rtl:space-x-reverse">
-				<PostCardMetaV2 meta={{ author, date, title, uri }} />
+				<PostCardMetaV2 meta={{ author, date, title, uri, viewCount }} />
 			</div>
 		</div>
 	)
