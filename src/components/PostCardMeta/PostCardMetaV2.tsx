@@ -33,7 +33,7 @@ const PostCardMetaV2: FC<PostCardMetaV2Props> = ({
 	titleClassName = 'text-base',
 	avatarSize = 'h-9 w-9 text-base',
 }) => {
-	const { date, title, uri, viewCount3 = 0, } = meta
+	const { date, title, uri, viewCount3, } = meta
 
 	const author = getUserDataFromUserCardFragment(
 		meta.author as FragmentType<typeof NC_USER_FULL_FIELDS_FRAGMENT>,
