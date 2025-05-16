@@ -54,11 +54,9 @@ const Card10: FC<Card10Props> = ({ className = 'h-full', post }) => {
 				<PostCardSaveAction
 					hidenReadingTime
 					postDatabseId={databaseId}
-					readingTime={ncPostMetaData?.readingTime || 1}
+					readingTime={ncPostMetaData?.viewsCount || 1)}
 				/>
 			</div>
-			<h2 className="flex-shrink-0 text-start text-neutral-900 transition-colors duration-75 dark:text-neutral-200">{convertNumbThousand(ncPostMetaData?.viewsCount || 1)}</h2>
-
 			<div className="mt-4 space-y-2.5 rtl:space-x-reverse">
 				<PostCardMetaV2 meta={{ author, date, title, uri, pregledi }}  />
 			</div>
