@@ -14,6 +14,7 @@ import { FragmentTypePostFullFields } from '@/container/type';
 
 export interface Card10Props {
 	post: FragmentTypePostFullFields;
+	className?: string
 }
 
 const Card10: FC<Card10Props> = ({ className = 'h-full', post }) => {
