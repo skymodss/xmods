@@ -12,10 +12,7 @@ import convertNumbThousand from '@/utils/convertNumbThousand'
 import Badge from '@/components/Badge/Badge'
 import { FragmentTypePostFullFields } from '@/container/type';
 
-export interface Card10Props {
-	post: FragmentTypePostFullFields;
-	className?: string
-}
+export interface Card10Props extends CommonPostCardProps {}
 
 const Card10: FC<Card10Props> = ({ className = 'h-full', post }) => {
 	const {
@@ -31,9 +28,11 @@ const Card10: FC<Card10Props> = ({ className = 'h-full', post }) => {
 		commentCount,
 		uri,
 		databaseId,
-	} = getPostDataFromPostFragment(post || {})
+	} = getPostDataFromPostFragment(post)
 
 	const [isHover, setIsHover] = useState(false)
+
+	const viewCount = {ncPostMetaData?.viewsCount || 0}
 
 	return (
 		<div
@@ -44,6 +43,7 @@ const Card10: FC<Card10Props> = ({ className = 'h-full', post }) => {
 			<Link href={uri || ''} className="absolute inset-0" />
 			<div className="group aspect-h-7 aspect-w-9 relative z-0 block w-full flex-shrink-0 overflow-hidden rounded-3xl sm:aspect-h-9">
 				<div>
+					<PostFeaturedMedia post={post} isHover={isHover} />
 				</div>
 
 				<Link
@@ -56,7 +56,7 @@ const Card10: FC<Card10Props> = ({ className = 'h-full', post }) => {
 				<PostCardSaveAction
 					hidenReadingTime
 					postDatabseId={databaseId}
-					readingTime={ncPostMetaData?.viewsCount || 1}
+					readingTime={viewCount}
 				/>
 				<div className={`flex flex-wrap gap-1.5`}>
 					<Badge
