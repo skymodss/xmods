@@ -50,7 +50,6 @@ const Card10: FC<Card10Props> = ({ className = 'h-full', post }) => {
 			<div className="absolute inset-x-3 top-3 z-10 flex items-start justify-between space-x-4 rtl:space-x-reverse">
 				<CategoryBadgeList categories={categories?.nodes || []} />
 				<PostCardSaveAction
-					hidenReadingTime
 					postDatabseId={databaseId}
 					readingTime={ncPostMetaData?.viewsCount || 1}
 				/>
