@@ -25,11 +25,11 @@ const Card10: FC<Card10Props> = ({ className = 'h-full', post }) => {
 		commentCount,
 		uri,
 		databaseId,
-	} = getPostDataFromPostFragment(post)
+	} = getPostDataFromPostFragment(post || {})
 
 	const [isHover, setIsHover] = useState(false)
 
-	const pregledi = ncPostMetaData?.viewsCount || 0
+	const pregledi = ncPostMetaData?.viewsCount || 1
 
 	return (
 		<div
