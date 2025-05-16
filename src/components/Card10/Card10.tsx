@@ -56,7 +56,7 @@ const Card10: FC<Card10Props> = ({ className = 'h-full', post }) => {
 				<PostCardSaveAction
 					hidenReadingTime
 					postDatabseId={databaseId}
-					readingTime={viewCount}
+					readingTime={viewCount3}
 				/>
 				<div className={`flex flex-wrap gap-1.5`}>
 					<Badge
