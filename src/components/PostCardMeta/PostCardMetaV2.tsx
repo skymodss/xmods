@@ -12,7 +12,6 @@ import convertNumbThousand from '@/utils/convertNumbThousand'
 
 export interface PostCardMetaV2Props {
 	meta: {
-		pregledi?: number | null
 		date?: string
 		author?:
 			| FragmentType<typeof NC_USER_FULL_FIELDS_FRAGMENT>
@@ -33,7 +32,7 @@ const PostCardMetaV2: FC<PostCardMetaV2Props> = ({
 	titleClassName = 'text-base',
 	avatarSize = 'h-9 w-9 text-base',
 }) => {
-	const { date, pregledi, title, uri } = meta
+	const { date, title, uri } = meta
 
 	const author = getUserDataFromUserCardFragment(
 		meta.author as FragmentType<typeof NC_USER_FULL_FIELDS_FRAGMENT>,
@@ -86,9 +85,6 @@ const PostCardMetaV2: FC<PostCardMetaV2Props> = ({
 						</span>
 						<span className="mx-[6px] font-medium text-neutral-500 dark:text-neutral-400">
 							·
-						</span>
-						<span className="font-normal text-neutral-500 dark:text-neutral-400">
-							{(pregledi || 1)}
 						</span>
 					</Link>
 				</div>
