@@ -12,6 +12,7 @@ import convertNumbThousand from '@/utils/convertNumbThousand'
 import Badge from '@/components/Badge/Badge'
 import { FragmentTypePostFullFields } from '@/container/type';
 
+
 export interface Card10Props extends CommonPostCardProps {}
 
 const Card10: FC<Card10Props> = ({ className = 'h-full', post }) => {
