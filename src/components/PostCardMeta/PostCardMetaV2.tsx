@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import Avatar from '@/components/Avatar/Avatar'
 import Link from 'next/link'
-import { NcmazFcUserFullFieldsFragment, NcmazFcPostMetaFullFieldsFragment } from '@/__generated__/graphql'
+import { NcmazFcUserFullFieldsFragment, NcmazFcPostMetaFullFieldsFragment, NcPostMetaData } from '@/__generated__/graphql'
 import { FragmentType } from '@/__generated__'
 import { NC_USER_FULL_FIELDS_FRAGMENT } from '@/fragments'
 import ncFormatDate from '@/utils/formatDate'
@@ -12,7 +12,7 @@ import convertNumbThousand from '@/utils/convertNumbThousand'
 
 export interface PostCardMetaV2Props {
 	meta: {
-		ncPostMetaData?: ncPostMetaData
+		ncPostMetaData?: NcPostMetaData
 		date?: string
 		author?:
 			| FragmentType<typeof NC_USER_FULL_FIELDS_FRAGMENT>
