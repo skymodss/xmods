@@ -55,6 +55,7 @@ const Card10: FC<Card10Props> = ({ className = 'h-full', post }) => {
 					postDatabseId={databaseId}
 					readingTime={ncPostMetaData?.readingTime || 1}
 				/>
+				<h2 className="flex-shrink-0 text-start text-neutral-900 transition-colors duration-75 dark:text-neutral-200">{convertNumbThousand(ncPostMetaData?.viewsCount || 1)}</h2>
 			</div>
 
 			<div className="mt-4 space-y-2.5 rtl:space-x-reverse">
