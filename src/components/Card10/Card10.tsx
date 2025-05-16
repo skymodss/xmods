@@ -54,10 +54,10 @@ const Card10: FC<Card10Props> = ({ className = 'h-full', post }) => {
 					postDatabseId={databaseId}
 					readingTime={ncPostMetaData?.viewsCount || 1}
 				/>
+				<span className="font-normal text-neutral-500 dark:text-neutral-400">
+					{ncPostMetaData?.viewsCount || 1}
+				</span>
 			</div>
-			<span className="font-normal text-neutral-500 dark:text-neutral-400">
-				{ncPostMetaData?.viewsCount || 1}
-			</span>
 			<div className="mt-4 space-y-2.5 rtl:space-x-reverse">
 				<PostCardMetaV2 meta={{ author, date, title, uri }} />
 			</div>
