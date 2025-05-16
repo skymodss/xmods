@@ -114,6 +114,7 @@ export function getPostDataFromPostFragment(
 		postFormatsArr,
 		featuredImage,
 		ncPostMetaData,
+		viewsCount33: query.ncPostMetaData?.viewsCount || 0,
 		ncmazGalleryImgs,
 		categories: {
 			nodes: query.categories?.nodes?.map((term) =>
