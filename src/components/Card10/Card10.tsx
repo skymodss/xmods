@@ -8,6 +8,7 @@ import PostCardMetaV2 from '@/components/PostCardMeta/PostCardMetaV2'
 import Link from 'next/link'
 import { CommonPostCardProps } from '../Card2/Card2'
 import { getPostDataFromPostFragment } from '@/utils/getPostDataFromPostFragment'
+import convertNumbThousand from '@/utils/convertNumbThousand'
 
 export interface Card10Props extends CommonPostCardProps {}
 
