@@ -12,7 +12,7 @@ import convertNumbThousand from '@/utils/convertNumbThousand'
 
 export interface PostCardMetaV2Props {
 	meta: {
-		pregledi?: number
+		pregledi?: number | null
 		date?: string
 		author?:
 			| FragmentType<typeof NC_USER_FULL_FIELDS_FRAGMENT>
