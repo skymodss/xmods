@@ -32,7 +32,7 @@ const Card10: FC<Card10Props> = ({ className = 'h-full', post }) => {
 
 	const [isHover, setIsHover] = useState(false)
 
-	const viewCount = ncPostMetaData?.viewsCount || 0
+	const viewCount3 = ncPostMetaData?.viewsCount || 0
 
 	return (
 		<div
@@ -68,7 +68,7 @@ const Card10: FC<Card10Props> = ({ className = 'h-full', post }) => {
 				</span>
 			</div>
 			<div className="mt-4 space-y-2.5 rtl:space-x-reverse">
-				<PostCardMetaV2 meta={{ author, date, title, uri, viewCount }} />
+				<PostCardMetaV2 meta={{ author, date, title, uri, viewCount3 }} />
 			</div>
 		</div>
 	)
