@@ -12,7 +12,7 @@ import convertNumbThousand from '@/utils/convertNumbThousand'
 
 export interface PostCardMetaV2Props {
 	meta: {
-		ncPostMetaData?: object | null
+		ncPostMetaData?: NcmazFcPostMetaFullFieldsFragment | null | undefined
 		date?: string
 		author?:
 			| FragmentType<typeof NC_USER_FULL_FIELDS_FRAGMENT>
