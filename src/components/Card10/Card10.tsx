@@ -60,7 +60,7 @@ const Card10: FC<Card10Props> = ({ className = 'h-full', post }) => {
 				/>
 				<div className={`flex flex-wrap gap-1.5`}>
 					<Badge
-                        			name={post.ncPostMetaData?.viewsCount || 0}
+                        			name={ncPostMetaData?.viewsCount || 0}
                         			color="slate"
                         			roundedClassName="rounded-md"
                       			/>
