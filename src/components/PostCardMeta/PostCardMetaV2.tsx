@@ -88,7 +88,7 @@ const PostCardMetaV2: FC<PostCardMetaV2Props> = ({
 							·
 						</span>
 						<span className="font-normal text-neutral-500 dark:text-neutral-400">
-							{convertNumbThousand(pregledi || 1)}
+							{(pregledi || 1)}
 						</span>
 					</Link>
 				</div>
