@@ -10,6 +10,7 @@ import verifymem from '@/verifymem'
 import VerifyIcon from '@/components/VerifyIcon'
 import convertNumbThousand from '@/utils/convertNumbThousand'
 
+
 export interface PostCardMetaV2Props {
 	meta: {
 		viewCount3?: number
