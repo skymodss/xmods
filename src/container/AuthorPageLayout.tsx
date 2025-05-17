@@ -12,7 +12,7 @@ import { GlobeAltIcon } from '@heroicons/react/24/outline'
 import { useRouter } from 'next/router'
 import React, { FC } from 'react'
 import verifymem from '@/verifymem'
-import VerifyIcon from '@/components/VerifyIcon'
+import VerifyIcon2 from '@/components/VerifyIcon2'
 
 interface Props {
 	className?: string
@@ -264,13 +264,13 @@ const AuthorLayout: FC<Props> = ({ className = '', children, user }) => {
 							sizes="150px"
 						/>
 						{/*  */}
-						<div className="flex-grow lg:pt-[50px]">
+						<div className="flex-grow md:pt-[20px] lg:pt-[50px]">
 							<div className="max-w-screen-sm space-y-3.5">
 								<h1 className="inline-flex items-center text-xl font-semibold sm:text-2xl md:text-3xl lg:text-4xl">
 									<span>{name}</span>
 								</h1>
 								{result === 1 ? (
-									<VerifyIcon/>
+									<VerifyIcon2/>
 								) : (
 									<p></p>
 								)}
