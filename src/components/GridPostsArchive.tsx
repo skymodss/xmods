@@ -7,6 +7,7 @@ import ButtonPrimary from './Button/ButtonPrimary'
 import getTrans from '@/utils/getTrans'
 import { ArrowLeftIcon, ArrowRightIcon } from '@heroicons/react/24/outline'
 import Button from './Button/Button'
+import Card10V2 from './Card10/Card10V2'
 
 const T = getTrans()
 
@@ -43,7 +44,7 @@ const GridPostsArchive: FC<Props> = ({
 					{!currentPosts?.length && loading
 						? [1, 1, 1, 1, 1, 1, 1, 1].map((_, i) => <Card11Skeleton key={i} />)
 						: (currentPosts || []).map((post) => (
-								<Card11 key={post.databaseId} post={post} />
+								<Card10V2 key={post.databaseId} post={post} />
 							))}
 				</div>
 			)}
