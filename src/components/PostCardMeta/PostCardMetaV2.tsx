@@ -41,6 +41,8 @@ const PostCardMetaV2: FC<PostCardMetaV2Props> = ({
 
 	const result = verifymem.includes((author?.name || '').toLowerCase()) ? 1 : 0 ;
 
+	const pregledi = convertNumbThousand(viewCount3)
+
 	if (!author?.databaseId && !date) {
 		return null
 	}
@@ -88,7 +90,7 @@ const PostCardMetaV2: FC<PostCardMetaV2Props> = ({
 							·
 						</span>
 						<span className="font-normal text-neutral-500 dark:text-neutral-400">
-							{viewCount3}
+							{pregledi} views
 						</span>
 					</Link>
 				</div>
