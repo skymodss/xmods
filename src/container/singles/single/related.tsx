@@ -21,11 +21,6 @@ export const GET_RELATED_POSTS = gql`
         uri
         date
         excerpt
-        categories {
-		nodes {
-			...NcmazFcCategoryCardFieldsNotImage
-		}
-	}
         featuredImage {
           node {
             sourceUrl
