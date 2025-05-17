@@ -2,7 +2,6 @@ import { FC } from 'react'
 import Skeleton from '../Skeleton/Skeleton'
 import PostCardLikeCommentSaveSkeleton from '../Skeleton/PostCardLikeCommentSaveSkeleton'
 
-
 export interface Card11SkeletonProps {
 	className?: string
 	ratio?: string
