@@ -39,14 +39,14 @@ const VerifyIcon2: FC<VerifyIcon2Props> = ({
 				/>
 			</svg>
 			<div
-				className={`absolute -top-9 left-1/2 transform -translate-x-1/2 bg-[rgb(255,255,255)] rounded-xl border shadow-sm bg-card text-start text-neutral-900 transition-transform duration-200 dark:text-neutral-200 px-2 py-1 pl-[9px] pr-[9px] pt-[9px] pb-[9px] ${
+				className={`absolute -top-9 left-1/2 transform -translate-x-1/2 bg-[rgb(255,255,255)] rounded-xl border shadow-sm bg-card text-start text-neutral-900 transition-transform duration-200 dark:text-neutral-200 px-2 py-1 pl-[7px] pr-[7px] pt-[7px] pb-[7px] ${
 					showTooltip ? 'scale-100 opacity-100' : 'scale-75 opacity-0'
 				}`}
 				style={{
 					transition: 'transform 0.15s ease-in-out, opacity 0.15s ease-in-out',
 				}}
 			>
-				'Verified'
+				<h2 className="text-sm font-medium leading-none tracking-tight">{'Verified'}</h2>
 			</div>
 		</span>
 	);
