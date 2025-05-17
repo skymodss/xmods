@@ -20,6 +20,7 @@ export const GET_RELATED_POSTS = gql`
         uri
         date
         excerpt
+        categories
         featuredImage {
           node {
             sourceUrl
