@@ -11,6 +11,8 @@ import { getImageDataFromImageFragment } from '@/utils/getImageDataFromImageFrag
 import { GlobeAltIcon } from '@heroicons/react/24/outline'
 import { useRouter } from 'next/router'
 import React, { FC } from 'react'
+import verifymem from '@/verifymem'
+import VerifyIcon from '@/components/VerifyIcon'
 
 interface Props {
 	className?: string
@@ -25,6 +27,7 @@ const AuthorLayout: FC<Props> = ({ className = '', children, user }) => {
 	)
 	const router = useRouter()
 	const authorSlug = router.query.slug as string
+	const result = verifymem.includes((author?.name || '').toLowerCase()) ? 1 : 0 ;
 
 	let userSocials: TSocialsItem[] = [
 		{
@@ -249,7 +252,7 @@ const AuthorLayout: FC<Props> = ({ className = '', children, user }) => {
 					</div>
 				</div>
 				<div className="container -mt-10 lg:-mt-16">
-					<div className="relative flex flex-col gap-2 rounded-3xl p-5 sm:gap-5 md:flex-row md:gap-8 md:rounded-[40px] lg:gap-2 lg:p-8 xl:gap-2">
+					<div className="relative flex flex-col gap-2 rounded-3xl p-5 sm:gap-5 md:flex-row md:gap-8 md:rounded-[40px] lg:gap-3 lg:p-8 xl:gap-3">
 						<Avatar
 							userName={name || 't'}
 							imgUrl={
@@ -266,6 +269,11 @@ const AuthorLayout: FC<Props> = ({ className = '', children, user }) => {
 								<h1 className="inline-flex items-center text-xl font-semibold sm:text-2xl md:text-3xl lg:text-4xl">
 									<span>{name}</span>
 								</h1>
+								{result === 1 ? (
+									<VerifyIcon/>
+								) : (
+									<p></p>
+								)}
 								<span
 									className="author_description block text-sm text-neutral-500 dark:text-neutral-400"
 									dangerouslySetInnerHTML={{ __html: description || '' }}
@@ -285,18 +293,17 @@ const AuthorLayout: FC<Props> = ({ className = '', children, user }) => {
 								)}
 								<SocialsList socials={userSocials} />
 							</div>
+							{/*  */}
+							<div className="absolute end-5 start-auto top-5 flex justify-end gap-2">
+								<SocialsShareDropdown sizeClass="w-10 h-10" />
+								<AccountActionDropdown
+									authorSlug={authorSlug}
+									containerClassName="h-10 w-10 bg-neutral-100 hover:bg-neutral-200 dark:bg-neutral-800 dark:hover:bg-neutral-700"
+									userDatabaseId={databaseId}
+								/>
+							</div>
 						</div>
 
-						{/*  */}
-						<div className="absolute end-5 start-auto top-5 flex justify-end gap-2">
-							<SocialsShareDropdown sizeClass="w-10 h-10" />
-
-							<AccountActionDropdown
-								authorSlug={authorSlug}
-								containerClassName="h-10 w-10 bg-neutral-100 hover:bg-neutral-200 dark:bg-neutral-800 dark:hover:bg-neutral-700"
-								userDatabaseId={databaseId}
-							/>
-						</div>
 					</div>
 				</div>
 			</div>
