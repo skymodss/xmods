@@ -64,6 +64,7 @@ const Card9: FC<Card9Props> = ({
 			className={`nc-Card9 group relative z-0 flex flex-col overflow-hidden rounded-2xl ${hoverClass} ${className}`}
 		>
 			<div className="absolute inset-x-0 top-0 z-[-1] flex items-center justify-between p-3 opacity-0 transition-all duration-300 group-hover:z-10 group-hover:opacity-100">
+				<CategoryBadgeList categories={categories?.nodes || []} />
 				<PostCardSaveAction
 					readingTime={ncPostMetaData?.readingTime || 1}
 					postDatabseId={databaseId || 0}
