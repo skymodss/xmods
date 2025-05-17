@@ -8,7 +8,7 @@ export interface VerifyIconProps {
 
 const VerifyIcon: FC<VerifyIconProps> = ({
 	className = 'ml-1',
-	iconClass = 'w-5 h-5',
+	iconClass = 'w-4 h-4',
 }) => {
 	const [showTooltip, setShowTooltip] = useState(false);
 
