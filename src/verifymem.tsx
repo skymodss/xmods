@@ -1,3 +1,3 @@
-const verifymem = ['jovica33', 'bucka', 'username2', 'username3'];
+const verifymem = ['jovica33', 'bucka', 'Sky Mods', 'username3'];
 
 export default verifymem;
