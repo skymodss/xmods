@@ -28,6 +28,8 @@ const Card10V2: FC<Card10V2Props> = ({ className = 'h-full', post }) => {
 
 	const [isHover, setIsHover] = useState(false)
 
+	const viewCount3 = ncPostMetaData?.viewsCount || 1
+
 	return (
 		<div
 			className={`nc-Card10V2 relative flex flex-col ${className}`}
@@ -54,7 +56,7 @@ const Card10V2: FC<Card10V2Props> = ({ className = 'h-full', post }) => {
 			</div>
 
 			<div className="mt-4 space-y-2.5 px-2 sm:px-4">
-				<PostCardMetaV2 meta={{ author, date, title, uri }} />
+				<PostCardMetaV2 meta={{ author, date, title, uri, viewCount3 }} />
 			</div>
 		</div>
 	)
