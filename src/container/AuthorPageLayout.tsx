@@ -27,7 +27,7 @@ const AuthorLayout: FC<Props> = ({ className = '', children, user }) => {
 	)
 	const router = useRouter()
 	const authorSlug = router.query.slug as string
-	const result = verifymem.includes((author?.name || '').toLowerCase()) ? 1 : 0 ;
+	const result = verifymem.includes((user?.name || '').toLowerCase()) ? 1 : 0 ;
 
 	let userSocials: TSocialsItem[] = [
 		{
@@ -247,7 +247,7 @@ const AuthorLayout: FC<Props> = ({ className = '', children, user }) => {
 								priority
 							/>
 						) : (
-							<div className="absolute inset-0 bg-neutral-200/70 dark:bg-black/40" />
+							<div className="absolute inset-0 bg-neutral-200/70 dark:bg-black/40 rounded-3xl" />
 						)}
 					</div>
 				</div>
