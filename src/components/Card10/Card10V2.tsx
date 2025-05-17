@@ -29,7 +29,7 @@ const Card10V2: FC<Card10V2Props> = ({ className = 'h-full', post }) => {
 
 	const [isHover, setIsHover] = useState(false)
 
-	const viewCount3 = convertNumbThousand(ncPostMetaData?.viewsCount || 1)
+	const viewCount3 = ncPostMetaData?.viewsCount || 1
 
 	return (
 		<div
