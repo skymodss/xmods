@@ -225,7 +225,7 @@ const AuthorLayout: FC<Props> = ({ className = '', children, user }) => {
 			{/* HEADER */}
 			<div className="w-full">
 				
-				<div className="container mt[30px]">
+				<div className="container pt-[30px]">
 					<div className="relative h-40 w-full md:h-60 2xl:h-72">
 						{ncUserMeta?.backgroundImage?.node ? (
 							<NcImage
@@ -249,7 +249,7 @@ const AuthorLayout: FC<Props> = ({ className = '', children, user }) => {
 					</div>
 				</div>
 				<div className="container -mt-10 lg:-mt-16">
-					<div className="relative flex flex-col gap-2 rounded-3xl p-5 sm:gap-5 md:flex-row md:gap-8 md:rounded-[40px] lg:gap-10 lg:p-8 xl:gap-12">
+					<div className="relative flex flex-col gap-2 rounded-3xl p-5 sm:gap-5 md:flex-row md:gap-8 md:rounded-[40px] lg:gap-0 lg:p-8 xl:gap-0">
 						<Avatar
 							userName={name || 't'}
 							imgUrl={
@@ -261,7 +261,7 @@ const AuthorLayout: FC<Props> = ({ className = '', children, user }) => {
 							sizes="150px"
 						/>
 						{/*  */}
-						<div className="flex-grow">
+						<div className="flex-grow lg:pt-[50px]">
 							<div className="max-w-screen-sm space-y-3.5">
 								<h1 className="inline-flex items-center text-xl font-semibold sm:text-2xl md:text-3xl lg:text-4xl">
 									<span>{name}</span>
