@@ -40,7 +40,7 @@ const GridPostsArchive: FC<Props> = ({
 			{!currentPosts?.length && !loading ? (
 				<Empty />
 			) : (
-				<div className="mt-8 grid gap-6 sm:grid-cols-2 md:gap-x-7 md:gap-y-8 lg:mt-12 lg:grid-cols-3 xl:grid-cols-4">
+				<div className="mt-8 grid gap-6 sm:grid-cols-2 md:gap-x-7 md:gap-y-8 lg:mt-12 lg:grid-cols-3 xl:grid-cols-3">
 					{!currentPosts?.length && loading
 						? [1, 1, 1, 1, 1, 1, 1, 1].map((_, i) => <Card11Skeleton key={i} />)
 						: (currentPosts || []).map((post) => (
