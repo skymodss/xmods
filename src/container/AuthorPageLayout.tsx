@@ -225,7 +225,7 @@ const AuthorLayout: FC<Props> = ({ className = '', children, user }) => {
 			{/* HEADER */}
 			<div className="w-full">
 				
-				<div className="container -mt[30px] lg:-mt[30px]">
+				<div className="container mt[30px]">
 					<div className="relative h-40 w-full md:h-60 2xl:h-72">
 						{ncUserMeta?.backgroundImage?.node ? (
 							<NcImage
@@ -239,7 +239,7 @@ const AuthorLayout: FC<Props> = ({ className = '', children, user }) => {
 									getImageDataFromImageFragment(ncUserMeta?.backgroundImage?.node)
 										.sourceUrl
 								}
-								className="h-full w-full object-cover"
+								className="h-full w-full object-cover rounded-3xl"
 								fill
 								priority
 							/>
