@@ -27,7 +27,7 @@ const AuthorLayout: FC<Props> = ({ className = '', children, user }) => {
 	)
 	const router = useRouter()
 	const authorSlug = router.query.slug as string
-	const result = verifymem.includes((user?.name || '').toLowerCase()) ? 1 : 0 ;
+	const result = verifymem.includes((name || '').toLowerCase()) ? 1 : 0 ;
 
 	let userSocials: TSocialsItem[] = [
 		{
