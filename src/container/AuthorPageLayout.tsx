@@ -249,7 +249,7 @@ const AuthorLayout: FC<Props> = ({ className = '', children, user }) => {
 					</div>
 				</div>
 				<div className="container -mt-10 lg:-mt-16">
-					<div className="relative flex flex-col gap-2 rounded-3xl bg-white p-5 shadow-xl sm:gap-5 md:flex-row md:gap-8 md:rounded-[40px] lg:gap-10 lg:p-8 xl:gap-12 dark:border dark:border-neutral-700 dark:bg-neutral-900">
+					<div className="relative flex flex-col gap-2 rounded-3xl p-5 sm:gap-5 md:flex-row md:gap-8 md:rounded-[40px] lg:gap-10 lg:p-8 xl:gap-12">
 						<Avatar
 							userName={name || 't'}
 							imgUrl={
@@ -260,44 +260,6 @@ const AuthorLayout: FC<Props> = ({ className = '', children, user }) => {
 							priority
 							sizes="150px"
 						/>
-
-						{/*  */}
-						<div className="flex-grow">
-							<div className="max-w-screen-sm space-y-3.5">
-								<h1 className="inline-flex items-center text-xl font-semibold sm:text-2xl md:text-3xl lg:text-4xl">
-									<span>{name}</span>
-								</h1>
-								<span
-									className="author_description block text-sm text-neutral-500 dark:text-neutral-400"
-									dangerouslySetInnerHTML={{ __html: description || '' }}
-								></span>
-								{!!ncUserMeta?.websiteUrl && (
-									<a
-										href={ncUserMeta?.websiteUrl}
-										target="_blank"
-										rel="noopener noreferrer"
-										className="flex cursor-pointer items-center space-x-2.5 truncate text-xs font-medium text-neutral-500 rtl:space-x-reverse dark:text-neutral-400"
-									>
-										<GlobeAltIcon className="h-4 w-4 flex-shrink-0" />
-										<span className="truncate text-neutral-700 dark:text-neutral-300">
-											{ncUserMeta?.websiteUrl}
-										</span>
-									</a>
-								)}
-								<SocialsList socials={userSocials} />
-							</div>
-						</div>
-
-						{/*  */}
-						<div className="absolute end-5 start-auto top-5 flex justify-end gap-2">
-							<SocialsShareDropdown sizeClass="w-10 h-10" />
-
-							<AccountActionDropdown
-								authorSlug={authorSlug}
-								containerClassName="h-10 w-10 bg-neutral-100 hover:bg-neutral-200 dark:bg-neutral-800 dark:hover:bg-neutral-700"
-								userDatabaseId={databaseId}
-							/>
-						</div>
 					</div>
 				</div>
 			</div>
