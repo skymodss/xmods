@@ -249,7 +249,7 @@ const AuthorLayout: FC<Props> = ({ className = '', children, user }) => {
 					</div>
 				</div>
 				<div className="container -mt-10 lg:-mt-16">
-					<div className="relative flex flex-col gap-2 rounded-3xl p-5 sm:gap-5 md:flex-row md:gap-8 md:rounded-[40px] lg:gap-0 lg:p-8 xl:gap-0">
+					<div className="relative flex flex-col gap-2 rounded-3xl p-5 sm:gap-5 md:flex-row md:gap-8 md:rounded-[40px] lg:gap-2 lg:p-8 xl:gap-2">
 						<Avatar
 							userName={name || 't'}
 							imgUrl={
