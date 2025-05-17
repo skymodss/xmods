@@ -5,7 +5,6 @@ export interface VerifyIcon2Props {
 	iconClass?: string;
 }
 
-
 const VerifyIcon2: FC<VerifyIcon2Props> = ({
 	className = 'ml-1',
 	iconClass = 'w-5 h-5',
