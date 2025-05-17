@@ -28,7 +28,7 @@ const Card11Skeleton: FC<Card11SkeletonProps> = ({
 				</div>
 			</div>
 
-			<div className="flex flex-col space-y-3 p-3">
+			<div className="flex flex-col space-y-3 p-4">
 				<Skeleton width="60%" />
 				<h3 className="nc-card-title block text-base font-semibold text-neutral-900 dark:text-neutral-100">
 					<Skeleton />
