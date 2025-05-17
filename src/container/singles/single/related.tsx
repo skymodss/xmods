@@ -11,7 +11,6 @@ import { gql, useQuery } from '@apollo/client';
 import { TPostCard } from '@/components/Card2/Card2';
 import SingleRelatedPosts from '@/container/singles/SingleRelatedPosts';
 
-
 export const GET_RELATED_POSTS = gql`
   query GetRelatedPosts4($databaseId: Int!) {
     posts(where: { isRelatedOfPostId: $databaseId } ) {
