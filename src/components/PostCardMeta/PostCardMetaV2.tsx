@@ -84,13 +84,13 @@ const PostCardMetaV2: FC<PostCardMetaV2Props> = ({
 							·
 						</span>
 						<span className="font-normal text-neutral-500 dark:text-neutral-400">
-							{ncFormatDate(date || ' ')}
+							{pregledi} views
 						</span>
 						<span className="mx-[6px] font-medium text-neutral-500 dark:text-neutral-400">
 							·
 						</span>
 						<span className="font-normal text-neutral-500 dark:text-neutral-400">
-							{pregledi} views
+							{ncFormatDate(date || ' ')}
 						</span>
 					</Link>
 				</div>
