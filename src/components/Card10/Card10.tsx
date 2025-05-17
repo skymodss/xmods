@@ -8,9 +8,6 @@ import PostCardMetaV2 from '@/components/PostCardMeta/PostCardMetaV2'
 import Link from 'next/link'
 import { CommonPostCardProps } from '../Card2/Card2'
 import { getPostDataFromPostFragment } from '@/utils/getPostDataFromPostFragment'
-import convertNumbThousand from '@/utils/convertNumbThousand'
-import Badge from '@/components/Badge/Badge'
-import { FragmentTypePostFullFields } from '@/container/type';
 
 export interface Card10Props extends CommonPostCardProps {}
 
@@ -32,8 +29,6 @@ const Card10: FC<Card10Props> = ({ className = 'h-full', post }) => {
 
 	const [isHover, setIsHover] = useState(false)
 
-	const viewCount3 = 20
-
 	return (
 		<div
 			className={`nc-Card10 relative flex flex-col ${className}`}
@@ -53,19 +48,15 @@ const Card10: FC<Card10Props> = ({ className = 'h-full', post }) => {
 			</div>
 			<div className="absolute inset-x-3 top-3 z-10 flex items-start justify-between space-x-4 rtl:space-x-reverse">
 				<CategoryBadgeList categories={categories?.nodes || []} />
-				<div className={`flex flex-wrap gap-1.5`}>
-					<Badge
-                        			name={ncPostMetaData?.viewsCount || 0}
-                        			color="slate"
-                        			roundedClassName="rounded-md"
-                      			/>
-				</div>
-				<span className="font-normal text-neutral-500 dark:text-neutral-400">
-					{ncPostMetaData?.viewsCount || 1}
-				</span>
+				<PostCardSaveAction
+					hidenReadingTime
+					postDatabseId={databaseId}
+					readingTime={ncPostMetaData?.readingTime || 1}
+				/>
 			</div>
+
 			<div className="mt-4 space-y-2.5 rtl:space-x-reverse">
-				<PostCardMetaV2 meta={{ author, date, title, uri, viewCount3 }} />
+				<PostCardMetaV2 meta={{ author, date, title, uri }} />
 			</div>
 		</div>
 	)
