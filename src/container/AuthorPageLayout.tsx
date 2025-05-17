@@ -293,11 +293,13 @@ const AuthorLayout: FC<Props> = ({ className = '', children, user }) => {
 									</a>
 								)}
 								<SocialsList socials={userSocials} />
-								<SocialsShareDropdown sizeClass="w-10 h-10" />
-								<AccountActionDropdown
-									authorSlug={authorSlug}
-									containerClassName="h-10 w-10 bg-neutral-100 hover:bg-neutral-200 dark:bg-neutral-800 dark:hover:bg-neutral-700"
-									userDatabaseId={databaseId}
+								<div className="relative end-5 start-auto lg:pt-[50px] flex justify-end gap-2">
+									<SocialsShareDropdown sizeClass="w-10 h-10" />
+									<AccountActionDropdown
+										authorSlug={authorSlug}
+										containerClassName="h-10 w-10 bg-neutral-100 hover:bg-neutral-200 dark:bg-neutral-800 dark:hover:bg-neutral-700"
+										userDatabaseId={databaseId}
+								</div>
 								/>
 							</div>
 							{/*  */}
