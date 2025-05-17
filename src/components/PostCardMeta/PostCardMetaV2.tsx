@@ -33,7 +33,7 @@ const PostCardMetaV2: FC<PostCardMetaV2Props> = ({
 	titleClassName = 'text-base',
 	avatarSize = 'h-9 w-9 text-base',
 }) => {
-	const { date, title, uri, viewCount3, } = meta
+	const { date, title, uri, viewCount3 } = meta
 
 	const author = getUserDataFromUserCardFragment(
 		meta.author as FragmentType<typeof NC_USER_FULL_FIELDS_FRAGMENT>,
@@ -41,7 +41,7 @@ const PostCardMetaV2: FC<PostCardMetaV2Props> = ({
 
 	const result = verifymem.includes((author?.name || '').toLowerCase()) ? 1 : 0 ;
 
-	const pregledi = convertNumbThousand(viewCount3)
+	const pregledi = convertNumbThousand(viewCount3 ?? 0)
 
 	if (!author?.databaseId && !date) {
 		return null
