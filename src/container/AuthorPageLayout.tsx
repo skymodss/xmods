@@ -14,7 +14,6 @@ import React, { FC } from 'react'
 import verifymem from '@/verifymem'
 import VerifyIcon2 from '@/components/VerifyIcon2'
 
-
 interface Props {
 	className?: string
 	children?: React.ReactNode
