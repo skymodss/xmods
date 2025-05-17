@@ -19,7 +19,8 @@ const SingleRelatedPosts: FC<SingleRelatedPostsProps> = ({
     <div className="w-full space-y-4">
       {posts.map((post, index) => (
         <div key={post.databaseId || index} className="mb-4 last:mb-0">
-          <Card9 
+          <Card9
+            key={postDatabaseId}
             post={post}
             ratio="aspect-w-3 aspect-h-3"
             className="lg:w-[350px] lg:h-[190px] sm:h-[100px] md:h-[190px]" // Za minimalnu i fiksnu visinu
