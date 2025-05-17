@@ -292,8 +292,7 @@ const AuthorLayout: FC<Props> = ({ className = '', children, user }) => {
 									</a>
 								)}
 								<SocialsList socials={userSocials} />
-								<SocialsList socials={userSocials} />
-								<div className="absolute end-0 start-auto top-50 flex justify-end gap-2">
+								<div className="absolute end-5 start-auto top-20 flex justify-end gap-2">
 									<SocialsShareDropdown sizeClass="w-10 h-10" />
 									<AccountActionDropdown
 										authorSlug={authorSlug}
