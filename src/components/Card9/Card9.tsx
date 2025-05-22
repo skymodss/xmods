@@ -102,11 +102,16 @@ const Card9: FC<Card9Props> = ({
 				href={uri || ''}
 				className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black opacity-50"
 			></Link>
+			<div className="absolute inset-x-3 top-3 flex items-start justify-between space-x-4 rtl:space-x-reverse">
+				<CategoryBadgeList categories={categories?.nodes || []} />
+				<PostCardSaveAction
+					postDatabseId={databaseId}
+					readingTime={ncPostMetaData?.readingTime || 1}
+					hidenReadingTime
+				/>
+			</div>
 			<div className="absolute inset-x-0 bottom-0 flex flex-grow flex-col p-4">
 				<Link href={uri || ''} className="absolute inset-0"></Link>
-				<div className="mb-3">
-					<CategoryBadgeList categories={categories?.nodes || []} />
-				</div>
 				{renderMeta()}
 			</div>
 		</div>
