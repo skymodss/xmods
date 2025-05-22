@@ -28,10 +28,10 @@ export const GET_RELATED_POSTS = gql`
           }
         }
         categories {
-		nodes {
-			...NcmazFcCategoryCardFieldsNotImage
-			}
-		}
+	   nodes {
+	     ...NcmazFcCategoryCardFieldsNotImage
+	   }
+	}
         author {
           node {
             name
