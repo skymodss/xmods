@@ -19,4 +19,5 @@ export const GET_RELATED_POSTS = gql`
       ...PostCardFieldsNOTNcmazMEDIA
       }
     }
+  }
 `;
