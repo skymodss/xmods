@@ -27,10 +27,17 @@ export const GET_RELATED_POSTS = gql`
             altText
           }
         }
-        categories {
-	   nodes {
-	     ...NcmazFcCategoryCardFieldsNotImage
-	   }
+	categories {
+		nodes {
+  			__typename
+			name
+			uri
+			count
+			databaseId
+			ncTaxonomyMeta {
+				color
+			}
+		}
 	}
         author {
           node {
