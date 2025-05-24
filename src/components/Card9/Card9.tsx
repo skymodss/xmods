@@ -10,6 +10,7 @@ import { getPostDataFromPostFragment } from '@/utils/getPostDataFromPostFragment
 import MyImage from '../MyImage'
 import ncFormatDate from '@/utils/formatDate'
 
+
 export interface Card9Props extends CommonPostCardProps {
 	ratio?: string
 	hoverClass?: string
