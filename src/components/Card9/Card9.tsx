@@ -45,6 +45,7 @@ const Card9: FC<Card9Props> = ({
 							dangerouslySetInnerHTML={{ __html: title }}
 							className="line-clamp-2"
 							title={title || ''}
+							style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.5)' }} 
 						></span>
 					</h2>
 					<Link href={author?.uri || ''} className="relative mt-2.5 flex">
