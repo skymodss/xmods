@@ -93,16 +93,13 @@ const Card9: FC<Card9Props> = ({
 				href={uri || ''}
 				className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black opacity-50"
 			></Link>
-			<div className="absolute inset-x-3 top-3 flex items-start justify-between space-x-4 rtl:space-x-reverse">
+			<div className="absolute inset-x-3 top-3 flex items-start justify-between space-x-4 rtl:space-x-reverse opacity-0 transition-all duration-300 group-hover:z-10 group-hover:opacity-100">
 				<CategoryBadgeList categories={categories?.nodes || []} />
-				<div className="absolute inset-x-0 top-0 z-[-1] flex items-center justify-between p-3 opacity-0 transition-all duration-300 group-hover:z-10 group-hover:opacity-100">
-					<PostCardSaveAction
-						readingTime={ncPostMetaData?.readingTime || 1}
-						postDatabseId={databaseId || 0}
-						hidenReadingTime
-						className="relative"
-					/>
-				</div>
+				<PostCardSaveAction
+					postDatabseId={databaseId}
+					readingTime={ncPostMetaData?.readingTime || 1}
+					hidenReadingTime
+				/>
 			</div>
 			<div className="absolute inset-x-0 bottom-0 flex flex-grow flex-col p-4">
 				<Link href={uri || ''} className="absolute inset-0"></Link>
