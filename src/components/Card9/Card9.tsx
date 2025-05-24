@@ -40,7 +40,7 @@ const Card9: FC<Card9Props> = ({
 		return (
 			<div className="inline-flex items-center text-xs text-neutral-300">
 				<div className="block">
-					<h2 className="block text-base font-semibold text-white sm:text-lg">
+					<h2 className="block text-base font-semibold text-white sm:text-lg truncate ">
 						<span
 							dangerouslySetInnerHTML={{ __html: title }}
 							className="line-clamp-2"
@@ -73,7 +73,7 @@ const Card9: FC<Card9Props> = ({
 					<MyImage
 						fill
 						alt={title || ''}
-						className="h-full w-full rounded-2xl object-cover dark:brightness-90 dark:brightness-75 dark:filter dark:filter duration-300 group-hover:scale-105"
+						className="h-full w-full rounded-2xl object-cover dark:filter duration-300 group-hover:scale-105"
 						src={featuredImage?.sourceUrl || ''}
 						sizes="(max-width: 600px) 480px, 500px"
 						style={{
@@ -91,7 +91,7 @@ const Card9: FC<Card9Props> = ({
 			)}
 			<Link
 				href={uri || ''}
-				className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black opacity-50"
+				className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black opacity-90"
 			></Link>
 			<div className="absolute inset-x-3 top-3 flex items-start justify-between space-x-4 rtl:space-x-reverse opacity-0 transition-all duration-300 group-hover:z-10 group-hover:opacity-100">
 				<CategoryBadgeList categories={categories?.nodes || []} />
