@@ -15,6 +15,7 @@ import { FormEvent, useState } from 'react'
 import toast from 'react-hot-toast'
 import { useSelector } from 'react-redux'
 
+
 const T = getTrans()
 
 export default function SignUp() {
