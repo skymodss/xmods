@@ -1,5 +1,5 @@
 // npm install jwt-decode ako nisi
-import jwtDecode from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
