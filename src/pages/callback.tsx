@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import jwt_decode from "jwt-decode";
+import { jwtDecode } from "jwt-decode"; // ✅ OVO JE ISPRAVNO
 
 type JwtPayload = {
   id: number;
@@ -18,14 +18,12 @@ export default function CallbackPage() {
 
     if (token) {
       try {
-        const decoded = jwt_decode<JwtPayload>(token);
+        const decoded = jwtDecode<JwtPayload>(token); // ✅ Ispravno pozivanje
         console.log("✅ JWT korisnik:", decoded);
         setUser(decoded);
-
-        // Po želji: spremi usera u localStorage, context, itd.
         localStorage.setItem("user", JSON.stringify(decoded));
       } catch (err: any) {
-        console.error("❌ Neispravan JWT:", err);
+        console.error("❌ Neispravan JWT:", err.message);
         setError("Token nije valjan.");
       }
     } else {
