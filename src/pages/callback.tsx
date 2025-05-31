@@ -1,33 +1,50 @@
-// npm install jwt-decode ako nisi
-import { jwtDecode } from 'jwt-decode';
-import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import { useEffect, useState } from "react";
+import jwt_decode from "jwt-decode";
 
-export default function AuthCallback() {
-  const router = useRouter();
+type JwtPayload = {
+  id: number;
+  email: string;
+  iat?: number;
+  exp?: number;
+};
+
+export default function CallbackPage() {
+  const [user, setUser] = useState<JwtPayload | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
-    const token = urlParams.get('token');
+    const token = urlParams.get("token");
 
     if (token) {
       try {
-        const user = jwtDecode(token);
-        console.log('✅ JWT korisnik:', user); // { id, email, iat, exp }
+        const decoded = jwt_decode<JwtPayload>(token);
+        console.log("✅ JWT korisnik:", decoded);
+        setUser(decoded);
 
-        // Tu možeš: spremiti usera u state, localStorage, context...
-        localStorage.setItem('user', JSON.stringify(user));
-
-        // Redirect na homepage ili dashboard
-        router.push('/');
-      } catch (err) {
-        console.error('❌ Neispravan token', err);
-        router.push('/login');
+        // Po želji: spremi usera u localStorage, context, itd.
+        localStorage.setItem("user", JSON.stringify(decoded));
+      } catch (err: any) {
+        console.error("❌ Neispravan JWT:", err);
+        setError("Token nije valjan.");
       }
     } else {
-      router.push('/login');
+      setError("Token nije pronađen u URL-u.");
     }
   }, []);
 
-  return <p>Prijava u tijeku...</p>;
+  return (
+    <div className="p-6">
+      <h1 className="text-2xl font-bold mb-4">JWT Callback</h1>
+      {error && <p className="text-red-600">{error}</p>}
+      {user ? (
+        <div className="space-y-2">
+          <p><strong>ID:</strong> {user.id}</p>
+          <p><strong>Email:</strong> {user.email}</p>
+        </div>
+      ) : (
+        !error && <p>Obrada tokena...</p>
+      )}
+    </div>
+  );
 }
