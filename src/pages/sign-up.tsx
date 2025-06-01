@@ -173,9 +173,7 @@ export default function SignUp() {
 					</div>
 
 					<div className="grid pt-2">
-						<a href="https://xdd-a1e468.ingress-comporellon.ewp.live/wp-login.php?loginSocial=google" data-plugin="nsl" data-action="connect" data-redirect="current" data-provider="google" data-popupwidth="600" data-popupheight="600">
-   							Click here to login or register r
-						</a>
+						<GoogleLoginButton />
 	
 						<ButtonPrimary loading={loading}>{T['Sign up']}</ButtonPrimary>
 
@@ -212,7 +210,6 @@ export default function SignUp() {
 							</p>
 							<br />
 							<div>
-								<GoogleLoginButton />
 								&nbsp; {T.or} &nbsp;
 								<Link
 									href="/"
