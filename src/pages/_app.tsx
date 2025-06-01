@@ -13,9 +13,7 @@ import { Toaster } from 'react-hot-toast'
 import NextNProgress from 'nextjs-progressbar'
 import themeJson from '@/../theme.json'
 import { GoogleAnalytics } from 'nextjs-google-analytics'
-
-// DODAJ OVO:
-import { useSession } from 'next-auth/react'
+import { SessionProvider, useSession } from 'next-auth/react'
 
 const poppins = Poppins({
 	subsets: ['latin'],
@@ -32,7 +30,6 @@ function WordpressAuthSync() {
 			session?.user?.email &&
 			session?.user?.name
 		) {
-			// Pozivaš svoj custom WP endpoint posle uspesnog logina
 			fetch('https://xdd-a1e468.ingress-comporellon.ewp.live/wp-json/custom/v1/social-login', {
 				method: 'POST',
 				headers: {
@@ -41,12 +38,11 @@ function WordpressAuthSync() {
 				body: JSON.stringify({
 					email: session.user.email,
 					name: session.user.name,
-					google_id: (session.user as any).sub || '', // ili nesto drugo ako imas ID
+					google_id: (session.user as any).sub || '',
 				}),
 			})
 				.then(res => res.json())
 				.then(data => {
-					// Ako dobiješ JWT token, sačuvaj ga (npr. u localStorage ili kao cookie)
 					if (data?.token) {
 						localStorage.setItem('wp_jwt', data.token)
 					}
@@ -64,9 +60,8 @@ export default function MyApp({ Component, pageProps }: AppProps) {
 	const router = useRouter()
 
 	return (
-		<>
+		<SessionProvider session={pageProps.session}>
 			<GoogleAnalytics trackPageViews />
-
 			<FaustProvider pageProps={pageProps}>
 				<WordPressBlocksProvider
 					config={{
@@ -81,7 +76,6 @@ export default function MyApp({ Component, pageProps }: AppProps) {
 							}
 						`}</style>
 						<NextNProgress color="#818cf8" />
-						{/* DODAJ OVO */}
 						<WordpressAuthSync />
 						<Component {...pageProps} key={router.asPath} />
 						<Toaster
@@ -97,6 +91,6 @@ export default function MyApp({ Component, pageProps }: AppProps) {
 					</SiteWrapperProvider>
 				</WordPressBlocksProvider>
 			</FaustProvider>
-		</>
+		</SessionProvider>
 	)
 }
