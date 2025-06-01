@@ -41,7 +41,6 @@ export default function MyApp({ Component, pageProps }: AppProps) {
 							}
 						`}</style>
 						<NextNProgress color="#818cf8" />
-						<WordpressAuthSync />
 						<Component {...pageProps} key={router.asPath} />
 						<Toaster
 							position="bottom-left"
