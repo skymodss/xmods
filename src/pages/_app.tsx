@@ -15,6 +15,7 @@ import themeJson from '@/../theme.json'
 import { GoogleAnalytics } from 'nextjs-google-analytics'
 import { SessionProvider, useSession } from 'next-auth/react'
 
+
 const poppins = Poppins({
 	subsets: ['latin'],
 	display: 'swap',
