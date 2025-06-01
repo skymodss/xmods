@@ -212,7 +212,7 @@ export default function SignUp() {
 							</p>
 							<br />
 							<div>
-								<GoogleLoginButton/>
+								<GoogleLoginButton
 								</Link>
 								&nbsp; {T.or} &nbsp;
 								<Link
