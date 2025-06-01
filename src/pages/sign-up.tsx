@@ -16,6 +16,7 @@ import toast from 'react-hot-toast'
 import { useSelector } from 'react-redux'
 import GoogleLoginButton from '@/components/GoogleLoginButton'
 
+
 const T = getTrans()
 
 export default function SignUp() {
