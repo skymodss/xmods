@@ -14,6 +14,7 @@ import { useRouter } from 'next/router'
 import { FormEvent, useState } from 'react'
 import toast from 'react-hot-toast'
 import { useSelector } from 'react-redux'
+import GoogleLoginButton from '@/components/GoogleLoginButton'
 
 const T = getTrans()
 
@@ -211,11 +212,7 @@ export default function SignUp() {
 							</p>
 							<br />
 							<div>
-								<Link
-									href="/login"
-									className="text-primary-600 underline underline-offset-2 hover:text-primary-500 hover:underline dark:text-primary-500"
-								>
-									{T['Sign in']}
+								<GoogleLoginButton/>
 								</Link>
 								&nbsp; {T.or} &nbsp;
 								<Link
