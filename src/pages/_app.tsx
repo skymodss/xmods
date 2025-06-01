@@ -13,7 +13,6 @@ import { Toaster } from 'react-hot-toast'
 import NextNProgress from 'nextjs-progressbar'
 import themeJson from '@/../theme.json'
 import { GoogleAnalytics } from 'nextjs-google-analytics'
-import WordpressAuthSync from '@/components/WordpressAuthSync'
 
 const poppins = Poppins({
 	subsets: ['latin'],
@@ -42,7 +41,6 @@ export default function MyApp({ Component, pageProps }: AppProps) {
 							}
 						`}</style>
 						<NextNProgress color="#818cf8" />
-						<WordpressAuthSync />
 						<Component {...pageProps} key={router.asPath} />
 						<Toaster
 							position="bottom-left"
