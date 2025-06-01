@@ -15,14 +15,10 @@ import themeJson from '@/../theme.json'
 import { GoogleAnalytics } from 'nextjs-google-analytics'
 import { SessionProvider, useSession } from 'next-auth/react'
 
-
-const poppins = Poppins({
-	subsets: ['latin'],
-	display: 'swap',
-	weight: ['300', '400', '500', '600', '700'],
-})
-
+// Dodaj proveru za klijent pre upotrebe useSession
 function WordpressAuthSync() {
+	if (typeof window === 'undefined') return null
+
 	const { data: session, status } = useSession()
 
 	useEffect(() => {
@@ -31,17 +27,20 @@ function WordpressAuthSync() {
 			session?.user?.email &&
 			session?.user?.name
 		) {
-			fetch('https://xdd-a1e468.ingress-comporellon.ewp.live/wp-json/custom/v1/social-login', {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-				},
-				body: JSON.stringify({
-					email: session.user.email,
-					name: session.user.name,
-					google_id: (session.user as any).sub || '',
-				}),
-			})
+			fetch(
+				'https://xdd-a1e468.ingress-comporellon.ewp.live/wp-json/custom/v1/social-login',
+				{
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({
+						email: session.user.email,
+						name: session.user.name,
+						google_id: (session.user as any).sub || '',
+					}),
+				}
+			)
 				.then(res => res.json())
 				.then(data => {
 					if (data?.token) {
@@ -56,6 +55,12 @@ function WordpressAuthSync() {
 
 	return null
 }
+
+const poppins = Poppins({
+	subsets: ['latin'],
+	display: 'swap',
+	weight: ['300', '400', '500', '600', '700'],
+})
 
 export default function MyApp({ Component, pageProps }: AppProps) {
 	const router = useRouter()
