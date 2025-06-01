@@ -7,3 +7,4 @@ export async function wpSocialLogin(email: string, name: string, google_id: stri
   if (!res.ok) throw new Error("WP social login failed");
   return await res.json();
 }
+
