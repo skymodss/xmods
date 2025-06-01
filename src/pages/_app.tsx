@@ -1,5 +1,5 @@
 import '@/../faust.config'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useRouter } from 'next/router'
 import { FaustProvider } from '@faustwp/core'
 import '@/styles/globals.css'
@@ -13,7 +13,6 @@ import { Toaster } from 'react-hot-toast'
 import NextNProgress from 'nextjs-progressbar'
 import themeJson from '@/../theme.json'
 import { GoogleAnalytics } from 'nextjs-google-analytics'
-import { SessionProvider, useSession } from 'next-auth/react'
 
 const poppins = Poppins({
 	subsets: ['latin'],
@@ -25,8 +24,9 @@ export default function MyApp({ Component, pageProps }: AppProps) {
 	const router = useRouter()
 
 	return (
-		<SessionProvider session={pageProps.session}>
+		<>
 			<GoogleAnalytics trackPageViews />
+
 			<FaustProvider pageProps={pageProps}>
 				<WordPressBlocksProvider
 					config={{
@@ -55,6 +55,6 @@ export default function MyApp({ Component, pageProps }: AppProps) {
 					</SiteWrapperProvider>
 				</WordPressBlocksProvider>
 			</FaustProvider>
-		</SessionProvider>
+		</>
 	)
 }
