@@ -212,7 +212,6 @@ export default function SignUp() {
 							</p>
 							<br />
 							<div>
-								<GoogleLoginButton />
 								&nbsp; {T.or} &nbsp;
 								<Link
 									href="/"
