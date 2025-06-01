@@ -15,6 +15,7 @@ import themeJson from '@/../theme.json'
 import { GoogleAnalytics } from 'nextjs-google-analytics'
 import dynamic from "next/dynamic"
 const WordpressAuthSync = dynamic(() => import("@/components/WordpressAuthSync"), { ssr: false })
+import { SessionProvider } from "next-auth/react";
 
 const poppins = Poppins({
 	subsets: ['latin'],
