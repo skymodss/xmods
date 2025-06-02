@@ -12,24 +12,17 @@ export default function WordpressAuthSync() {
             session?.user?.email &&
             session?.user?.name
         ) {
+            // Automatski generiši username iz email-a ako ga nemaš u sessionul
             const email = session.user.email
             const name = session.user.name
             const google_id = (session.user as any).sub || ''
             const username =
                 (session.user as any).username ||
-                email.split('@')[0].replace(/[^a-zA-Z0-9]/g, '')
-
-            // Učitaj WP lozinku iz localStorage ako postoji
-            let savedPassword = localStorage.getItem(`wp_pass_${email}`)
-
-            // Ako imaš sačuvanu lozinku, koristi je; ako ne, generiši novu (samo za prvi put)
-            let password = savedPassword
-            if (!password) {
-                // Samo ako NEMAŠ sačuvanu lozinku, generiši
-                password =
-                    (session.user as any).password ||
-                    Math.random().toString(36).slice(-10)
-            }
+                email.split('@')[0].replace(/[^a-zA-Z0-9]/g, '') // bez spec. znakova
+            // Generiši random password (ili koristi custom ako ga imaš)
+            const password =
+                (session.user as any).password ||
+                Math.random().toString(36).slice(-10)
 
             fetch(
                 'https://xdd-a1e468.ingress-comporellon.ewp.live/wp-json/custom/v1/social-login',
@@ -51,12 +44,9 @@ export default function WordpressAuthSync() {
                 .then(data => {
                     if (data?.token) {
                         localStorage.setItem('wp_jwt', data.token)
-                        localStorage.setItem('wp_username', data.username)
-                    }
-                    // Samo ako je backend vratio novu lozinku – upiši je!
-                    if (data?.password) {
-                        localStorage.setItem(`wp_pass_${email}`, data.password)
-                        // alert("Tvoja WordPress lozinka je: " + data.password)
+                        // Opcionalno: možeš setovati i username/password ako ti treba
+                        // localStorage.setItem('wp_username', data.username)
+                        // localStorage.setItem('wp_pass', data.password)
                     }
                 })
                 .catch(err => {
@@ -66,4 +56,4 @@ export default function WordpressAuthSync() {
     }, [session, status])
 
     return null
-}
+} 
