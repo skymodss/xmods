@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { useSession } from 'next-auth/react'
 
+
 export default function WordpressAuthSync() {
     if (typeof window === 'undefined') return null
 
