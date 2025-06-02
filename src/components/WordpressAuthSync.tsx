@@ -12,7 +12,7 @@ export default function WordpressAuthSync() {
             session?.user?.email &&
             session?.user?.name
         ) {
-            // Automatski generiši username iz email-a ako ga nemaš u sessionu
+            // Automatski generiši username iz email-a ako ga nemaš u sessionul
             const email = session.user.email
             const name = session.user.name
             const google_id = (session.user as any).sub || ''
