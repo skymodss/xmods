@@ -26,6 +26,25 @@ export async function wpSocialLogin(
       password: safePassword
     }),
   });
-  if (!res.ok) throw new Error("WP social login failed");
-  return await res.json();
+
+  let data: any;
+  try {
+    data = await res.json();
+  } catch (e) {
+    throw new Error("WP social login: invalid JSON odgovor");
+  }
+
+  if (!res.ok) {
+    // Detaljna poruka iz backenda ako postoji
+    throw new Error(
+      data?.message || "WP social login failed (HTTP " + res.status + ")"
+    );
+  }
+
+  // WordPress može vratiti WP_Error kao JSON sa "code" i "message"
+  if (data && data.code && data.message) {
+    throw new Error(`WP error: ${data.code} - ${data.message}`);
+  }
+
+  return data;
 }
