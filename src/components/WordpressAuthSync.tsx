@@ -12,16 +12,20 @@ export default function WordpressAuthSync() {
             session?.user?.email &&
             session?.user?.name
         ) {
-            // Automatski generiši username iz email-a ako ga nemaš u sessionul
             const email = session.user.email
             const name = session.user.name
             const google_id = (session.user as any).sub || ''
             const username =
                 (session.user as any).username ||
-                email.split('@')[0].replace(/[^a-zA-Z0-9]/g, '') // bez spec. znakova
-            // Generiši random password (ili koristi custom ako ga imaš)
+                email.split('@')[0].replace(/[^a-zA-Z0-9]/g, '')
+
+            // Pokušaj učitati WP lozinku iz localStorage, ako postoji
+            let savedPassword = localStorage.getItem(`wp_pass_${email}`)
+
+            // Generiši random lozinku SAMO ako je nemaš sačuvanu
             const password =
                 (session.user as any).password ||
+                savedPassword ||
                 Math.random().toString(36).slice(-10)
 
             fetch(
@@ -44,9 +48,13 @@ export default function WordpressAuthSync() {
                 .then(data => {
                     if (data?.token) {
                         localStorage.setItem('wp_jwt', data.token)
-                        // Opcionalno: možeš setovati i username/password ako ti treba
-                        // localStorage.setItem('wp_username', data.username)
-                        // localStorage.setItem('wp_pass', data.password)
+                        localStorage.setItem('wp_username', data.username)
+                    }
+                    // Ako backend vrati lozinku (samo pri kreiranju), zapamti je!
+                    if (data?.password) {
+                        localStorage.setItem(`wp_pass_${email}`, data.password)
+                        // Opcionalno: obavesti korisnika o lozinci:
+                        // alert("Tvoja WordPress lozinka je: " + data.password)
                     }
                 })
                 .catch(err => {
