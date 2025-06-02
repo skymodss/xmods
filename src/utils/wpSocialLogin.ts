@@ -5,18 +5,15 @@ export async function wpSocialLogin(
   username?: string,
   password?: string
 ) {
-  // Prvo - ako već imaš zapamćenu WP lozinku za korisnika, koristi je!
-  let storedPassword = typeof window !== "undefined" ? localStorage.getItem(`wp_pass_${email}`) : undefined;
-
-  // Samo ako NEMAŠ, generiši novu
-  const safePassword =
-    password ||
-    storedPassword ||
-    Math.random().toString(36).slice(-10);
-
+  // Automatski generiši username ako nije prosleđen
   const safeUsername =
     username ||
     email.split('@')[0].replace(/[^a-zA-Z0-9]/g, '');
+
+  // Automatski generiši random password ako nije prosleđen
+  const safePassword =
+    password ||
+    Math.random().toString(36).slice(-10);
 
   const res = await fetch('https://xdd-a1e468.ingress-comporellon.ewp.live/wp-json/custom/v1/social-login', {
     method: "POST",
@@ -38,18 +35,15 @@ export async function wpSocialLogin(
   }
 
   if (!res.ok) {
+    // Detaljna poruka iz backenda ako postoji
     throw new Error(
       data?.message || "WP social login failed (HTTP " + res.status + ")"
     );
   }
 
+  // WordPress može vratiti WP_Error kao JSON sa "code" i "message"
   if (data && data.code && data.message) {
     throw new Error(`WP error: ${data.code} - ${data.message}`);
-  }
-
-  // Ako backend vrati password (samo kod novog korisnika!), zapamti ga
-  if (typeof window !== "undefined" && data?.password) {
-    localStorage.setItem(`wp_pass_${email}`, data.password);
   }
 
   return data;
