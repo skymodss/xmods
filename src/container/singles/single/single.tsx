@@ -206,7 +206,7 @@ const SingleType1: FC<SingleType1Props> = ({ post, showRightSidebar }) => {
     								href={ncmazVideoUrl?.videoUrl || '#'}
     								target="_blank"
     								rel="noopener noreferrer"
-    								className="inline-flex zabut bg-zelena items-center transition-colors hover:bg-neutral-50 dark:hover:bg-neutral-25 justify-center gap-2 whitespace-nowrap rounded-xl text-sm font-medium ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border-input bg-background hover:text-accent-foreground h-10 px-4 py-2 col-span-2 transition-colors duration-200 hover:bg-accent"
+    								className="inline-flex dark:zeleni zabut bg-zelena items-center transition-colors hover:bg-neutral-50 dark:hover:bg-neutral-25 justify-center gap-2 whitespace-nowrap rounded-xl text-sm font-medium ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border-input bg-background hover:text-accent-foreground h-10 px-4 py-2 col-span-2 transition-colors duration-200 hover:bg-accent"
 							>
                                                             <span className="flex items-center gap-2">
                                                                 <svg
@@ -237,7 +237,7 @@ const SingleType1: FC<SingleType1Props> = ({ post, showRightSidebar }) => {
                                 <section className="script-description">
                                     <div className="bg-card dark:bg-neutral-600 text-card-foreground shadow-sm rounded-2xl">
                                         <div className="flex flex-col space-y-1.5 p-6">
-                                            <div className="text-xl font-bold leading-none tracking-tight">
+                                            <div className="text-2xl font-bold leading-none tracking-tight">
                                                 <h2>Description</h2>
                                             </div>
                                         </div>
@@ -256,7 +256,7 @@ const SingleType1: FC<SingleType1Props> = ({ post, showRightSidebar }) => {
                                     <div className="bg-card text-card-foreground shadow-sm dark:bg-neutral-600 rounded-2xl">
                                         <div className="flex flex-col space-y-1.5 p-6">
                                             <div className="font-semibold leading-none tracking-tight">
-                                                <h2 className="text-xl font-bold leading-none tracking-tight">Comments ({commentCount})</h2> 
+                                                <h2 className="text-2xl font-bold leading-none tracking-tight">Comments ({commentCount})</h2> 
                                             </div>
                                         </div>
                                         <div className="p-6 pt-0 space-y-4">
@@ -279,7 +279,7 @@ const SingleType1: FC<SingleType1Props> = ({ post, showRightSidebar }) => {
 				<section className="script-description">
                                     <div className="bg-card text-card-foreground dark:bg-neutral-600 shadow-sm rounded-3xl">
                                         <div className="flex flex-col space-y-1.5 p-6">
-                                            <div className="text-xl font-bold leading-none tracking-tight">
+                                            <div className="text-2xl font-bold leading-none tracking-tight">
                                                 <h2>Tags</h2>
                                             </div>
                                         </div>
