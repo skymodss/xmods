@@ -165,7 +165,7 @@ const NcBookmark3: FC<NcBookmarkProps> = ({
 
 	return (
 		<button
-			className={`nc-NcBookmark relative flex items-center justify-center rounded-full ${containerClassName}`}
+			className={`nc-NcBookmark relative flex items-center justify-center ${containerClassName}`}
 			title={isBookmarked ? 'Remove from saved list' : 'Save to reading list'}
 			onClick={handleClickSaveAction}
 		>
