@@ -47,18 +47,12 @@
     }
 }
 
-.zelena {
-  .duration-200 {
-    background-color: #acff35;
-  }
-}
-
 .dark\:bg-crnija:where(.dark,.dark *) {
     --tw-bg-opacity: 1;
     background-color: rgba(var(--c-neutral-black3),var(--tw-bg-opacity,1))
 }
-.dark\:crni {
-    background-color: rgba(var(--c-neutral-black3),var(--tw-bg-opacity,1)); // 1 je za potpunu neprovidnost
+.dark\:zeleni {
+    background-color: rgb(172, 255, 52),var(--tw-bg-opacity,1)); // 1 je za potpunu neprovidnost
 }
 
 .custom-scale {
