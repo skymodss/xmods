@@ -83,7 +83,7 @@ const SingleType1: FC<SingleType1Props> = ({ post, showRightSidebar }) => {
 
     return (
         <>
-	    <div className="absolute -top-[370px] hidden h-[50rem] opacity-30 blur-[2px] w-full md:block">
+	    <div className="absolute -top-[370px] w-full center hidden h-[50rem] opacity-10 blur-3xl md:block">
 		<img
                         alt="background coverart"
                         fetchPriority="high"
@@ -97,7 +97,6 @@ const SingleType1: FC<SingleType1Props> = ({ post, showRightSidebar }) => {
 			src={featuredImage?.sourceUrl || ''}
                 />
 	    </div>
-	    <div className="absolute -top-[370px] hidden h-[50rem] w-full bg-gradient-to-b from-gray-200/40 to-white dark:from-muted/20 dark:to-neutral-900 md:block"></div>
             <div className="min-h-screen">
                 <div className="min-h-screen bg-background">
                      <main className="container px-4 py-6 lg:px-14 max-w-[1400px] mx-auto">
