@@ -36,6 +36,13 @@ module.exports = {
     },
 
     extend: {
+      opacity: {
+        1: '0.01',
+        2: '0.02',
+        2.5: '0.025',
+        3: '0.03',
+        5: '0.05'
+      },
       colors: {
         primary: {
           50: customColors("--c-primary-50"),
