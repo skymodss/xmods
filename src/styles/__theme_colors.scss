@@ -36,12 +36,17 @@
   --c-neutral-600: 75, 85, 99;
   --c-neutral-700: 55, 65, 81;
   --c-neutral-800: 31, 41, 55;
-  --c-neutral-900: 17, 24, 39;
+  --c-neutral-900: 11, 12, 15;
   --c-neutral-black: 26, 26, 26;
 
   --c-neutral-black3: 26, 26, 26; // Ovo je crna boja u RGB formatu
 }
 
+.zabut {
+    .gap-2& {
+        color: rgb(55 72 32);
+    }
+}
 .dark\:bg-crnija:where(.dark,.dark *) {
     --tw-bg-opacity: 1;
     background-color: rgba(var(--c-neutral-black3),var(--tw-bg-opacity,1))
