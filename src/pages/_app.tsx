@@ -17,7 +17,7 @@ import dynamic from "next/dynamic"
 const WordpressAuthSync = dynamic(() => import("@/components/WordpressAuthSync"), { ssr: false })
 import { SessionProvider } from "next-auth/react";
 
-const inter  = Inter({
+const inter = Inter({
 	subsets: ['latin'],
 	display: 'swap',
 	weight: ['300', '400', '500', '600', '700'],
@@ -40,7 +40,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
 					<SiteWrapperProvider {...pageProps}>
 						<style jsx global>{`
 							html {
-								font-family: ${poppins.style.fontFamily};
+								font-family: ${inter.style.fontFamily};
 							}
 						`}</style>
 						<NextNProgress color="#818cf8" />
