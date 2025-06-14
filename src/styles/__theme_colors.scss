@@ -52,7 +52,7 @@
     background-color: rgba(var(--c-neutral-black3),var(--tw-bg-opacity,1))
 }
 .dark\:zeleni {
-    background-color: rgb(172, 255, 52),var(--tw-bg-opacity,1); // 1 je za potpunu neprovidnost
+    background-color: rgba(var(--c-secondary-400),var(--tw-bg-opacity,1)) // 1 je za potpunu neprovidnost
 }
 
 .custom-scale {
