@@ -48,7 +48,9 @@
 }
 
 .zelena {
-  background-color: rgb(127, 255, 53);
+  .duration-200 {
+    background-color: #acff35;
+  }
 }
 
 .dark\:bg-crnija:where(.dark,.dark *) {
