@@ -7,7 +7,7 @@ import '@/styles/index.scss'
 import { AppProps } from 'next/app'
 import { WordPressBlocksProvider, fromThemeJson } from '@faustwp/blocks'
 import blocks from '@/wp-blocks'
-import { Inter } from 'next/font/google'
+import { Poppins } from 'next/font/google'
 import SiteWrapperProvider from '@/container/SiteWrapperProvider'
 import { Toaster } from 'react-hot-toast'
 import NextNProgress from 'nextjs-progressbar'
@@ -18,7 +18,7 @@ const WordpressAuthSync = dynamic(() => import("@/components/WordpressAuthSync")
 import { SessionProvider } from "next-auth/react";
 
 
-const inter = Inter({
+const poppins = Poppins({
 	subsets: ['latin'],
 	display: 'swap',
 	weight: ['300', '400', '500', '600', '700', '800','900'],
@@ -41,7 +41,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
 					<SiteWrapperProvider {...pageProps}>
 						<style jsx global>{`
 							html {
-								font-family: ${inter.style.fontFamily};
+								font-family: ${poppins.style.fontFamily};
 							}
 						`}</style>
 						<NextNProgress color="#818cf8" />
