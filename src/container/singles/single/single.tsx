@@ -206,7 +206,7 @@ const SingleType1: FC<SingleType1Props> = ({ post, showRightSidebar }) => {
     								href={ncmazVideoUrl?.videoUrl || '#'}
     								target="_blank"
     								rel="noopener noreferrer"
-    								className="inline-flex zabut items-center transition-colors hover:bg-neutral-50 dark:hover:bg-neutral-25 justify-center gap-2 whitespace-nowrap rounded-xl text-sm font-medium ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-input bg-background hover:text-accent-foreground h-10 px-4 py-2 col-span-2 transition-colors duration-200 hover:bg-accent"
+    								className="inline-flex zabut bg-zelena items-center transition-colors hover:bg-neutral-50 dark:hover:bg-neutral-25 justify-center gap-2 whitespace-nowrap rounded-xl text-sm font-medium ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border-input bg-background hover:text-accent-foreground h-10 px-4 py-2 col-span-2 transition-colors duration-200 hover:bg-accent"
 							>
                                                             <span className="flex items-center gap-2">
                                                                 <svg
