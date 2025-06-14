@@ -17,6 +17,7 @@ import dynamic from "next/dynamic"
 const WordpressAuthSync = dynamic(() => import("@/components/WordpressAuthSync"), { ssr: false })
 import { SessionProvider } from "next-auth/react";
 
+
 const inter = Inter({
 	subsets: ['latin'],
 	display: 'swap',
