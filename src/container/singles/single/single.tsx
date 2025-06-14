@@ -83,7 +83,7 @@ const SingleType1: FC<SingleType1Props> = ({ post, showRightSidebar }) => {
 
     return (
         <>
-	    <div className="absolute -top-[370px] w-full center hidden h-[50rem] opacity-10 blur-3xl md:block">
+	    <div className="absolute -top-[370px] w-full center hidden h-[50rem] opacity-2.5 blur-3xl md:block">
 		<img
                         alt="background coverart"
                         fetchPriority="high"
