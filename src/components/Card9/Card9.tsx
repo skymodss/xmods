@@ -46,7 +46,7 @@ const Card9: FC<Card9Props> = ({
 							dangerouslySetInnerHTML={{ __html: title }}
 							className="line-clamp-2"
 							title={title || ''}
-							style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.8)' }} 
+							style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.9)' }} 
 						></span>
 					</h2>
 					<Link href={author?.uri || ''} className="relative mt-2.5 flex">
@@ -75,12 +75,9 @@ const Card9: FC<Card9Props> = ({
 					<MyImage
 						fill
 						alt={title || ''}
-						className="h-full w-full rounded-2xl object-cover dark:filter duration-300 group-hover:scale-105"
+						className="h-full w-full rounded-xl object-cover dark:filter duration-300 group-hover:scale-105"
 						src={featuredImage?.sourceUrl || ''}
 						sizes="(max-width: 600px) 480px, 500px"
-						style={{
-        						boxShadow: 'inset 0 0 0 2px rgba(255, 255, 255, 0.5)', // Ovdje postavljaš unutrašnji border
-    						}}
 					/>
 					<PostTypeFeaturedIcon
 						className="absolute left-3 top-3 group-hover:hidden"
