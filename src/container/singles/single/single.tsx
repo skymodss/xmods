@@ -84,7 +84,20 @@ const SingleType1: FC<SingleType1Props> = ({ post, showRightSidebar }) => {
     return (
         <>
             <div className="min-h-screen">
-                <div className="absolute -top-[370px] hidden h-[50rem] w-full md:block"></div>
+                <div className="absolute -top-[370px] hidden h-[50rem] opacity-30 blur-[2px] w-full md:block">
+			<img
+                        	alt="background coverart"
+                        	fetchPriority="high"
+                        	loading="eager"
+                        	width="135"
+                        	height="160"
+                        	decoding="async"
+                        	data-nimg="1"
+                        	className="h-[800px] w-full object-cover object-top"
+                        	style={{ color: 'transparent' }}
+				src={featuredImage?.sourceUrl || ''}
+                    />
+		</div>
                 <div className="min-h-screen bg-background">
                      <main className="container px-4 py-6 lg:px-14 max-w-[1400px] mx-auto">
                         <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
