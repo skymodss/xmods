@@ -96,7 +96,7 @@ const SingleType1: FC<SingleType1Props> = ({ post, showRightSidebar }) => {
 			src={featuredImage?.sourceUrl || ''}
                 />
 	    </div>
-	    <div className="absolute -top-[370px] hidden h-[50rem] w-full bg-gradient-to-b from-gray-200/40 to-white dark:from-muted/20 dark:to-background md:block"></div>
+	    <div className="absolute -top-[370px] hidden h-[50rem] w-full bg-gradient-to-b from-gray-200/40 to-white dark:from-muted/20 dark:to-bg-neutral-900 md:block"></div>
             <div className="min-h-screen">
                 <div className="min-h-screen bg-background">
                      <main className="container px-4 py-6 lg:px-14 max-w-[1400px] mx-auto">
