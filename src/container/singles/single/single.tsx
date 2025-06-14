@@ -84,14 +84,14 @@ const SingleType1: FC<SingleType1Props> = ({ post, showRightSidebar }) => {
 
     return (
         <>
-            <div className="bg-[#fafafa] min-h-screen">
+            <div className="min-h-screen">
                 <div className="absolute -top-[370px] hidden h-[50rem] w-full md:block"></div>
                 <div className="min-h-screen bg-background">
                      <main className="container px-4 py-6 lg:px-14 max-w-[1400px] mx-auto">
                         <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
                             <div className="z-10 space-y-6 lg:col-span-2">
                                 <header className="!mt-0">
-                                    <div className="rounded-2xl border text-card-foreground shadow-sm bg-card/70 backdrop-blur-sm bg-[rgb(255,255,255)]">
+                                    <div className="rounded-2xl border text-card-foreground shadow-sm bg-card/70 backdrop-blur-sm ">
                                         <div className="flex flex-col space-y-1.5 p-6 pb-4 pt-[16px]">
                                             <div className="flex flex-col gap-1">
 						    <CategoryBadgeList
@@ -236,7 +236,7 @@ const SingleType1: FC<SingleType1Props> = ({ post, showRightSidebar }) => {
                                     </div>
                                 </header>
                                 <section className="script-description">
-                                    <div className="border bg-card text-card-foreground shadow-sm bg-[rgb(255,255,255)] rounded-2xl">
+                                    <div className="border bg-card text-card-foreground shadow-sm  rounded-2xl">
                                         <div className="flex flex-col space-y-1.5 p-6">
                                             <div className="text-xl font-bold leading-none tracking-tight">
                                                 <h2>Description</h2>
@@ -254,7 +254,7 @@ const SingleType1: FC<SingleType1Props> = ({ post, showRightSidebar }) => {
                                     </div>
                                 </section>
 				<section className="script-description">
-                                    <div className="border bg-card text-card-foreground shadow-sm bg-[rgb(255,255,255)] rounded-2xl">
+                                    <div className="border bg-card text-card-foreground shadow-sm  rounded-2xl">
                                         <div className="flex flex-col space-y-1.5 p-6">
                                             <div className="font-semibold leading-none tracking-tight">
                                                 <h2 className="text-xl font-bold leading-none tracking-tight">Comments ({commentCount})</h2> 
@@ -278,7 +278,7 @@ const SingleType1: FC<SingleType1Props> = ({ post, showRightSidebar }) => {
                                     </div>
                                 </section>
 				<section className="script-description">
-                                    <div className="border bg-card text-card-foreground shadow-sm bg-[rgb(255,255,255)] rounded-2xl">
+                                    <div className="border bg-card text-card-foreground shadow-sm rounded-2xl">
                                         <div className="flex flex-col space-y-1.5 p-6">
                                             <div className="text-xl font-bold leading-none tracking-tight">
                                                 <h2>Tags</h2>
