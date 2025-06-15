@@ -89,7 +89,7 @@ const SingleType1: FC<SingleType1Props> = ({ post, showRightSidebar }) => {
                         <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
                             <div className="z-10 space-y-6 lg:col-span-2">
                                 <header className="!mt-0">
-                                    <div className="rounded-2xl dark:bg-neutral-600 text-card-foreground shadow-sm bg-card/70 backdrop-blur-sm ">
+                                    <div className="rounded-3xl dark:bg-neutral-600 text-card-foreground shadow-sm bg-card/70 backdrop-blur-sm ">
                                         <div className="flex flex-col space-y-1.5 p-6 pb-4 pt-[16px]">
                                             <div className="flex flex-col gap-1">
 						    <CategoryBadgeList
@@ -236,7 +236,7 @@ const SingleType1: FC<SingleType1Props> = ({ post, showRightSidebar }) => {
                                 <section className="script-description">
                                     <div className="bg-card dark:bg-neutral-600 text-card-foreground shadow-sm rounded-2xl">
                                         <div className="flex flex-col space-y-1.5 p-6">
-                                            <div className="text-2xl font-bold leading-none tracking-tight">
+                                            <div className="text-3xl font-bold leading-none tracking-tight">
                                                 <h2>Description</h2>
                                             </div>
                                         </div>
@@ -252,7 +252,7 @@ const SingleType1: FC<SingleType1Props> = ({ post, showRightSidebar }) => {
                                     </div>
                                 </section>
 				<section className="script-description">
-                                    <div className="bg-card text-card-foreground shadow-sm dark:bg-neutral-600 rounded-2xl">
+                                    <div className="bg-card text-card-foreground shadow-sm dark:bg-neutral-600 rounded-3xl">
                                         <div className="flex flex-col space-y-1.5 p-6">
                                             <div className="font-semibold leading-none tracking-tight">
                                                 <h2 className="text-2xl font-bold leading-none tracking-tight">Comments ({commentCount})</h2> 
