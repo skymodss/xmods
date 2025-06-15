@@ -4,7 +4,9 @@ import Input from '../Input/Input'
 import { SearchIcon } from '../Icons/Icons'
 import SearchModal from './SearchModal'
 
-export const HeaderSearchForm = () => {
+export const HeaderSearchForm = ({
+	className = '',
+}) => {
 	const T = getTrans()
 	const renderTrigger = () => {
 		return (
