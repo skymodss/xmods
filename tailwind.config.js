@@ -44,6 +44,7 @@ module.exports = {
         5: '0.05'
       },
       colors: {
+        'neutral-900-93': 'rgba(23,23,23,0.93)',
         primary: {
           50: customColors("--c-primary-50"),
           100: customColors("--c-primary-100"),
