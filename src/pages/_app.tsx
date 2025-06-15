@@ -16,7 +16,7 @@ import { GoogleAnalytics } from 'nextjs-google-analytics'
 import dynamic from "next/dynamic"
 const WordpressAuthSync = dynamic(() => import("@/components/WordpressAuthSync"), { ssr: false })
 import { SessionProvider } from "next-auth/react";
-
+import { AuthProvider } from "../context/AuthContext";
 
 const poppins = Poppins({
 	subsets: ['latin'],
@@ -49,6 +49,9 @@ export default function MyApp({ Component, pageProps }: AppProps) {
       							<WordpressAuthSync />
     						</SessionProvider>
 						<Component {...pageProps} key={router.asPath} />
+						<AuthProvider> 
+							<Component {...pageProps} />
+						</AuthProvider>
 						<Toaster
 							position="bottom-left"
 							toastOptions={{
