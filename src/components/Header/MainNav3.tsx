@@ -27,7 +27,7 @@ const MainNav2: FC<MainNav2Props> = ({ menuItems, description, title }) => {
 					<div className="hidden items-center gap-x-3 sm:gap-x-8 lg:flex">
 						<Brand title={title} description={description} />
 						<div className="hidden h-8 border-s border-neutral-200 md:block dark:border-neutral-700"></div>
-						<div className="hidden w-64 max-w-xs sm:block xl:w-80">
+						<div className="hidden w-64 max-w-xs sm:block xl:w-80 dark:bg-neutral-600">
 							<HeaderSearchForm className="!w-40 pr-5 group-hover:border-neutral-300 md:!w-full md:pr-10 dark:placeholder:text-neutral-400 dark:group-hover:border-neutral-400 dark:bg-neutral-600"/>
 						</div>
 					</div>
