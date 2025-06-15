@@ -234,9 +234,9 @@ const SingleType1: FC<SingleType1Props> = ({ post, showRightSidebar }) => {
                                     </div>
                                 </header>
                                 <section className="script-description">
-                                    <div className="bg-card dark:bg-neutral-600 text-card-foreground shadow-sm rounded-2xl">
+                                    <div className="bg-card dark:bg-neutral-600 text-card-foreground shadow-sm rounded-3xl">
                                         <div className="flex flex-col space-y-1.5 p-6">
-                                            <div className="text-3xl font-bold leading-none tracking-tight">
+                                            <div className="text-2xl font-bold leading-none tracking-tight">
                                                 <h2>Description</h2>
                                             </div>
                                         </div>
