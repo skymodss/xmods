@@ -13,12 +13,12 @@ export const HeaderSearchForm = () => {
 				<Input
 					type="text"
 					placeholder={T['Type to search...']}
-					className="!w-40 pr-5 group-hover:border-neutral-300 md:!w-full md:pr-10 dark:placeholder:text-neutral-400 dark:group-hover:border-neutral-400 dark:bg-neutral-600"
+					className="!w-40 pr-5 group-hover:border-neutral-300 md:!w-full md:pr-10 dark:placeholder:text-neutral-400 dark:group-hover:border-neutral-400"
 					sizeClass="h-[42px] pl-4 py-3"
 					rounded="rounded-2xl"
 					disabled
 				/>
-				<div className="absolute dark:bg-neutral-600 inset-y-0 end-0 flex items-center justify-center rounded-2xl pe-3 ps-2 text-neutral-500 dark:text-neutral-400">
+				<div className="absolute inset-y-0 end-0 flex items-center justify-center rounded-2xl pe-3 ps-2 text-neutral-500 dark:text-neutral-400">
 					<SearchIcon className="h-5 w-5" />
 				</div>
 			</div>
