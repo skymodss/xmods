@@ -17,7 +17,7 @@ export interface MainNav2Props extends MainNav1Props {}
 
 const MainNav2: FC<MainNav2Props> = ({ menuItems, description, title }) => {
 	return (
-		<div className="nc-MainNav3 relative z-10 border-b border-neutral-200/70 bg-white/95 backdrop-blur-xl dark:border-transparent dark:bg-neutral-900/95">
+		<div className="nc-MainNav3 relative z-10 border-b border-neutral-200/70 bg-white/90 backdrop-blur-xl dark:border-transparent dark:bg-neutral-900/90">
 			<div className="px-4 xl:container">
 				<div className="flex h-16 justify-between sm:h-20">
 					<div className="flex flex-1 items-center lg:hidden">
