@@ -1,57 +1,36 @@
-import { useEffect } from 'react'
-import { useSession } from 'next-auth/react'
+import { useEffect } from "react";
+import { useSession } from "next-auth/react";
+import { wpSocialLogin } from "../utils/wpSocialLogin";
 
+/**
+ * Sinhronizuje NextAuth korisnika sa WordPress-om koristeći samo Google ID.
+ * Čuva dobijeni WP JWT token u localStorage.
+ */
 export default function WordpressAuthSync() {
-    if (typeof window === 'undefined') return null
+  if (typeof window === "undefined") return null;
 
-    const { data: session, status } = useSession()
+  const { data: session, status } = useSession();
 
-    useEffect(() => {
+  useEffect(() => {
     if (
-        status === 'authenticated' &&
-        session?.user?.email &&
-        session?.user?.name
+      status === "authenticated" &&
+      (session?.user as any)?.sub // Google ID
     ) {
-        const email = session.user.email
-        const name = session.user.name
-        const google_id = (session.user as any).sub || ''
-        const username =
-            (session.user as any).username ||
-            email.split('@')[0].replace(/[^a-zA-Z0-9]/g, '')
+      const google_id = (session.user as any).sub;
 
-        // Učitaj WP lozinku iz localStorage ako postoji
-        let savedPassword = localStorage.getItem(`wp_pass_${email}`)
-
-        // Ako imaš sačuvanu lozinku, koristi je; ako ne, generiši novu (SAMO za prvi put)
-        let password = savedPassword || Math.random().toString(36).slice(-10)
-
-        fetch('https://xdd-a1e468.ingress-comporellon.ewp.live/wp-json/custom/v1/social-login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                email,
-                name,
-                google_id,
-                username,
-                password,
-            }),
+      wpSocialLogin(google_id)
+        .then((data) => {
+          if (data?.token) {
+            localStorage.setItem("wp_jwt", data.token);
+          }
         })
-            .then(res => res.json())
-            .then(data => {
-                if (data?.token) {
-                    localStorage.setItem('wp_jwt', data.token)
-                    localStorage.setItem('wp_username', data.username)
-                }
-                // Ako backend vrati lozinku za novog korisnika, upamti je!
-                if (data?.password) {
-                    localStorage.setItem(`wp_pass_${email}`, data.password)
-                }
-            })
-            .catch(err => {
-                console.error('WP sync error:', err)
-            })
+        .catch((err) => {
+          console.error("WP sync error:", err);
+        });
+    } else if (status === "unauthenticated") {
+      localStorage.removeItem("wp_jwt");
     }
-}, [session, status])
+  }, [session, status]);
 
-    return null
+  return null;
 }
