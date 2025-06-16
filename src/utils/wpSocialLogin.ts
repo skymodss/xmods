@@ -1,11 +1,17 @@
 /**
- * Logovanje/sinhronizacija sa WordPress backendom koristeći samo Google ID.
+ * Logovanje/sinhronizacija sa WordPress backendom koristeći Google ID, email i display_name.
  * Vraća WordPress JWT token.
  *
  * @param google_id Google ID korisnika (obavezno)
+ * @param email Email korisnika (obavezno za prvi login)
+ * @param display_name Ime korisnika (opciono, lepše za WP admin)
  * @returns Promise sa {token}
  */
-export async function wpSocialLogin(google_id: string) {
+export async function wpSocialLogin(
+  google_id: string,
+  email?: string,
+  display_name?: string
+) {
   let data: any;
   let res: Response;
 
@@ -15,7 +21,7 @@ export async function wpSocialLogin(google_id: string) {
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ google_id }),
+        body: JSON.stringify({ google_id, email, display_name }),
       }
     );
   } catch (e) {
