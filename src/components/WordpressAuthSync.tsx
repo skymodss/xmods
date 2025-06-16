@@ -3,7 +3,7 @@ import { useSession } from "next-auth/react";
 import { wpSocialLogin } from "../utils/wpSocialLogin";
 
 /**
- * Sinhronizuje NextAuth korisnika sa WordPress-om koristeći samo Google ID.
+ * Sinhronizuje NextAuth korisnika sa WordPress-om koristeći Google ID, email i display_name.
  * Čuva dobijeni WP JWT token u localStorage.
  */
 export default function WordpressAuthSync() {
@@ -14,11 +14,15 @@ export default function WordpressAuthSync() {
   useEffect(() => {
     if (
       status === "authenticated" &&
-      (session?.user as any)?.sub // Google ID
+      session?.user &&
+      (session.user as any).sub // Google ID
     ) {
       const google_id = (session.user as any).sub;
+      const email = (session.user as any).email;
+      const display_name = (session.user as any).name || (session.user as any).displayName || "";
 
-      wpSocialLogin(google_id)
+      // Za prvi login OBAVEZNO šalji i email, i display_name ako postoji!
+      wpSocialLogin(google_id, email, display_name)
         .then((data) => {
           if (data?.token) {
             localStorage.setItem("wp_jwt", data.token);
