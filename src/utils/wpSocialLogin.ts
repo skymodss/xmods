@@ -5,13 +5,13 @@
  * @param google_id Google ID korisnika (obavezno)
  * @param email Email korisnika (obavezno za prvi login)
  * @param display_name Ime korisnika (opciono, lepše za WP admin)
- * @returns Promise sa {token}
+ * @returns Promise sa {token, user_id, email, displayname}
  */
 export async function wpSocialLogin(
   google_id: string,
   email?: string,
   display_name?: string
-) {
+): Promise<{ token: string; user_id: number; email: string; displayname: string }> {
   let data: any;
   let res: Response;
 
@@ -21,7 +21,11 @@ export async function wpSocialLogin(
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ google_id, email, display_name }),
+        body: JSON.stringify(
+          email
+            ? { google_id, email, display_name }
+            : { google_id }
+        ),
       }
     );
   } catch (e) {
@@ -34,14 +38,16 @@ export async function wpSocialLogin(
     throw new Error("WP social login: invalid JSON odgovor");
   }
 
-  if (!res.ok) {
+  // WordPress REST API error (WP_Error)
+  if (!res.ok || (data && data.code && data.message)) {
     throw new Error(
-      data?.message || "WP social login failed (HTTP " + res.status + ")"
+      data?.message || `WP social login failed (HTTP ${res.status})`
     );
   }
 
-  if (data && data.code && data.message) {
-    throw new Error(`WP error: ${data.code} - ${data.message}`);
+  // Osiguraj da backend vraća očekivane podatke
+  if (!data.token || !data.user_id) {
+    throw new Error("WP social login: Nepotpuni podaci iz backenda");
   }
 
   return data;
