@@ -45,7 +45,6 @@ export default function MyApp({ Component, pageProps }: AppProps) {
 							}
 						`}</style>
 						<NextNProgress color="#818cf8" />
-						<Component {...pageProps} key={router.asPath} />
 						<AuthProvider> 
 							<Component {...pageProps} />
 						</AuthProvider>
