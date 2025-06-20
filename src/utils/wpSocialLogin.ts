@@ -1,6 +1,6 @@
 /**
  * Logovanje/sinhronizacija sa WordPress backendom koristeći Google ID, email i display_name.
- * Vraća WordPress JWT token.
+ * Vraća WordPress JWT token i automatski ga snima u localStorage.
  *
  * @param google_id Google ID korisnika (obavezno)
  * @param email Email korisnika (obavezno za prvi login)
@@ -48,6 +48,11 @@ export async function wpSocialLogin(
   // Osiguraj da backend vraća očekivane podatke
   if (!data.token || !data.user_id) {
     throw new Error("WP social login: Nepotpuni podaci iz backenda");
+  }
+
+  // Automatski sačuvaj token u localStorage
+  if (typeof window !== "undefined") {
+    localStorage.setItem("wp_jwt", data.token);
   }
 
   return data;
