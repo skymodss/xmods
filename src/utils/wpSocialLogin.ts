@@ -17,7 +17,7 @@ export async function wpSocialLogin(
 
   try {
     res = await fetch(
-      "https://xdd-a1e468.ingress-comporellon.ewp.live/wp-json/custom/v1/jwt-by-google-id",
+      "https://wordpress-1482017-5629555.cloudwaysapps.com/wp-json/custom/v1/jwt-by-google-id",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
