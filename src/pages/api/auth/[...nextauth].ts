@@ -1,5 +1,6 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
+import axios from "axios";
 
 export default NextAuth({
   providers: [
@@ -9,22 +10,32 @@ export default NextAuth({
     }),
   ],
   callbacks: {
-    async jwt({ token, profile }) {
-      // Samo ako profile postoji i nije već setovan u token
-      if (profile && !token.sub) {
-        token.sub = profile.sub;
-        token.email = profile.email;
-        token.name = profile.name;
+    // Kada korisnik potvrdi signIn, traži backend token i stavi ga u JWT
+    async jwt({ token, account, profile, user }) {
+      // Samo prilikom prvog logina
+      if (account && profile) {
+        try {
+          // ZAMENI URL ispod sa pravim endpointom
+          const res = await axios.post("https://wordpress-1482017-5629555.cloudwaysapps.com/wp-json/custom/v1/jwt-by-google-id", {
+            email: profile.email,
+            google_id: profile.sub,
+            // Dodaj još polja ako backend traži
+          });
+          token.backendToken = res.data.token; // backend JWT token
+          token.user_id = res.data.user_id;
+          token.displayname = res.data.displayname;
+        } catch (err) {
+          console.error("Failed to get backend token:", err);
+          // Opciono: možeš baciti error da blokira login
+        }
       }
       return token;
     },
     async session({ session, token }) {
-      if (session.user) {
-        // Samo ako još nije setovano
-        if (!(session.user as any).sub) (session.user as any).sub = token.sub;
-        if (!(session.user as any).email) (session.user as any).email = token.email;
-        if (!(session.user as any).name) (session.user as any).name = token.name;
-      }
+      // Token iz JWT-a stavljaš u session, dostupan je u frontendu
+      session.backendToken = token.backendToken;
+      session.user_id = token.user_id;
+      session.displayname = token.displayname;
       return session;
     },
   },
