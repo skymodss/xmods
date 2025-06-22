@@ -10,7 +10,8 @@ export default NextAuth({
   ],
   callbacks: {
     async jwt({ token, profile }) {
-      if (profile) {
+      // Samo ako profile postoji i nije već setovan u token
+      if (profile && !token.sub) {
         token.sub = profile.sub;
         token.email = profile.email;
         token.name = profile.name;
@@ -19,9 +20,10 @@ export default NextAuth({
     },
     async session({ session, token }) {
       if (session.user) {
-        (session.user as any).sub = token.sub;
-        (session.user as any).email = token.email;
-        (session.user as any).name = token.name;
+        // Samo ako još nije setovano
+        if (!(session.user as any).sub) (session.user as any).sub = token.sub;
+        if (!(session.user as any).email) (session.user as any).email = token.email;
+        if (!(session.user as any).name) (session.user as any).name = token.name;
       }
       return session;
     },
