@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useSession } from "next-auth/react";
 import { wpSocialLogin } from "@/utils/wpSocialLogin";
 import { useRouter } from "next/router";
@@ -12,13 +12,25 @@ import { useRouter } from "next/router";
 export default function WordpressAuthSync({ redirectTo = "/" }: { redirectTo?: string }) {
   const { data: session, status } = useSession();
   const router = useRouter();
+  const isSyncing = useRef(false); // Sprečava duple pozive
 
   useEffect(() => {
+    // Čisti signal za odjavu
+    if (status === "unauthenticated") {
+      localStorage.removeItem("wp_jwt");
+      isSyncing.current = false;
+      return;
+    }
+
+    // Samo ako je autentifikovan i imamo Google ID
     if (
       status === "authenticated" &&
       session?.user &&
-      (session.user as any).sub
+      (session.user as any).sub &&
+      !isSyncing.current && // Ne ponavljaj
+      !localStorage.getItem("wp_jwt") // Ne šalji opet ako već imaš token
     ) {
+      isSyncing.current = true;
       const google_id = (session.user as any).sub;
       const email = (session.user as any).email;
       const display_name =
@@ -30,17 +42,18 @@ export default function WordpressAuthSync({ redirectTo = "/" }: { redirectTo?: s
         .then((data) => {
           if (data?.token) {
             localStorage.setItem("wp_jwt", data.token);
-
-            // Prebaci korisnika na početnu (ili gde god treba)
             router.replace(redirectTo);
+          } else {
+            throw new Error("Nema tokena u odgovoru");
           }
         })
         .catch((err) => {
-          // Po želji prikaži grešku korisniku
           console.error("WP login error:", err);
+          // Po želji: ispiši grešku korisniku
+        })
+        .finally(() => {
+          isSyncing.current = false;
         });
-    } else if (status === "unauthenticated") {
-      localStorage.removeItem("wp_jwt");
     }
   }, [session, status, router, redirectTo]);
 
