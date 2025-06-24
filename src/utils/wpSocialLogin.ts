@@ -1,3 +1,4 @@
+@@ -1,59 +1,59 @@
 /**
  * Logovanje/sinhronizacija sa WordPress backendom koristeći Google ID, email i display_name.
  * Vraća WordPress JWT token i automatski ga snima u localStorage.
@@ -41,7 +42,7 @@ export async function wpSocialLogin(
   // WordPress REST API error (WP_Error)
   if (!res.ok || (data && data.code && data.message)) {
     throw new Error(
-      data?.message || `WP social login failed (HTTP ${res.status})`
+      data?.message || `WP social login failed (HTTP ${res.status})`More actions
     );
   }
 
