@@ -32,7 +32,7 @@ export async function wpSocialLogin(
   // WordPress REST API error (WP_Error)
   if (!res.ok || (data && data.code && data.message)) {
     throw new Error(
-      data?.message || `WP social login failed (HTTP ${res.status})`More actions
+      data?.message || `WP social login failed (HTTP ${res.status})`
     );
   }
 
