@@ -1,4 +1,3 @@
-@@ -1,59 +1,59 @@
 /**
  * Logovanje/sinhronizacija sa WordPress backendom koristeći Google ID, email i display_name.
  * Vraća WordPress JWT token i automatski ga snima u localStorage.
