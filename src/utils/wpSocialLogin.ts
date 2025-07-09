@@ -1,4 +1,4 @@
-export async function wpSocialLoginWithRetry(
+export async function wpSocialLogin(
   google_id: string,
   email?: string,
   display_name?: string,
@@ -20,7 +20,12 @@ export async function wpSocialLoginWithRetry(
         }
       );
 
-      const data = await res.json();
+      let data: any;
+      try {
+        data = await res.json();
+      } catch {
+        throw new Error("WP social login: invalid JSON odgovor");
+      }
 
       // Provera da li je response OK i sadrži token
       if (res.ok && data?.token && data?.user_id) {
@@ -41,6 +46,5 @@ export async function wpSocialLoginWithRetry(
       await new Promise((resolve) => setTimeout(resolve, retryDelay));
     }
   }
-  // Ovaj return nikad neće biti pozvan, ali TypeScript ga traži
   throw new Error("WP social login: Unreachable code");
 }
