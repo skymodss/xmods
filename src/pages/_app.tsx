@@ -18,6 +18,7 @@ const WordpressAuthSync = dynamic(() => import("@/components/WordpressAuthSync")
 import { SessionProvider } from "next-auth/react";
 import { isGoogleJwtUser, isClassicWpUser } from "@/utils/authmode";
 
+
 const poppins = Poppins({
   subsets: ['latin'],
   display: 'swap',
