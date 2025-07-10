@@ -15,53 +15,58 @@ import themeJson from '@/../theme.json'
 import { GoogleAnalytics } from 'nextjs-google-analytics'
 import dynamic from "next/dynamic"
 const WordpressAuthSync = dynamic(() => import("@/components/WordpressAuthSync"), { ssr: false })
-import { SessionProvider } from "next-auth/react";
-import { AuthProvider } from "../context/AuthContext";
+import { SessionProvider } from "next-auth/react"
+import { AuthProvider } from "../context/AuthContext"
 
 const poppins = Poppins({
-	subsets: ['latin'],
-	display: 'swap',
-	weight: ['300', '400', '500', '600', '700', '800','900'],
+  subsets: ['latin'],
+  display: 'swap',
+  weight: ['300', '400', '500', '600', '700', '800','900'],
 })
 
 export default function MyApp({ Component, pageProps }: AppProps) {
-	const router = useRouter()
+  const router = useRouter()
 
-	return (
-		<>
-			<GoogleAnalytics trackPageViews />
+  return (
+    <>
+      <GoogleAnalytics trackPageViews />
 
-			<FaustProvider pageProps={pageProps}>
-				<WordPressBlocksProvider
-					config={{
-						blocks,
-						theme: fromThemeJson(themeJson),
-					}}
-				>
-					<SiteWrapperProvider {...pageProps}>
-						<style jsx global>{`
-							html {
-								font-family: ${poppins.style.fontFamily};
-							}
-						`}</style>
-						<NextNProgress color="#818cf8" />
-						<Component {...pageProps} key={router.asPath} />
+      <FaustProvider pageProps={pageProps}>
+        <WordPressBlocksProvider
+          config={{
+            blocks,
+            theme: fromThemeJson(themeJson),
+          }}
+        >
+          <SiteWrapperProvider {...pageProps}>
+            <style jsx global>{`
+              html {
+                font-family: ${poppins.style.fontFamily};
+              }
+            `}</style>
+            <NextNProgress color="#818cf8" />
+
+            {/* AuthProvider wraps your app so you have global auth context */}
+            <AuthProvider>
+              <Component {...pageProps} key={router.asPath} />
+            </AuthProvider>
+
             <SessionProvider session={pageProps.session}>
               <WordpressAuthSync />
             </SessionProvider>
-						<Toaster
-							position="bottom-left"
-							toastOptions={{
-								style: {
-									fontSize: '14px',
-									borderRadius: '0.75rem',
-								},
-							}}
-							containerClassName="text-sm"
-						/>
-					</SiteWrapperProvider>
-				</WordPressBlocksProvider>
-			</FaustProvider>
-		</>
-	)
+            <Toaster
+              position="bottom-left"
+              toastOptions={{
+                style: {
+                  fontSize: '14px',
+                  borderRadius: '0.75rem',
+                },
+              }}
+              containerClassName="text-sm"
+            />
+          </SiteWrapperProvider>
+        </WordPressBlocksProvider>
+      </FaustProvider>
+    </>
+  )
 }
