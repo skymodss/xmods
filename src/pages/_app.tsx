@@ -18,7 +18,6 @@ const WordpressAuthSync = dynamic(() => import("@/components/WordpressAuthSync")
 import { SessionProvider } from "next-auth/react";
 import { isGoogleJwtUser, isClassicWpUser } from "@/utils/authmode";
 
-
 const poppins = Poppins({
   subsets: ['latin'],
   display: 'swap',
@@ -28,21 +27,34 @@ const poppins = Poppins({
 export default function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
   const [authMode, setAuthMode] = useState<"google" | "classic" | "none">("none");
+  const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
-    // Detekcija tipa autentifikacije
     if (isGoogleJwtUser()) {
       setAuthMode("google");
+      setIsReady(true);
     } else {
       isClassicWpUser().then((isLoggedIn) => {
-        if (isLoggedIn) {
-          setAuthMode("classic");
-        } else {
-          setAuthMode("none");
-        }
+        setAuthMode(isLoggedIn ? "classic" : "none");
+        setIsReady(true);
       });
     }
   }, []);
+
+  if (!isReady) {
+    // Loader dok traje provera autentifikacije
+    return (
+      <div style={{
+        width: "100vw",
+        height: "100vh",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center"
+      }}>
+        <span>Proveravam sesiju...</span>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -62,9 +74,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
               }
             `}</style>
             <NextNProgress color="#818cf8" />
-            {/* Proslijedi authMode kao prop ako trebaš razlikovati */}
             <Component {...pageProps} key={router.asPath} authMode={authMode} />
-            {/* Google login (JWT) sync aktivan samo za Google korisnike */}
             <SessionProvider session={pageProps.session}>
               <WordpressAuthSync />
             </SessionProvider>
