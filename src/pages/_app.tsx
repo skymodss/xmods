@@ -16,23 +16,7 @@ import { GoogleAnalytics } from 'nextjs-google-analytics'
 import dynamic from "next/dynamic"
 const WordpressAuthSync = dynamic(() => import("@/components/WordpressAuthSync"), { ssr: false })
 import { SessionProvider } from "next-auth/react";
-// import { AuthProvider } from "../context/AuthContext"; // Ostavljen za kasniju upotrebu ako treba
-
-// Helper funkcije za detekciju tipa login-a
-function isGoogleJwtUser() {
-  return typeof window !== "undefined" && !!localStorage.getItem('wp_jwt');
-}
-
-async function isClassicWpUser() {
-  try {
-    const res = await fetch('/wp-json/wp/v2/users/me', {
-      credentials: 'include'
-    });
-    return res.ok;
-  } catch {
-    return false;
-  }
-}
+import { isGoogleJwtUser, isClassicWpUser } from "@/utils/authmode";
 
 const poppins = Poppins({
   subsets: ['latin'],
