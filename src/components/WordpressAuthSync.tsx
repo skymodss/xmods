@@ -15,20 +15,22 @@ export default function WordpressAuthSync({ redirectTo = "/" }: { redirectTo?: s
   const isSyncing = useRef(false); // Sprečava duple pozive
 
   useEffect(() => {
-    // Čisti signal za odjavu
+    // Čisti JWT na odjavu
     if (status === "unauthenticated") {
       localStorage.removeItem("wp_jwt");
+      // Poželjno: očisti i cookie za server-side auth:
+      document.cookie = "wp_jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
       isSyncing.current = false;
       return;
     }
 
-    // Samo ako je autentifikovan i imamo Google ID
+    // Samo ako je autentifikovan i imamo Google ID, a nemamo token
     if (
       status === "authenticated" &&
       session?.user &&
       (session.user as any).sub &&
-      !isSyncing.current && // Ne ponavljaj
-      !localStorage.getItem("wp_jwt") // Ne šalji opet ako već imaš token
+      !isSyncing.current &&
+      !localStorage.getItem("wp_jwt")
     ) {
       isSyncing.current = true;
       const google_id = (session.user as any).sub;
@@ -41,7 +43,10 @@ export default function WordpressAuthSync({ redirectTo = "/" }: { redirectTo?: s
       wpSocialLogin(google_id, email, display_name)
         .then((data) => {
           if (data?.token) {
+            // Snimi u localStorage za frontend
             localStorage.setItem("wp_jwt", data.token);
+            // Snimi i u cookie za backend (Next.js API route koristi cookie, ne localStorage!)
+            document.cookie = `wp_jwt=${data.token}; path=/; secure; samesite=lax`;
             router.replace(redirectTo);
           } else {
             throw new Error("Nema tokena u odgovoru");
@@ -49,7 +54,7 @@ export default function WordpressAuthSync({ redirectTo = "/" }: { redirectTo?: s
         })
         .catch((err) => {
           console.error("WP login error:", err);
-          // Po želji: ispiši grešku korisniku
+          // Poželjno: ispiši grešku korisniku
         })
         .finally(() => {
           isSyncing.current = false;
