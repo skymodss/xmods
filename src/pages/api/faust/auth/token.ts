@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import jwt from "jsonwebtoken";
 
 // OVDJE STAVI ISTI SECRET KAO NA WORDPRESS BACKENDU!
-const SECRET = "OVDJE_TVOJ_WP_JWT_SECRET"; // ili process.env.JWT_SECRET
+const SECRET = "8CCA8C456C24EDF1"; // ili process.env.JWT_SECRET
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   const token = req.cookies.wp_jwt;
