@@ -18,7 +18,7 @@ const WordpressAuthSync = dynamic(() => import("@/components/WordpressAuthSync")
 import { SessionProvider } from "next-auth/react"
 import { AuthProvider } from "../context/AuthContext"
 import { ApolloProvider } from "@apollo/client";
-import client from "@/utils/apolloClient";
+import { client } from "@/utils/apolloClient";
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -50,7 +50,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
 
             {/* AuthProvider wraps your app so you have global auth context */}
             <ApolloProvider client={client}>
-              <Component {...pageProps} key={router.asPath} />
+              <Component {...pageProps} />
             </ApolloProvider>
 
             <SessionProvider session={pageProps.session}>
