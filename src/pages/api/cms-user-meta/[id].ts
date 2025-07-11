@@ -12,7 +12,20 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<CMSUserMetaResponseData>
 ) {
-  const client = getApolloClient();
+  // 1. Uzmite JWT token iz Authorization headera
+  const authHeader = req.headers.authorization;
+  let token = null;
+  if (authHeader && authHeader.startsWith("Bearer ")) {
+    token = authHeader.replace("Bearer ", "");
+  }
+
+  // 2. Proslijedite token u FaustWP Apollo klijent
+  const client = getApolloClient({
+    headers: {
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
+    },
+  });
+
   const id = req.query.id || null;
 
   if (!id || typeof id !== "string") {
@@ -25,8 +38,7 @@ export default async function handler(
       .query({
         query: GET_USER_META_BY_ID,
         variables: { id },
-      })
-      .then((result) => result);
+      });
     if (error || errors) {
       res.status(500).send({ error: "Failed to fetch data" });
       return;
