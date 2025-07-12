@@ -1,34 +1,38 @@
 import { createGlobalState } from "react-hooks-global-state";
 
-const initialState: {
+type State = {
   isOpen: boolean;
-  isLogedIn: boolean;
-  url?: string;
-} = {
+  isLoggedIn: boolean;
+  token?: string;
+};
+
+const initialState: State = {
   isOpen: false,
-  isLogedIn: false,
-  url: undefined,
+  isLoggedIn: false,
+  token: undefined,
 };
 
 const { useGlobalState } = createGlobalState(initialState);
 
-export const useLoginModal = () => {
+export function useAuth() {
   const [isOpen, setIsOpen] = useGlobalState("isOpen");
-  const [isLogedIn, setIsLogedIn] = useGlobalState("isLogedIn");
-  const [url, setUrl] = useGlobalState("url");
+  const [isLoggedIn, setIsLoggedIn] = useGlobalState("isLoggedIn");
+  const [token, setToken] = useGlobalState("token");
 
   return {
     isOpen,
-    isLogedIn,
-    setIsLogedIn,
-    urlRiderect: url,
-    openLoginModal: (url?: string) => {
-      setIsOpen(true);
-      url && setUrl(url);
-    },
-    closeLoginModal: () => {
+    isLoggedIn,
+    token,
+    open: () => setIsOpen(true),
+    close: () => setIsOpen(false),
+    login: (newToken: string) => {
+      setToken(newToken);
+      setIsLoggedIn(true);
       setIsOpen(false);
-      setUrl(undefined);
+    },
+    logout: () => {
+      setToken(undefined);
+      setIsLoggedIn(false);
     },
   };
-};
+}
