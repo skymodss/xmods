@@ -1,29 +1,34 @@
-import { createGlobalState } from "react-hooks-global-state";
+import { useEffect, useState } from "react";
 
-type State = {
-  isOpen: boolean;
-  isLoggedIn: boolean;
-  token?: string;
-  // store an optional redirect URL when opening the modal
-  redirectPath?: string;
-};
-
-const initialState: State = {
-  isOpen: false,
-  isLoggedIn: false,
-  token: undefined,
-  redirectPath: undefined,
-};
-
-const { useGlobalState } = createGlobalState(initialState);
+// key za localStorage
+const TOKEN_KEY = "xmods_jwt";
 
 export function useLoginModal() {
-  const [isOpen, setIsOpen] = useGlobalState("isOpen");
-  const [isLoggedIn, setIsLoggedIn] = useGlobalState("isLoggedIn");
-  const [token, setToken] = useGlobalState("token");
-  const [redirectPath, setRedirectPath] = useGlobalState("redirectPath");
+  const [isOpen, setIsOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [token, setToken] = useState<string | undefined>(undefined);
+  const [redirectPath, setRedirectPath] = useState<string|undefined>(undefined);
 
-  // open can accept an optional path to redirect after login
+  // pri mountu, uzmi token iz localStorage
+  useEffect(() => {
+    const saved = typeof window !== "undefined"
+      ? localStorage.getItem(TOKEN_KEY)
+      : null;
+    if (saved) {
+      setToken(saved);
+      setIsLoggedIn(true);
+    }
+  }, []);
+
+  // kad se token promijeni u stateu, ažuriraj localStorage
+  useEffect(() => {
+    if (token) {
+      localStorage.setItem(TOKEN_KEY, token);
+    } else {
+      localStorage.removeItem(TOKEN_KEY);
+    }
+  }, [token]);
+
   const open = (path?: string) => {
     setRedirectPath(path);
     setIsOpen(true);
@@ -33,32 +38,28 @@ export function useLoginModal() {
     setRedirectPath(undefined);
   };
 
+  const login = (newToken: string) => {
+    setToken(newToken);
+    setIsLoggedIn(true);
+    setIsOpen(false);
+  };
+
+  const logout = () => {
+    setToken(undefined);
+    setIsLoggedIn(false);
+    setIsOpen(false);
+  };
+
   return {
     isOpen,
     isLoggedIn,
     token,
-
-    // core methods
     open,
     close,
-
-    // backward‐compatible aliases
     openLoginModal: open,
     closeLoginModal: close,
-
-    // expose the saved redirect path under the name the UI expects
     urlRiderect: redirectPath,
-
-    login: (newToken: string) => {
-      setToken(newToken);
-      setIsLoggedIn(true);
-      setIsOpen(false);
-      // Note: you can perform router.push(redirectPath) in your component after login
-    },
-    logout: () => {
-      setToken(undefined);
-      setIsLoggedIn(false);
-      setRedirectPath(undefined);
-    },
+    login,
+    logout,
   };
 }
