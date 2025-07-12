@@ -14,11 +14,14 @@ import NextNProgress from 'nextjs-progressbar'
 import themeJson from '@/../theme.json'
 import { GoogleAnalytics } from 'nextjs-google-analytics'
 import dynamic from 'next/dynamic'
-
 // auth
 import { SessionProvider } from 'next-auth/react'
 import { AuthProvider } from '@/context/AuthContext'
 
+const WordpressAuthSync = dynamic(
+  () => import('@/components/WordpressAuthSync'),
+  { ssr: false }
+)
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -62,6 +65,8 @@ export default function MyApp({
 
               {/* 8. Your page */}
               <Component {...pageProps} key={router.asPath} />
+
+              <WordpressAuthSync />
 
               {/* 10. Toasts */}
               <Toaster
