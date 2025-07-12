@@ -18,10 +18,7 @@ import dynamic from 'next/dynamic'
 // auth
 import { SessionProvider } from 'next-auth/react'
 import { AuthProvider } from '@/context/AuthContext'
-const WordpressAuthSync = dynamic(
-  () => import('@/components/WordpressAuthSync'),
-  { ssr: false }
-)
+
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -65,9 +62,6 @@ export default function MyApp({
 
               {/* 8. Your page */}
               <Component {...pageProps} key={router.asPath} />
-
-              {/* 9. Sync WordPress auth/token client-side */}
-              <WordpressAuthSync />
 
               {/* 10. Toasts */}
               <Toaster
