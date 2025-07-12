@@ -12,17 +12,32 @@ const GET_ME = gql`
   }
 `;
 
+interface MeResponse {
+  me: {
+    id: string;
+    name: string;
+    email: string;
+  };
+}
+
 export function useMe() {
   const client = useGqlClient();
-  const [user, setUser] = useState<{ id: string; name: string; email: string }>();
+  const [user, setUser] = useState<MeResponse["me"]>();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (!client) return;
-    client.request(GET_ME).then((data) => {
-      setUser(data.me);
-      setLoading(false);
-    });
+    client
+      .request<MeResponse>(GET_ME)
+      .then((data) => {
+        setUser(data.me);
+      })
+      .catch((err) => {
+        console.error("Failed to fetch current user:", err);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }, [client]);
 
   return { user, loading };
