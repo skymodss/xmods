@@ -19,25 +19,32 @@ export function useLoginModal() {
   const [isLoggedIn, setIsLoggedIn] = useGlobalState("isLoggedIn");
   const [token, setToken] = useGlobalState("token");
 
-  // Core state handlers
-  const open = () => setIsOpen(true);
-  const close = () => setIsOpen(false);
+  // Allow an optional redirect path argument (currently ignored,
+  // but can be stored in state if needed later)
+  const open = (redirectPath?: string) => {
+    setIsOpen(true);
+  };
+  const close = () => {
+    setIsOpen(false);
+  };
 
   return {
     isOpen,
     isLoggedIn,
     token,
 
-    // keep the old names intact so existing components keep working:
+    // Core methods
     open,
     close,
+
+    // Aliases for backward compatibility
     openLoginModal: open,
     closeLoginModal: close,
 
     login: (newToken: string) => {
       setToken(newToken);
       setIsLoggedIn(true);
-      open();     // or close() depending on flow
+      setIsOpen(false);
     },
     logout: () => {
       setToken(undefined);
