@@ -14,7 +14,7 @@ const initialState: State = {
 
 const { useGlobalState } = createGlobalState(initialState);
 
-export function useAuth() {
+export function useLoginModal() {
   const [isOpen, setIsOpen] = useGlobalState("isOpen");
   const [isLoggedIn, setIsLoggedIn] = useGlobalState("isLoggedIn");
   const [token, setToken] = useGlobalState("token");
