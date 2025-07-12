@@ -18,6 +18,7 @@ export function useMe() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (!client) return;
     client.request(GET_ME).then((data) => {
       setUser(data.me);
       setLoading(false);
