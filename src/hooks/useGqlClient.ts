@@ -1,5 +1,5 @@
 import { GraphQLClient } from "graphql-request";
-import { useAuth } from "./useAuth";
+import { useLoginModal } from "./useLoginModal";
 
 let client: GraphQLClient;
 
@@ -18,6 +18,6 @@ function getClient(token?: string) {
 }
 
 export function useGqlClient() {
-  const { token } = useAuth();
+  const { token } = useLoginModal();
   return getClient(token);
 }
