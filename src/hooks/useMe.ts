@@ -3,7 +3,7 @@ import { gql } from "graphql-request";
 import { useGqlClient } from "./useGqlClient";
 
 const GET_ME = gql`
-  query GetMe {
+  query viewer {
     me {
       id
       name
