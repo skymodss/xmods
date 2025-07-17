@@ -36,13 +36,16 @@ interface AuthContextType {
   logout: () => void;
 }
 
-// --- KLJUČNA IZMENA ---
-// Kreiramo funkciju koja eksplicitno proverava da li je odgovor uspešan.
-// Sintaksa `response is WpAuthSuccess` je ono što je čini "Type Guard" funkcijom.
-function isSuccessResponse(response: any): response is WpAuthSuccess {
-  return response && typeof response.token === 'string' && response.token.length > 0;
+// Type Guard funkcija
+function isSuccessResponse(response: WpLoginResponse): response is WpAuthSuccess {
+  return (
+    typeof response === "object" &&
+    response !== null &&
+    "token" in response &&
+    typeof response.token === "string" &&
+    response.token.length > 0
+  );
 }
-// --- KRAJ IZMENE ---
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
@@ -56,16 +59,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     try {
       setError(null);
       const data: WpLoginResponse = await wpSocialLogin(googleId, email, displayName);
-      
-      // Sada koristimo našu novu, pouzdanu funkciju za proveru tipa
+
       if (isSuccessResponse(data)) {
-        // Unutar ovog bloka, TS je 100% siguran da je 'data' tipa WpAuthSuccess
         localStorage.setItem("wp_jwt", data.token);
         const userData = { id: data.user_id, email: data.email, displayname: data.displayname };
         setUser(userData);
         setIsLoggedIn(true);
       } else {
-        // Unutar ovog bloka, TS je 100% siguran da 'data' mora biti WpAuthError
+        // TypeScript sada prepoznaje da je data WpAuthError
         const errorMessage = data.message || "Login failed. Please try again.";
         setError(errorMessage);
       }
@@ -93,7 +94,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           const result = await response.json();
           if (response.ok && result.data?.viewer) {
             setUser(result.data.viewer);
-setIsLoggedIn(true);
+            setIsLoggedIn(true);
           } else {
             logout();
           }
