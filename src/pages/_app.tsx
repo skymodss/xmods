@@ -45,7 +45,7 @@ export default function MyApp({
 
   return (
     // 4. Uklonjen SessionProvider omotač
-    // <SessionProvider session={session}>
+     <SessionProvider session={session}>
       <AuthProvider>
         <GoogleAnalytics trackPageViews />
         <FaustProvider pageProps={pageProps}>
@@ -81,6 +81,6 @@ export default function MyApp({
           </WordPressBlocksProvider>
         </FaustProvider>
       </AuthProvider>
-    // </SessionProvider>
+    </SessionProvider>
   )
 }
