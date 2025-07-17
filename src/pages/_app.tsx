@@ -25,7 +25,7 @@ const poppins = Poppins({
 // 3. Uklonjen `session` iz propsa
 export default function MyApp({
   Component,
-  pageProps,
+  pageProps: { session, ...pageProps },
 }: AppProps) {
   const router = useRouter()
 
