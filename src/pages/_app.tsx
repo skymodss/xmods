@@ -15,6 +15,7 @@ import themeJson from '@/../theme.json'
 import { GoogleAnalytics } from 'nextjs-google-analytics'
 import { SessionProvider } from 'next-auth/react'
 import { AuthProvider } from '@/context/AuthContext'
+import { WordpressAuthSync } from '@/components/WordpressAuthSync'
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -51,7 +52,7 @@ export default function MyApp({
               <Component {...pageProps} key={router.asPath} />
 
               {/* 5. Uklonjena WordpressAuthSync komponenta odavde */}
-              {/* <WordpressAuthSync /> */}
+              <WordpressAuthSync />
 
               <Toaster
                 position="bottom-left"
