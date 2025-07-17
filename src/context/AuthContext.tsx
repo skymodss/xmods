@@ -1,5 +1,4 @@
 import { createContext, useContext, useState, useEffect } from "react";
-// Pretpostavljamo da ova funkcija postoji i vraća Promise<any>
 import { wpSocialLogin } from "../utils/wpSocialLogin";
 
 // Definišemo tipove za server response
@@ -42,8 +41,8 @@ function isSuccessResponse(response: WpLoginResponse): response is WpAuthSuccess
     typeof response === "object" &&
     response !== null &&
     "token" in response &&
-    typeof response.token === "string" &&
-    response.token.length > 0
+    typeof (response as any).token === "string" &&
+    (response as any).token.length > 0
   );
 }
 
@@ -66,8 +65,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         setUser(userData);
         setIsLoggedIn(true);
       } else {
-        // TypeScript sada prepoznaje da je data WpAuthError
-        const errorMessage = data.message || "Login failed. Please try again.";
+        // TypeScript ovde ne prepoznaje automatski tip. Rešavamo kastovanjem:
+        const errorMessage = (data as WpAuthError).message || "Login failed. Please try again.";
         setError(errorMessage);
       }
     } catch (err: any) {
