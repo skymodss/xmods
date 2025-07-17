@@ -106,7 +106,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
               setUser({ id: data.user_id, email: data.email, displayname: data.displayname });
               setIsLoggedIn(true);
             } else {
-              setError(data.message || "Login to WP backend failed.");
+              // --- ISPRAVKA GREŠKE ---
+              // TypeScript ovde ne prepoznaje automatski tip, pa eksplicitno kastujemo:
+              const errorMessage = (data as WpAuthError).message || "Login to WP backend failed.";
+              setError(errorMessage);
               logout();
             }
           } catch (e: any) {
