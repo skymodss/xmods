@@ -27,31 +27,36 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const validateToken = async () => {
     const token = localStorage.getItem("wp_jwt");
     if (token) {
-      try {
-        const response = await fetch("/graphql", {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            query: `query ValidateToken { viewer { id email } }`,
-          }),
-        });
-        const result = await response.json();
-        if (result.data?.viewer) {
-          setUser(result.data.viewer);
-          setIsLoggedIn(true);
-        } else {
-          setIsLoggedIn(false);
-          localStorage.removeItem("wp_jwt");
+        try {
+            // Promenjen URL i uklonjen GraphQL body
+            const response = await fetch("/wp-json/custom/v1/validate-token", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                },
+                // Body više nije potreban jer se token šalje u headeru
+            });
+
+            const result = await response.json();
+
+            // Proveravamo da li je status OK (200) i da li postoje podaci
+            if (response.ok && result.data?.viewer) {
+                setUser(result.data.viewer);
+                setIsLoggedIn(true);
+            } else {
+                // Ako server vrati grešku (npr. 403), result će sadržati poruku o grešci
+                console.error("Token validation failed on server:", result.message);
+                setIsLoggedIn(false);
+                localStorage.removeItem("wp_jwt");
+            }
+        } catch (error) {
+            console.error("Token validation request failed", error);
+            setIsLoggedIn(false);
+            localStorage.removeItem("wp_jwt");
         }
-      } catch (error) {
-        console.error("Token validation failed", error);
-        setIsLoggedIn(false);
-        localStorage.removeItem("wp_jwt");
-      }
     }
-  };
+};
 
   useEffect(() => {
     validateToken();
