@@ -1,9 +1,7 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import { wpSocialLogin } from "../utils/wpSocialLogin";
 
-// --- POČETAK IZMENA ---
-
-// 1. Definišemo tipove za oba moguća odgovora sa servera
+// Definišemo tipove za oba moguća odgovora sa servera
 interface WpAuthSuccess {
   token: string;
   user_id: number;
@@ -34,11 +32,9 @@ interface AuthContextType {
   isLoggedIn: boolean;
   isLoading: boolean;
   error: string | null;
-  handleLogin: (googleId: string, email: string, displayName:string) => Promise<void>;
+  handleLogin: (googleId: string, email: string, displayName: string) => Promise<void>;
   logout: () => void;
 }
-
-// --- KRAJ IZMENA ---
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
@@ -51,19 +47,19 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const handleLogin = async (googleId: string, email: string, displayName: string) => {
     try {
       setError(null);
-      // Eksplicitno kažemo da je `data` tipa `WpLoginResponse`
       const data: WpLoginResponse = await wpSocialLogin(googleId, email, displayName);
       
-      // 2. Koristimo "type guard" da proverimo koji je tip odgovora
-      // Ako objekat ima 'token' properti, onda je to WpAuthSuccess
+      // Type guard: Ako objekat ima 'token' properti, onda je to WpAuthSuccess
       if ('token' in data && data.token) {
         localStorage.setItem("wp_jwt", data.token);
         const userData = { id: data.user_id, email: data.email, displayname: data.displayname };
         setUser(userData);
         setIsLoggedIn(true);
       } else {
-        // Ako nema 'token', onda je to WpAuthError, i sada TS zna da 'message' postoji
-        const errorMessage = (data as WpAuthError).message || "Login failed. Please try again.";
+        // --- KLJUČNA IZMENA ---
+        // U ovom bloku, TypeScript SADA ZNA da je 'data' tipa WpAuthError.
+        // Nije potrebna nikakva konverzija (as WpAuthError).
+        const errorMessage = data.message || "Login failed. Please try again.";
         setError(errorMessage);
       }
     } catch (err: any) {
