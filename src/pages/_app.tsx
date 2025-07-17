@@ -13,22 +13,8 @@ import { Toaster } from 'react-hot-toast'
 import NextNProgress from 'nextjs-progressbar'
 import themeJson from '@/../theme.json'
 import { GoogleAnalytics } from 'nextjs-google-analytics'
-// import dynamic from 'next/dynamic' // Više nije potrebno za auth
-
-// --- POČETAK IZMENA ---
-// 1. Uklonjen import za SessionProvider
-// import { SessionProvider } from 'next-auth/react' 
+import { SessionProvider } from 'next-auth/react'
 import { AuthProvider } from '@/context/AuthContext'
-
-// 2. Uklonjena WordpressAuthSync komponenta
-/* 
-const WordpressAuthSync = dynamic(
-  () => import('@/components/WordpressAuthSync'),
-  { ssr: false }
-) 
-*/
-// --- KRAJ IZMENA ---
-
 
 const poppins = Poppins({
   subsets: ['latin'],
