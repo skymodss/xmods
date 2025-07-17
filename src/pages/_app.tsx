@@ -14,12 +14,11 @@ import NextNProgress from 'nextjs-progressbar'
 import themeJson from '@/../theme.json'
 import { GoogleAnalytics } from 'nextjs-google-analytics'
 import { SessionProvider } from 'next-auth/react'
-import { AuthProvider } from '@/context/AuthContext'
 import dynamic from 'next/dynamic'
 
 
-const WordpressAuthSync = dynamic(
-  () => import('@/components/WordpressAuthSync'),
+const AuthProvider = dynamic(
+  () => import('@/context/AuthContext'),
   { ssr: false }
 )
 
@@ -58,7 +57,7 @@ export default function MyApp({
               <Component {...pageProps} key={router.asPath} />
 
               {/* 5. Uklonjena WordpressAuthSync komponenta odavde */}
-              <WordpressAuthSync />
+              {/* <WordpressAuthSync /> */}
 
               <Toaster
                 position="bottom-left"
