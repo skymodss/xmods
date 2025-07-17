@@ -68,7 +68,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       const token = localStorage.getItem("wp_jwt");
       if (token) {
         try {
-          const response = await fetch("/wp-json/custom/v1/validate-token", {
+          const response = await fetch("https://xdd-a1e468.ingress-comporellon.ewp.live/wp-json/custom/v1/validate-token", {
             method: "POST",
             headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
           });
