@@ -15,6 +15,8 @@ import themeJson from '@/../theme.json'
 import { GoogleAnalytics } from 'nextjs-google-analytics'
 import { SessionProvider } from 'next-auth/react'
 import { AuthProvider } from '@/context/AuthContext'
+import dynamic from 'next/dynamic'
+
 
 const WordpressAuthSync = dynamic(
   () => import('@/components/WordpressAuthSync'),
