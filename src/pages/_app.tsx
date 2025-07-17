@@ -13,14 +13,21 @@ import { Toaster } from 'react-hot-toast'
 import NextNProgress from 'nextjs-progressbar'
 import themeJson from '@/../theme.json'
 import { GoogleAnalytics } from 'nextjs-google-analytics'
+import dynamic from 'next/dynamic' // Vratili smo dynamic import
+
+// Auth-related imports
 import { SessionProvider } from 'next-auth/react'
-import dynamic from 'next/dynamic'
+// import { AuthProvider } from '@/context/AuthContext' // VIŠE NE IMPORTUJEMO OVAKO
 
-
+// --- KLJUČNA IZMENA ---
+// AuthProvider sada takođe učitavamo dinamički, samo na klijentu.
+// Ovo osigurava da `useSession` i `localStorage` kod unutar njega
+// rade bez grešaka pri serverskom renderovanju.
 const AuthProvider = dynamic(
-  () => import('@/context/AuthContext'),
+  () => import('@/context/AuthContext').then(mod => mod.AuthProvider),
   { ssr: false }
 )
+// --- KRAJ IZMENE ---
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -28,7 +35,6 @@ const poppins = Poppins({
   weight: ['300','400','500','600','700','800','900'],
 })
 
-// 3. Uklonjen `session` iz propsa
 export default function MyApp({
   Component,
   pageProps: { session, ...pageProps },
@@ -36,8 +42,8 @@ export default function MyApp({
   const router = useRouter()
 
   return (
-    // 4. Uklonjen SessionProvider omotač
-     <SessionProvider session={session}>
+    <SessionProvider session={session}>
+      {/* AuthProvider će se sada renderovati samo na klijentu, unutar SessionProvidera */}
       <AuthProvider>
         <GoogleAnalytics trackPageViews />
         <FaustProvider pageProps={pageProps}>
@@ -55,10 +61,6 @@ export default function MyApp({
               `}</style>
               <NextNProgress color="#818cf8" />
               <Component {...pageProps} key={router.asPath} />
-
-              {/* 5. Uklonjena WordpressAuthSync komponenta odavde */}
-              {/* <WordpressAuthSync /> */}
-
               <Toaster
                 position="bottom-left"
                 toastOptions={{
