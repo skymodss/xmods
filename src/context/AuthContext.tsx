@@ -1,7 +1,8 @@
 import { createContext, useContext, useState, useEffect } from "react";
+// Pretpostavljamo da ova funkcija postoji i vraća Promise<any>
 import { wpSocialLogin } from "../utils/wpSocialLogin";
 
-// Definišemo tipove za oba moguća odgovora sa servera
+// Definišemo tipove za server response
 interface WpAuthSuccess {
   token: string;
   user_id: number;
@@ -17,10 +18,9 @@ interface WpAuthError {
   };
 }
 
-// Tip za odgovor je ili jedno ili drugo
 type WpLoginResponse = WpAuthSuccess | WpAuthError;
 
-// Definišemo tipove za korisnika i ceo kontekst
+// Definišemo tipove za naš state i context
 interface User {
   id: number;
   email: string;
@@ -36,6 +36,14 @@ interface AuthContextType {
   logout: () => void;
 }
 
+// --- KLJUČNA IZMENA ---
+// Kreiramo funkciju koja eksplicitno proverava da li je odgovor uspešan.
+// Sintaksa `response is WpAuthSuccess` je ono što je čini "Type Guard" funkcijom.
+function isSuccessResponse(response: any): response is WpAuthSuccess {
+  return response && typeof response.token === 'string' && response.token.length > 0;
+}
+// --- KRAJ IZMENE ---
+
 const AuthContext = createContext<AuthContextType | null>(null);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
@@ -49,16 +57,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setError(null);
       const data: WpLoginResponse = await wpSocialLogin(googleId, email, displayName);
       
-      // Type guard: Ako objekat ima 'token' properti, onda je to WpAuthSuccess
-      if ('token' in data && data.token) {
+      // Sada koristimo našu novu, pouzdanu funkciju za proveru tipa
+      if (isSuccessResponse(data)) {
+        // Unutar ovog bloka, TS je 100% siguran da je 'data' tipa WpAuthSuccess
         localStorage.setItem("wp_jwt", data.token);
         const userData = { id: data.user_id, email: data.email, displayname: data.displayname };
         setUser(userData);
         setIsLoggedIn(true);
       } else {
-        // --- KLJUČNA IZMENA ---
-        // U ovom bloku, TypeScript SADA ZNA da je 'data' tipa WpAuthError.
-        // Nije potrebna nikakva konverzija (as WpAuthError).
+        // Unutar ovog bloka, TS je 100% siguran da 'data' mora biti WpAuthError
         const errorMessage = data.message || "Login failed. Please try again.";
         setError(errorMessage);
       }
@@ -79,17 +86,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       const token = localStorage.getItem("wp_jwt");
       if (token) {
         try {
-          const response = await fetch("/wp-json/custom/v1/validate-token", {
+          const response = await fetch("https://xdd-a1e468.ingress-comporellon.ewp.live/wp-json/custom/v1/validate-token", {
             method: "POST",
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${token}`,
-            },
+            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
           });
           const result = await response.json();
           if (response.ok && result.data?.viewer) {
             setUser(result.data.viewer);
-            setIsLoggedIn(true);
+setIsLoggedIn(true);
           } else {
             logout();
           }
