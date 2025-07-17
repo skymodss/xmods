@@ -29,7 +29,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     if (token) {
         try {
             // Promenjen URL i uklonjen GraphQL body
-            const response = await fetch("/wp-json/custom/v1/validate-token", {
+            const response = await fetch("https://xdd-a1e468.ingress-comporellon.ewp.live/wp-json/custom/v1/validate-token", {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json',
