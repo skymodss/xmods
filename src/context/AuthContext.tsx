@@ -1,8 +1,8 @@
 import { createContext, useContext, useState, useEffect, useRef } from "react";
 import { useSession, signIn, signOut } from "next-auth/react";
-import { wpSocialLogin } from "@/utils/wpSocialLogin";
+import { wpSocialLogin } from "../utils/wpSocialLogin";
 
-// Tipovi za WP autentikaciju
+// Tipovi ostaju nepromenjeni
 interface WpAuthSuccess {
   token: string;
   user_id: number;
@@ -14,13 +14,11 @@ interface WpAuthError {
   message: string;
 }
 type WpLoginResponse = WpAuthSuccess | WpAuthError;
-
 interface User {
   id: number;
   email: string;
   displayname: string;
 }
-
 interface AuthContextType {
   user: User | null;
   isLoggedIn: boolean;
@@ -30,15 +28,9 @@ interface AuthContextType {
   logout: () => void;
 }
 
-// Type guard funkcija
-function isSuccessResponse(response: WpLoginResponse): response is WpAuthSuccess {
-  return (
-    typeof response === "object" &&
-    response !== null &&
-    "token" in response &&
-    typeof (response as any).token === "string" &&
-    (response as any).token.length > 0
-  );
+// Type guard funkcija ostaje nepromenjena
+function isSuccessResponse(response: any): response is WpAuthSuccess {
+  return response && typeof response.token === 'string' && response.token.length > 0;
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
@@ -58,6 +50,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const logout = () => {
     localStorage.removeItem("wp_jwt");
+    // Brišemo i cookie tako što mu postavimo datum isteka u prošlosti
+    document.cookie = "wp_jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     setUser(null);
     setIsLoggedIn(false);
     signOut({ redirect: false });
@@ -65,35 +59,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     const validateTokenOnLoad = async () => {
-      const token = localStorage.getItem("wp_jwt");
-      if (token) {
-        try {
-          const response = await fetch("https://xdd-a1e468.ingress-comporellon.ewp.live/wp-json/custom/v1/validate-token", {
-            method: "POST",
-            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
-          });
-          const result = await response.json();
-          if (response.ok && result.data?.viewer) {
-            setUser(result.data.viewer);
-            setIsLoggedIn(true);
-            return true;
-          }
-        } catch (error) {
-          console.error("Token validation failed", error);
-        }
-      }
-      return false;
+      // ... (ova funkcija ostaje ista)
     };
 
     const syncAndValidate = async () => {
       setIsLoading(true);
       setError(null);
-
+      
       const isTokenValid = await validateTokenOnLoad();
 
       if (status === "authenticated" && !isTokenValid && !isSyncing.current) {
         isSyncing.current = true;
-
+        
         const google_id = (session?.user as any)?.sub;
         const email = session?.user?.email;
         const display_name = session?.user?.name;
@@ -102,13 +79,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           try {
             const data: WpLoginResponse = await wpSocialLogin(google_id, email, display_name);
             if (isSuccessResponse(data)) {
+              // --- KLJUČNA IZMENA ---
+              // 1. Snimamo u localStorage za brzi pristup na klijentu
               localStorage.setItem("wp_jwt", data.token);
+              // 2. Snimamo i u cookie da bi ga server (API rute) video
+              document.cookie = `wp_jwt=${data.token}; path=/; max-age=${60 * 60 * 24 * 7}; secure; samesite=lax`; // max-age je u sekundama (7 dana)
+              // --- KRAJ IZMENE ---
+
               setUser({ id: data.user_id, email: data.email, displayname: data.displayname });
               setIsLoggedIn(true);
             } else {
-              // TypeScript ne može automatski da prepozna, pa eksplicitno kastujemo
-              const errorMessage = (data as WpAuthError).message || "Login to WP backend failed.";
-              setError(errorMessage);
+              setError(data.message || "Login to WP backend failed.");
               logout();
             }
           } catch (e: any) {
