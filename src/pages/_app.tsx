@@ -13,15 +13,22 @@ import { Toaster } from 'react-hot-toast'
 import NextNProgress from 'nextjs-progressbar'
 import themeJson from '@/../theme.json'
 import { GoogleAnalytics } from 'nextjs-google-analytics'
-import dynamic from 'next/dynamic'
-// auth
-import { SessionProvider } from 'next-auth/react'
+// import dynamic from 'next/dynamic' // Više nije potrebno za auth
+
+// --- POČETAK IZMENA ---
+// 1. Uklonjen import za SessionProvider
+// import { SessionProvider } from 'next-auth/react' 
 import { AuthProvider } from '@/context/AuthContext'
 
+// 2. Uklonjena WordpressAuthSync komponenta
+/* 
 const WordpressAuthSync = dynamic(
   () => import('@/components/WordpressAuthSync'),
   { ssr: false }
-)
+) 
+*/
+// --- KRAJ IZMENA ---
+
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -29,46 +36,37 @@ const poppins = Poppins({
   weight: ['300','400','500','600','700','800','900'],
 })
 
+// 3. Uklonjen `session` iz propsa
 export default function MyApp({
   Component,
-  pageProps: { session, ...pageProps },
+  pageProps,
 }: AppProps) {
   const router = useRouter()
 
   return (
-    // 1. Wrap everything in NextAuth's SessionProvider
-    <SessionProvider session={session}>
-      {/* 2. Wrap in your custom AuthProvider (uses useLoginModal under the hood) */}
+    // 4. Uklonjen SessionProvider omotač
+    // <SessionProvider session={session}>
       <AuthProvider>
-        {/* 3. Analytics can stay here */}
         <GoogleAnalytics trackPageViews />
-
-        {/* 4. Faust root provider */}
         <FaustProvider pageProps={pageProps}>
-          {/* 5. WP Blocks context */}
           <WordPressBlocksProvider
             config={{
               blocks,
               theme: fromThemeJson(themeJson),
             }}
           >
-            {/* 6. Your site-wide wrapper */}
             <SiteWrapperProvider {...pageProps}>
               <style jsx global>{`
                 html {
                   font-family: ${poppins.style.fontFamily};
                 }
               `}</style>
-
-              {/* 7. Top-level progress bar */}
               <NextNProgress color="#818cf8" />
-
-              {/* 8. Your page */}
               <Component {...pageProps} key={router.asPath} />
 
-              <WordpressAuthSync />
+              {/* 5. Uklonjena WordpressAuthSync komponenta odavde */}
+              {/* <WordpressAuthSync /> */}
 
-              {/* 10. Toasts */}
               <Toaster
                 position="bottom-left"
                 toastOptions={{
@@ -83,6 +81,6 @@ export default function MyApp({
           </WordPressBlocksProvider>
         </FaustProvider>
       </AuthProvider>
-    </SessionProvider>
+    // </SessionProvider>
   )
 }
