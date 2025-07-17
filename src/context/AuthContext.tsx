@@ -50,7 +50,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const logout = () => {
     localStorage.removeItem("wp_jwt");
-    // Brišemo i cookie tako što mu postavimo datum isteka u prošlosti
     document.cookie = "wp_jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     setUser(null);
     setIsLoggedIn(false);
@@ -58,14 +57,37 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   useEffect(() => {
-    const validateTokenOnLoad = async () => {
-      // ... (ova funkcija ostaje ista)
+    // --- KLJUČNA IZMENA ---
+    // Funkcija sada eksplicitno vraća Promise<boolean>
+    const validateTokenOnLoad = async (): Promise<boolean> => {
+      const token = localStorage.getItem("wp_jwt");
+      if (token) {
+        try {
+          const response = await fetch("/wp-json/custom/v1/validate-token", {
+            method: "POST",
+            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+          });
+          const result = await response.json();
+          if (response.ok && result.data?.viewer) {
+            setUser(result.data.viewer);
+            setIsLoggedIn(true);
+            return true; // Vraćamo TRUE ako je token validan
+          }
+        } catch (error) {
+          console.error("Token validation failed", error);
+          // Padamo dole do `return false`
+        }
+      }
+      // Ako token ne postoji ili nije validan, vraćamo FALSE
+      return false;
     };
+    // --- KRAJ IZMENE ---
 
     const syncAndValidate = async () => {
       setIsLoading(true);
       setError(null);
       
+      // `isTokenValid` je sada ispravno tipa `boolean`
       const isTokenValid = await validateTokenOnLoad();
 
       if (status === "authenticated" && !isTokenValid && !isSyncing.current) {
@@ -79,13 +101,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           try {
             const data: WpLoginResponse = await wpSocialLogin(google_id, email, display_name);
             if (isSuccessResponse(data)) {
-              // --- KLJUČNA IZMENA ---
-              // 1. Snimamo u localStorage za brzi pristup na klijentu
               localStorage.setItem("wp_jwt", data.token);
-              // 2. Snimamo i u cookie da bi ga server (API rute) video
-              document.cookie = `wp_jwt=${data.token}; path=/; max-age=${60 * 60 * 24 * 7}; secure; samesite=lax`; // max-age je u sekundama (7 dana)
-              // --- KRAJ IZMENE ---
-
+              document.cookie = `wp_jwt=${data.token}; path=/; max-age=${60 * 60 * 24 * 7}; secure; samesite=lax`;
               setUser({ id: data.user_id, email: data.email, displayname: data.displayname });
               setIsLoggedIn(true);
             } else {
