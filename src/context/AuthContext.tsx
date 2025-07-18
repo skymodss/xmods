@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useEffect, useRef } from "react";
 import { useSession, signIn, signOut } from "next-auth/react";
-import { wpSocialLogin } from "../utils/wpSocialLogin";
+import { wpSocialLogin } from "@/utils/wpSocialLogin";
 
 // --- Svi tipovi i type guard funkcija ostaju isti ---
 interface WpAuthSuccess {
@@ -30,6 +30,9 @@ interface AuthContextType {
 function isSuccessResponse(response: any): response is WpAuthSuccess {
   return response && typeof response.token === 'string' && response.token.length > 0;
 }
+function isErrorResponse(response: any): response is WpAuthError {
+  return response && typeof response.message === 'string';
+}
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
@@ -37,7 +40,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  // isLoading je sada `true` samo dok next-auth ne završi svoj posao.
   const [isLoading, setIsLoading] = useState(true);
 
   const { data: session, status } = useSession();
@@ -52,20 +54,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     document.cookie = "wp_jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     setUser(null);
     setIsLoggedIn(false);
-    // Odjavljujemo i NextAuth sesiju, ali ne radimo redirect
     signOut({ redirect: false });
   };
 
-  // --- POČETAK KLJUČNE IZMENE ---
-  // useEffect sada zavisi SAMO od `status`-a, što prekida beskonačnu petlju.
   useEffect(() => {
-    // Funkcija koja proverava naš custom JWT token iz localStorage
     const validateLocalToken = async (): Promise<boolean> => {
       const localToken = localStorage.getItem("wp_jwt");
       if (!localToken) return false;
 
       try {
-        const response = await fetch("/wp-json/custom/v1/validate-token", {
+        const response = await fetch("https://xdd-a1e468.ingress-comporellon.ewp.live/wp-json/custom/v1/validate-token", {
           method: "POST",
           headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${localToken}` },
         });
@@ -78,12 +76,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       } catch (e) {
         console.error("Local token validation failed", e);
       }
-      // Ako validacija ne uspe, obriši stari token
       localStorage.removeItem("wp_jwt");
       return false;
     };
 
-    // Funkcija koja sinhronizuje NextAuth sesiju sa našim WP backendom
     const syncNextAuthSession = async () => {
       if (isSyncing.current || !session) return;
       isSyncing.current = true;
@@ -100,9 +96,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             document.cookie = `wp_jwt=${data.token}; path=/; max-age=${60 * 60 * 24 * 7}; secure; samesite=lax`;
             setUser({ id: data.user_id, email: data.email, displayname: data.displayname });
             setIsLoggedIn(true);
-          } else {
+          } else if (isErrorResponse(data)) {
             setError(data.message || "WP Sync failed.");
             logout(); // Ako WP sinhronizacija ne uspe, odjavi sve
+          } else {
+            setError("WP Sync failed.");
+            logout();
           }
         } catch (e: any) {
           setError(e.message || "An error occurred during WP sync.");
@@ -112,31 +111,22 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       isSyncing.current = false;
     };
 
-    // Glavna logika koja se izvršava kada se `status` promeni
     const handleAuthStateChange = async () => {
       if (status === "authenticated") {
-        // Korisnik je prijavljen preko NextAuth-a.
-        // Proveravamo da li već imamo validan naš token.
         const localTokenIsValid = await validateLocalToken();
         if (!localTokenIsValid) {
-          // Ako nemamo, pokrećemo sinhronizaciju.
           await syncNextAuthSession();
         }
         setIsLoading(false);
       } else if (status === "unauthenticated") {
-        // Korisnik nije prijavljen preko NextAuth-a.
-        // Proveravamo da li možda imamo stari token u localStorage.
         await validateLocalToken();
         setIsLoading(false);
       }
-      // Dok je status "loading", ne radimo ništa i čekamo.
-      // isLoading ostaje true.
     };
 
     handleAuthStateChange();
 
-  }, [status]); // Zavisnost je SADA SAMO `status`!
-  // --- KRAJ KLJUČNE IZMENE ---
+  }, [status]);
 
   const value = { user, isLoggedIn, isLoading, error, loginWithGoogle, logout };
 
