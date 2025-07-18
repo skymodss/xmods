@@ -43,9 +43,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
 
   const { data: session, status } = useSession();
-  const isSyncing = useRef(false);
+  const hasSynced = useRef(false);
 
   const loginWithGoogle = () => {
+    hasSynced.current = false;
     signIn("google");
   };
 
@@ -54,79 +55,75 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     document.cookie = "wp_jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     setUser(null);
     setIsLoggedIn(false);
+    hasSynced.current = false;
     signOut({ redirect: false });
   };
 
   useEffect(() => {
-    const validateLocalToken = async (): Promise<boolean> => {
+    const resolveAuth = async () => {
       const localToken = localStorage.getItem("wp_jwt");
-      if (!localToken) return false;
-
-      try {
-        const response = await fetch("https://xdd-a1e468.ingress-comporellon.ewp.live/wp-json/custom/v1/validate-token", {
-          method: "POST",
-          headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${localToken}` },
-        });
-        const result = await response.json();
-        if (response.ok && result.data?.viewer) {
-          setUser(result.data.viewer);
-          setIsLoggedIn(true);
-          return true;
-        }
-      } catch (e) {
-        console.error("Local token validation failed", e);
-      }
-      localStorage.removeItem("wp_jwt");
-      return false;
-    };
-
-    const syncNextAuthSession = async () => {
-      if (isSyncing.current || !session) return;
-      isSyncing.current = true;
-
-      const google_id = (session.user as any)?.sub;
-      const email = session.user?.email;
-      const display_name = session.user?.name;
-
-      if (google_id && email && display_name) {
+      if (localToken) {
         try {
-          const data: WpLoginResponse = await wpSocialLogin(google_id, email, display_name);
-          if (isSuccessResponse(data)) {
-            localStorage.setItem("wp_jwt", data.token);
-            document.cookie = `wp_jwt=${data.token}; path=/; max-age=${60 * 60 * 24 * 7}; secure; samesite=lax`;
-            setUser({ id: data.user_id, email: data.email, displayname: data.displayname });
+          const response = await fetch("https://xdd-a1e468.ingress-comporellon.ewp.live/wp-json/custom/v1/validate-token", {
+            method: "POST",
+            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${localToken}` },
+          });
+          if (response.ok) {
+            const result = await response.json();
+            setUser(result.data.viewer);
             setIsLoggedIn(true);
-          } else if (isErrorResponse(data)) {
-            setError((data as WpAuthError).message || "WP Sync failed.");
-            logout(); // Ako WP sinhronizacija ne uspe, odjavi sve
-          } else {
-            setError("WP Sync failed.");
-            logout();
+            setIsLoading(false);
+            return;
           }
-        } catch (e: any) {
-          setError(e.message || "An error occurred during WP sync.");
-          logout();
+        } catch (e) {
+          console.error("Local token validation failed, proceeding...", e);
         }
       }
-      isSyncing.current = false;
-    };
 
-    const handleAuthStateChange = async () => {
+      if (status === "loading") {
+        return;
+      }
+
       if (status === "authenticated") {
-        const localTokenIsValid = await validateLocalToken();
-        if (!localTokenIsValid) {
-          await syncNextAuthSession();
+        if (session && !hasSynced.current) {
+          hasSynced.current = true;
+
+          const google_id = (session.user as any)?.sub;
+          const email = session.user?.email;
+          const display_name = session.user?.name;
+
+          if (google_id && email && display_name) {
+            try {
+              const data: WpLoginResponse = await wpSocialLogin(google_id, email, display_name);
+              if (isSuccessResponse(data)) {
+                localStorage.setItem("wp_jwt", data.token);
+                document.cookie = `wp_jwt=${data.token}; path=/; max-age=${60 * 60 * 24 * 7}; secure; samesite=lax`;
+                setUser({ id: data.user_id, email: data.email, displayname: data.displayname });
+                setIsLoggedIn(true);
+              } else if (isErrorResponse(data)) {
+                setError((data as WpAuthError).message || "WP Sync failed.");
+                logout();
+              } else {
+                setError("WP Sync failed.");
+                logout();
+              }
+            } catch (e: any) {
+              setError(e.message || "An error occurred during WP sync.");
+              logout();
+            }
+          }
         }
-        setIsLoading(false);
-      } else if (status === "unauthenticated") {
-        await validateLocalToken();
-        setIsLoading(false);
+      } else {
+        setUser(null);
+        setIsLoggedIn(false);
+        localStorage.removeItem("wp_jwt");
       }
+
+      setIsLoading(false);
     };
 
-    handleAuthStateChange();
-
-  }, [status]);
+    resolveAuth();
+  }, [status, session]);
 
   const value = { user, isLoggedIn, isLoading, error, loginWithGoogle, logout };
 
