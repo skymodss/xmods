@@ -29,11 +29,11 @@ export default function MyApp({
   const router = useRouter()
 
   return (
-    <SessionProvider session={session}>
+    <FaustProvider pageProps={pageProps}>
       {/* AuthProvider će se sada renderovati samo na klijentu, unutar SessionProvidera */}
-      <AuthProvider>
+      <SessionProvider session={session}>
         <GoogleAnalytics trackPageViews />
-        <FaustProvider pageProps={pageProps}>
+        <AuthProvider>
           <WordPressBlocksProvider
             config={{
               blocks,
@@ -60,8 +60,8 @@ export default function MyApp({
               />
             </SiteWrapperProvider>
           </WordPressBlocksProvider>
-        </FaustProvider>
-      </AuthProvider>
-    </SessionProvider>
+        </AuthProvider>
+      </SessionProvider>
+    </FaustProvider>
   )
 }
