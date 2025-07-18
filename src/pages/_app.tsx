@@ -13,21 +13,8 @@ import { Toaster } from 'react-hot-toast'
 import NextNProgress from 'nextjs-progressbar'
 import themeJson from '@/../theme.json'
 import { GoogleAnalytics } from 'nextjs-google-analytics'
-import dynamic from 'next/dynamic' // Vratili smo dynamic import
-
-// Auth-related imports
+import { AuthProvider } from "@/context/AuthContext";
 import { SessionProvider } from 'next-auth/react'
-// import { AuthProvider } from '@/context/AuthContext' // VIŠE NE IMPORTUJEMO OVAKO
-
-// --- KLJUČNA IZMENA ---
-// AuthProvider sada takođe učitavamo dinamički, samo na klijentu.
-// Ovo osigurava da `useSession` i `localStorage` kod unutar njega
-// rade bez grešaka pri serverskom renderovanju.
-const AuthProvider = dynamic(
-  () => import('@/context/AuthContext').then(mod => mod.AuthProvider),
-  { ssr: false }
-)
-// --- KRAJ IZMENE ---
 
 const poppins = Poppins({
   subsets: ['latin'],
