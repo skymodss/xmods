@@ -31,7 +31,7 @@ function isSuccessResponse(response: any): response is WpAuthSuccess {
   return response && typeof response.token === 'string' && response.token.length > 0;
 }
 function isErrorResponse(response: any): response is WpAuthError {
-  return response && typeof response.message === 'string';
+  return response && typeof response.message === 'string' && typeof response.code === 'string';
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
@@ -97,7 +97,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             setUser({ id: data.user_id, email: data.email, displayname: data.displayname });
             setIsLoggedIn(true);
           } else if (isErrorResponse(data)) {
-            setError(data.message || "WP Sync failed.");
+            setError((data as WpAuthError).message || "WP Sync failed.");
             logout(); // Ako WP sinhronizacija ne uspe, odjavi sve
           } else {
             setError("WP Sync failed.");
