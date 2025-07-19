@@ -17,7 +17,7 @@ import dynamic from 'next/dynamic'
 
 // Redux imports
 import { Provider as ReduxProvider } from 'react-redux'
-import store from '@/stores' // <- ovo mora biti tvoj store
+import store from '@/stores/store' // <- ovo mora biti tvoj store
 
 // Auth-related imports
 import { SessionProvider } from 'next-auth/react'
