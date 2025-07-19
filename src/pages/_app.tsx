@@ -13,8 +13,18 @@ import { Toaster } from 'react-hot-toast'
 import NextNProgress from 'nextjs-progressbar'
 import themeJson from '@/../theme.json'
 import { GoogleAnalytics } from 'nextjs-google-analytics'
-import { AuthProvider } from "@/context/AuthContext";
+import dynamic from 'next/dynamic'
+
+// Redux imports
+import { Provider as ReduxProvider } from 'react-redux'
+import store from '@/stores' // <- ovo mora biti tvoj store
+
+// Auth-related imports
 import { SessionProvider } from 'next-auth/react'
+const AuthProvider = dynamic(
+  () => import('@/context/AuthContext').then(mod => mod.AuthProvider),
+  { ssr: false }
+)
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -29,39 +39,40 @@ export default function MyApp({
   const router = useRouter()
 
   return (
-    <FaustProvider pageProps={pageProps}>
-      {/* AuthProvider će se sada renderovati samo na klijentu, unutar SessionProvidera */}
+    <ReduxProvider store={store}>
       <SessionProvider session={session}>
-        <GoogleAnalytics trackPageViews />
         <AuthProvider>
-          <WordPressBlocksProvider
-            config={{
-              blocks,
-              theme: fromThemeJson(themeJson),
-            }}
-          >
-            <SiteWrapperProvider {...pageProps}>
-              <style jsx global>{`
-                html {
-                  font-family: ${poppins.style.fontFamily};
-                }
-              `}</style>
-              <NextNProgress color="#818cf8" />
-              <Component {...pageProps} key={router.asPath} />
-              <Toaster
-                position="bottom-left"
-                toastOptions={{
-                  style: {
-                    fontSize: '14px',
-                    borderRadius: '0.75rem',
-                  },
-                }}
-                containerClassName="text-sm"
-              />
-            </SiteWrapperProvider>
-          </WordPressBlocksProvider>
+          <GoogleAnalytics trackPageViews />
+          <FaustProvider pageProps={pageProps}>
+            <WordPressBlocksProvider
+              config={{
+                blocks,
+                theme: fromThemeJson(themeJson),
+              }}
+            >
+              <SiteWrapperProvider {...pageProps}>
+                <style jsx global>{`
+                  html {
+                    font-family: ${poppins.style.fontFamily};
+                  }
+                `}</style>
+                <NextNProgress color="#818cf8" />
+                <Component {...pageProps} key={router.asPath} />
+                <Toaster
+                  position="bottom-left"
+                  toastOptions={{
+                    style: {
+                      fontSize: '14px',
+                      borderRadius: '0.75rem',
+                    },
+                  }}
+                  containerClassName="text-sm"
+                />
+              </SiteWrapperProvider>
+            </WordPressBlocksProvider>
+          </FaustProvider>
         </AuthProvider>
       </SessionProvider>
-    </FaustProvider>
+    </ReduxProvider>
   )
 }
