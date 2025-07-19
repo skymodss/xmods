@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useEffect, useRef } from "react";
 import { useSession, signIn, signOut } from "next-auth/react";
-import { wpSocialLogin } from "../utils/wpSocialLogin";
+import { wpSocialLogin } from "@/utils/wpSocialLogin";
 import { useDispatch } from "react-redux";
 // ✅ ISPRAVLJEN IMPORT - KORISTIMO PRAVI FAJL I PRAVE FUNKCIJE
 import { updateAuthorizedUser, updateViewer } from "@/stores/viewer/viewerSlice";
