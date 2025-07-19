@@ -14,17 +14,10 @@ import NextNProgress from 'nextjs-progressbar'
 import themeJson from '@/../theme.json'
 import { GoogleAnalytics } from 'nextjs-google-analytics'
 import dynamic from 'next/dynamic'
-
-// Redux imports
-import { Provider as ReduxProvider } from 'react-redux'
-import { store } from '@/stores/store' // <- ovo mora biti tvoj store
-
-// Auth-related imports
+import { AuthProvider } from '@/context/AuthContext'
 import { SessionProvider } from 'next-auth/react'
-const AuthProvider = dynamic(
-  () => import('@/context/AuthContext').then(mod => mod.AuthProvider),
-  { ssr: false }
-)
+import { store } from '@/stores/store'
+import { Provider } from 'react-redux'
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -39,11 +32,11 @@ export default function MyApp({
   const router = useRouter()
 
   return (
-    <ReduxProvider store={store}>
-      <SessionProvider session={session}>
-        <AuthProvider>
+    <Provider store={store}>
+      <FaustProvider pageProps={pageProps}>
+        <SessionProvider session={pageProps.session}>
           <GoogleAnalytics trackPageViews />
-          <FaustProvider pageProps={pageProps}>
+          <AuthProvider>
             <WordPressBlocksProvider
               config={{
                 blocks,
@@ -70,9 +63,9 @@ export default function MyApp({
                 />
               </SiteWrapperProvider>
             </WordPressBlocksProvider>
-          </FaustProvider>
-        </AuthProvider>
-      </SessionProvider>
-    </ReduxProvider>
+          </AuthProvider>
+        </SessionProvider>
+      </FaustProvider>
+    </Provider>
   )
 }
