@@ -1,8 +1,9 @@
 import { createContext, useContext, useState, useEffect, useRef } from "react";
 import { useSession, signIn, signOut } from "next-auth/react";
-import { wpSocialLogin } from "@/utils/wpSocialLogin";
+import { wpSocialLogin } from "../utils/wpSocialLogin";
 import { useDispatch } from "react-redux";
-import { setAuthorizedUser } from "@/stores/viewer/authorizedUserSlice"; // Ključni import
+// ✅ ISPRAVLJEN IMPORT - KORISTIMO PRAVI FAJL I PRAVE FUNKCIJE
+import { updateAuthorizedUser, updateViewer } from "@/stores/viewer/viewerSlice";
 
 // Tipovi ostaju nepromenjeni
 interface WpAuthSuccess {
@@ -39,7 +40,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const { data: session, status } = useSession();
   const hasSynced = useRef(false);
   
-  // 1. Dobijamo pristup Redux dispatch funkciji
   const dispatch = useDispatch();
 
   const loginWithGoogle = () => {
@@ -53,8 +53,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setIsLoggedIn(false);
     hasSynced.current = false;
     
-    // 2. Kada se odjavimo, obaveštavamo i Redux
-    dispatch(setAuthorizedUser({ isAuthenticated: false, user: null, isReady: true }));
+    // ✅ OBAVEŠTAVAMO REDUX O ODJAVI
+    dispatch(updateAuthorizedUser({ isAuthenticated: false, isReady: true, loginUrl: null }));
+    dispatch(updateViewer(null)); // Brišemo podatke o korisniku
     signOut({ redirect: false });
   };
 
@@ -84,16 +85,21 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                 setUser(wpUser);
                 setIsLoggedIn(true);
 
-                // 3. KONAČNO REŠENJE: Nakon uspešnog WP logina, šaljemo podatke Reduxu!
-                dispatch(setAuthorizedUser({ 
+                // ✅ KONAČNO REŠENJE: ŠALJEMO ISPRAVNE PODATKE U REDUX
+                // 1. Ažuriramo status autentifikacije
+                dispatch(updateAuthorizedUser({ 
                   isAuthenticated: true, 
-                  user: {
-                      databaseId: wpUser.id,
-                      name: wpUser.displayname,
-                      email: wpUser.email,
-                      // ... dodajte ostala polja ako su potrebna temi
-                  },
-                  isReady: true 
+                  isReady: true,
+                  loginUrl: null
+                }));
+
+                // 2. Ažuriramo i podatke o samom korisniku (viewer-u)
+                dispatch(updateViewer({
+                  databaseId: wpUser.id,
+                  name: wpUser.displayname,
+                  email: wpUser.email,
+                  // Teme često koriste 'name' umesto 'displayname', šaljemo oba za sigurnost
+                  displayName: wpUser.displayname, 
                 }));
 
               } else {
@@ -116,7 +122,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     };
 
     resolveAuth();
-  }, [status, session, isLoggedIn, dispatch]); // Dodajemo dispatch u dependency array
+  }, [status, session, isLoggedIn, dispatch]);
 
   const value = { user, isLoggedIn, isLoading, error, loginWithGoogle, logout };
 
