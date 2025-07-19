@@ -1,50 +1,50 @@
-const { setContext } = require('@apollo/client/link/context');
-const { createHttpLink } = require('@apollo/client');
-const { FaustConfig, FaustPlugin } = require('@faustwp/core');
+import { setConfig } from "@faustwp/core";
+import templates from "./src/wp-templates";
+import possibleTypes from "./possibleTypes.json";
+import { setContext } from '@apollo/client/link/context';
+import { createHttpLink } from '@apollo/client';
 
 /**
  * @type {import('@faustwp/core').FaustConfig}
- */
-module.exports = new FaustConfig({
-  // Ako ste imali druge plugine ovde, slobodno ih vratite.
-  experimentalPlugins: [
-    new FaustPlugin({
-      apply(hooks) {
-        // Ovaj hook dodaje autorizacijski header u svaki API zahtev.
-        hooks.addFilter(
-          'apolloClientOptions',
-          'addAuthToken',
-          (apolloClientOptions, context) => {
-            const httpLink = createHttpLink({
-              uri: context.config.apiEndpoint,
-            });
+ **/
+export default setConfig({
+  templates,
+  possibleTypes,
+  usePersistedQueries: true,
+  // ✅ DODAJEMO NOVU OPCIJU KOJA ĆE MODIFIKOVATI APOLLO CLIENT
+  client: {
+    // Ova funkcija će biti pozvana da kreira Apollo Client
+    create(options) {
+      // 1. Kreiramo standardni HTTP link
+      const httpLink = createHttpLink({
+        uri: options.uri, // Koristimo URI iz Faust konfiguracije
+      });
 
-            const authLink = setContext((_, { headers }) => {
-              // Ovaj kod se izvršava samo u pretraživaču gde postoji localStorage.
-              if (typeof window === 'undefined') {
-                return { headers };
-              }
+      // 2. Kreiramo "auth" link koji presreće zahteve
+      const authLink = setContext((_, { headers }) => {
+        // Izvršava se samo u pretraživaču
+        if (typeof window === 'undefined') {
+          return { headers };
+        }
 
-              // Uzimamo token koji smo sačuvali u AuthContext-u.
-              const token = localStorage.getItem('wp_jwt');
+        // Uzimamo token iz localStorage
+        const token = localStorage.getItem('wp_jwt');
 
-              // Vraćamo header-e nazad u kontekst kako bi ih httpLink pročitao.
-              return {
-                headers: {
-                  ...headers,
-                  authorization: token ? `Bearer ${token}` : '',
-                },
-              };
-            });
-
-            // Povezujemo authLink i httpLink.
-            return {
-              ...apolloClientOptions,
-              link: authLink.concat(httpLink),
-            };
+        // Vraćamo modifikovane headere
+        return {
+          headers: {
+            ...headers,
+            // Ako token postoji, dodajemo ga kao 'Bearer' token
+            authorization: token ? `Bearer ${token}` : '',
           },
-        );
-      },
-    }),
-  ],
+        };
+      });
+
+      // 3. Vraćamo nove opcije, spajajući authLink i httpLink
+      return {
+        ...options, // Obavezno zadržati postojeće opcije
+        link: authLink.concat(httpLink),
+      };
+    }
+  }
 });
