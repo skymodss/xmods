@@ -2,7 +2,6 @@ import { createContext, useContext, useState, useEffect, useRef } from "react";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { wpSocialLogin } from "@/utils/wpSocialLogin";
 import { useDispatch } from "react-redux";
-// ✅ ISPRAVLJEN IMPORT - KORISTIMO PRAVI FAJL I PRAVE FUNKCIJE
 import { updateAuthorizedUser, updateViewer } from "@/stores/viewer/viewerSlice";
 
 // Tipovi ostaju nepromenjeni
@@ -53,9 +52,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setIsLoggedIn(false);
     hasSynced.current = false;
     
-    // ✅ OBAVEŠTAVAMO REDUX O ODJAVI
     dispatch(updateAuthorizedUser({ isAuthenticated: false, isReady: true, loginUrl: null }));
-    dispatch(updateViewer(null)); // Brišemo podatke o korisniku
+    dispatch(updateViewer(null));
     signOut({ redirect: false });
   };
 
@@ -85,21 +83,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                 setUser(wpUser);
                 setIsLoggedIn(true);
 
-                // ✅ KONAČNO REŠENJE: ŠALJEMO ISPRAVNE PODATKE U REDUX
-                // 1. Ažuriramo status autentifikacije
                 dispatch(updateAuthorizedUser({ 
                   isAuthenticated: true, 
                   isReady: true,
                   loginUrl: null
                 }));
 
-                // 2. Ažuriramo i podatke o samom korisniku (viewer-u)
                 dispatch(updateViewer({
                   databaseId: wpUser.id,
-                  name: wpUser.displayname,
+                  name: wpUser.displayname, // Polje 'name' je ispravno i postoji
                   email: wpUser.email,
-                  // Teme često koriste 'name' umesto 'displayname', šaljemo oba za sigurnost
-                  displayName: wpUser.displayname, 
+                  // ✅ UKLONJENA LINIJA KOJA JE IZAZVALA GREŠKU
                 }));
 
               } else {
