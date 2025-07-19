@@ -1,100 +1,50 @@
-import { setContext } from '@apollo/client/link/context'
-import { FaustConfig, FaustPlugin, createHttpLink } from '@faustwp/core'
+const { setContext } = require('@apollo/client/link/context');
+const { createHttpLink } = require('@apollo/client');
+const { FaustConfig, FaustPlugin } = require('@faustwp/core');
 
 /**
- * @type {FaustConfig}
+ * @type {import('@faustwp/core').FaustConfig}
  */
-export default new FaustConfig({
-	// plugins: [], // Ako imate postojeće plugine, ostavite ih
-	experimentalPlugins: [
-		new FaustPlugin({
-			apply(hooks) {
-				hooks.addFilter(
-					'apolloClientInMemoryCache',
-					'ncmaz-faust-plugin-persisted-cache',
-					() => {
-						// Ovaj deo je verovatno već tu, ostavite ga.
-						// On omogućava da se keš sačuva između sesija.
-						if (typeof window === 'undefined') {
-							return
-						}
-						try {
-							const {
-								WordPressBlocksViewer,
-							} = require('@faustwp/blocks')
-							const {
-								InMemoryCache,
-							} = require('@apollo/client/core')
-							const {
-								faustData,
-							} = require('@/components/HeroSearchForm/RealestateSearchForm')
+module.exports = new FaustConfig({
+  // Ako ste imali druge plugine ovde, slobodno ih vratite.
+  experimentalPlugins: [
+    new FaustPlugin({
+      apply(hooks) {
+        // Ovaj hook dodaje autorizacijski header u svaki API zahtev.
+        hooks.addFilter(
+          'apolloClientOptions',
+          'addAuthToken',
+          (apolloClientOptions, context) => {
+            const httpLink = createHttpLink({
+              uri: context.config.apiEndpoint,
+            });
 
-							const cache = new InMemoryCache({
-								typePolicies: {
-									RootQuery: {
-										fields: {
-											...WordPressBlocksViewer.blocksTypePolicy,
-											generalSettings: {
-												read(existing) {
-													return (
-														existing ||
-														faustData.data
-															?.generalSettings
-													)
-												},
-											},
-										},
-									},
-								},
-							})
+            const authLink = setContext((_, { headers }) => {
+              // Ovaj kod se izvršava samo u pretraživaču gde postoji localStorage.
+              if (typeof window === 'undefined') {
+                return { headers };
+              }
 
-							return cache
-						} catch (error) {
-							console.error(error)
-						}
-					},
-				)
+              // Uzimamo token koji smo sačuvali u AuthContext-u.
+              const token = localStorage.getItem('wp_jwt');
 
-				// ✅ KLJUČNI DEO - DODAVANJE AUTHORIZATION HEADERA
-				hooks.addFilter(
-					'apolloClientOptions',
-					'ncmaz-faust-plugin-add-auth-token',
-					(apolloClientOptions, context) => {
-						// 1. Kreiramo standardni HTTP link
-						const httpLink = createHttpLink({
-							uri: context.config.apiEndpoint,
-						})
+              // Vraćamo header-e nazad u kontekst kako bi ih httpLink pročitao.
+              return {
+                headers: {
+                  ...headers,
+                  authorization: token ? `Bearer ${token}` : '',
+                },
+              };
+            });
 
-						// 2. Kreiramo "auth" link koji će presretati zahteve
-						const authLink = setContext((_, { headers }) => {
-							// Proveravamo da li smo na klijentu (u pretraživaču)
-							if (typeof window === 'undefined') {
-								return { headers }
-							}
-
-							// Uzimamo token iz localStorage
-							const token = localStorage.getItem('wp_jwt')
-
-							// Vraćamo modifikovane headere
-							return {
-								headers: {
-									...headers,
-									// Ako token postoji, dodajemo ga kao 'Bearer' token
-									authorization: token
-										? `Bearer ${token}`
-										: '',
-								},
-							}
-						})
-
-						// 3. Spajamo authLink i httpLink, i vraćamo ih kao nove opcije
-						return {
-							...apolloClientOptions,
-							link: authLink.concat(httpLink),
-						}
-					},
-				)
-			},
-		}),
-	],
-})
+            // Povezujemo authLink i httpLink.
+            return {
+              ...apolloClientOptions,
+              link: authLink.concat(httpLink),
+            };
+          },
+        );
+      },
+    }),
+  ],
+});
