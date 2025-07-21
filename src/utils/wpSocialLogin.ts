@@ -8,7 +8,7 @@ export async function wpSocialLogin(
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
       const res = await fetch(
-        "https://xmods.online/wp-json/custom/v1/jwt-by-google-id",
+        "https://xmods.online/my_website2/wp-json/custom/v1/jwt-by-google-id",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
