@@ -1,84 +1,118 @@
-import React from 'react';
-import { WordPressTemplate, getWordPressProps } from '@faustwp/core';
-import type { GetStaticProps, GetStaticPaths } from 'next';
-import type { WordPressTemplateProps } from '../types';
-import { REVALIDATE_TIME } from '@/contains/contants';
-import { IS_CHISNGHIAX_DEMO_SITE } from '@/contains/site-settings';
-import { request, gql } from 'graphql-request'; // <-- DODAJEMO OVO
+import { useAuth } from '@faustwp/core'
+import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import {
+	updateViewer as updateViewerToStore,
+	updateAuthorizedUser,
+	addViewerReactionPosts,
+} from '@/stores/viewer/viewerSlice'
+import { updateGeneralSettings } from '@/stores/general-settings/generalSettingsSlice'
+import ControlSettingsDemo from './ControlSettingsDemo'
+import CookiestBoxPopover from '@/components/CookiestBoxPopover'
+import MusicPlayer from '@/components/MusicPlayer/MusicPlayer'
+import { initLocalPostsSavedListFromLocalstored } from '@/stores/localPostSavedList/localPostsSavedListSlice'
+import { usePathname } from 'next/navigation'
+import { CMSUserMetaResponseData } from '@/pages/api/cms-user-meta/[id]'
+import useSWR from 'swr' // <-- 1. Uvozimo SWR
 
-export default function Page(props: WordPressTemplateProps) {
-  return <WordPressTemplate {...props} />;
+// Definišemo "fetcher" funkciju koju će SWR koristiti
+const fetcher = (url: string) => fetch(url).then((res) => res.json());
+
+export function SiteWrapperChild({
+	...props
+}: {
+	__TEMPLATE_QUERY_DATA__: any
+}) {
+	const { isAuthenticated, isReady, loginUrl, viewer } = useAuth()
+	const dispatch = useDispatch()
+	const pathname = usePathname()
+
+	// --- POČETAK VELIKE ISPRAVKE ---
+
+	// 2. Koristimo SWR hook da preuzmemo podatke
+	// SWR će automatski keširati rezultat. Poziv će se desiti samo jednom!
+	// Ako korisnik nije ulogovan (viewer?.userId je null), SWR neće ni pokušati da pošalje zahtev.
+	const { data: userMetaData, error } = useSWR<CMSUserMetaResponseData>(
+		viewer?.userId ? `/api/cms-user-meta/${viewer.userId}` : null,
+		fetcher
+	);
+
+	// 3. Koristimo useEffect da reagujemo na promenu podataka iz SWR-a
+	useEffect(() => {
+		// Ako nema podataka ili viewer-a, ne radimo ništa
+		if (!userMetaData || !viewer) {
+			return
+		}
+
+		// Ažuriramo osnovne podatke o korisniku
+		dispatch(updateViewerToStore(viewer))
+
+		const user = userMetaData?.data?.user
+		if (user) {
+			// Ažuriramo dodatne meta podatke
+			dispatch(updateViewerToStore(user))
+
+			if (user?.userReactionFields) {
+				const { likedPosts = '', savedPosts = '', viewedPosts = '' } = user.userReactionFields;
+				
+				const createReactionPosts = (ids: string, type: 'LIKE' | 'SAVE' | 'VIEW') => {
+					return ids.split(',').filter(id => id).map(id => ({ id, title: `${id},${type}` }));
+				}
+
+				const likesPosts = createReactionPosts(likedPosts, 'LIKE');
+				const savesPosts = createReactionPosts(savedPosts, 'SAVE');
+				const viewsPosts = createReactionPosts(viewedPosts, 'VIEW');
+
+				const reactionPosts = [...likesPosts, ...savesPosts, ...viewsPosts]
+				if (reactionPosts.length > 0) {
+					dispatch(addViewerReactionPosts(reactionPosts))
+				}
+			}
+		}
+	}, [userMetaData, viewer, dispatch]) // Ovaj hook zavisi samo od podataka
+
+	if (error) {
+		console.error("SWR Fetch Error:", error);
+	}
+
+	// --- KRAJ VELIKE ISPRAVKE ---
+
+	// update general settings to store
+	useEffect(() => {
+		const generalSettings =
+			props?.__TEMPLATE_QUERY_DATA__?.generalSettings ?? {}
+		dispatch(updateGeneralSettings(generalSettings))
+	}, [dispatch, props?.__TEMPLATE_QUERY_DATA__?.generalSettings])
+
+	useEffect(() => {
+		const initialStateLocalSavedPosts: number[] = JSON.parse(
+			localStorage?.getItem('localSavedPosts') || '[]',
+		)
+		dispatch(
+			initLocalPostsSavedListFromLocalstored(initialStateLocalSavedPosts),
+		)
+	}, [dispatch])
+
+	// update updateAuthorizedUser to store
+	useEffect(() => {
+		dispatch(
+			updateAuthorizedUser({
+				isAuthenticated,
+				isReady,
+				loginUrl,
+			}),
+		)
+	}, [isAuthenticated, isReady, loginUrl, dispatch])
+
+	if (pathname?.startsWith('/ncmaz_for_ncmazfc_preview_blocks')) {
+		return null
+	}
+
+	return (
+		<div>
+			<CookiestBoxPopover />
+			<ControlSettingsDemo />
+			<MusicPlayer />
+		</div>
+	)
 }
-
-// OPTIMIZOVANA FUNKCIJA
-async function fetchAllUris(): Promise<string[]> {
-  const endpoint = process.env.NEXT_PUBLIC_WORDPRESS_URL?.replace(/\/$/, '') + '/graphql';
-
-  // Jedan jedini GraphQL upit koji traži SVE javne postove i kategorije
-  const query = gql`
-    query GetAllUris {
-      posts(first: 10000) { # Tražimo veliki broj da dobijemo sve
-        nodes {
-          uri
-        }
-      }
-      categories(first: 1000) { # I sve kategorije
-        nodes {
-          uri
-        }
-      }
-    }
-  `;
-
-  try {
-    const data = await request(endpoint, query);
-
-    // Vadimo URI-je (npr. "/moj-prvi-post/" ili "/category/saveti/")
-    const postUris = data.posts.nodes.map(node => node.uri);
-    const categoryUris = data.categories.nodes.map(node => node.uri);
-
-    // Spajamo sve u jedan niz i čistimo kose crte
-    let uris = [...postUris, ...categoryUris].map(uri => uri.replace(/^\/|\/$/g, ''));
-
-    // Dodajemo demo stranice ako je potrebno
-    if (IS_CHISNGHIAX_DEMO_SITE) {
-        uris = [
-            ...uris,
-            'home-2',
-            'home-3-podcast',
-            'home-4-video',
-            'home-5-gallery',
-            'home-6',
-            'search/posts/',
-        ];
-    }
-    
-    return uris;
-
-  } catch (error) {
-    console.error("Failed to fetch URIs for Static Paths:", error);
-    return []; // Vraćamo prazan niz u slučaju greške
-  }
-}
-
-
-export const getStaticPaths: GetStaticPaths = async () => {
-  // Pozivamo novu, optimizovanu funkciju
-  const uris = await fetchAllUris();
-
-  const paths = uris.map(uri => ({
-    params: { wordpressNode: uri.split('/') },
-  }));
-
-  return {
-    paths,
-    fallback: 'blocking',
-  };
-};
-
-export const getStaticProps: GetStaticProps = async (ctx) => {
-  return getWordPressProps({
-    ctx,
-    revalidate: REVALIDATE_TIME,
-  });
-};
