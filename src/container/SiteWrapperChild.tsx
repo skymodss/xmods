@@ -13,7 +13,7 @@ import MusicPlayer from '@/components/MusicPlayer/MusicPlayer'
 import { initLocalPostsSavedListFromLocalstored } from '@/stores/localPostSavedList/localPostsSavedListSlice'
 import { usePathname } from 'next/navigation'
 import { CMSUserMetaResponseData } from '@/pages/api/cms-user-meta/[id]'
-import useSWR from 'swr' // <-- 1. Uvozimo SWR
+import useSWR from 'swr'
 
 // Definišemo "fetcher" funkciju koju će SWR koristiti
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
@@ -27,38 +27,39 @@ export function SiteWrapperChild({
 	const dispatch = useDispatch()
 	const pathname = usePathname()
 
-	// --- POČETAK VELIKE ISPRAVKE ---
+	// --- POČETAK ISPRAVKE ---
 
-	// 2. Koristimo SWR hook da preuzmemo podatke
-	// SWR će automatski keširati rezultat. Poziv će se desiti samo jednom!
-	// Ako korisnik nije ulogovan (viewer?.userId je null), SWR neće ni pokušati da pošalje zahtev.
+	// Pomoćna funkcija je sada robusnija i prihvata string, null, ili undefined
+	const createReactionPosts = (ids: string | null | undefined, type: 'LIKE' | 'SAVE' | 'VIEW') => {
+		// Ako je `ids` prazan, null ili undefined, odmah vraćamo prazan niz.
+		if (!ids) {
+			return [];
+		}
+		return ids.split(',').filter(id => id).map(id => ({ id, title: `${id},${type}` }));
+	}
+
+	// --- KRAJ ISPRAVKE ---
+
 	const { data: userMetaData, error } = useSWR<CMSUserMetaResponseData>(
 		viewer?.userId ? `/api/cms-user-meta/${viewer.userId}` : null,
 		fetcher
 	);
 
-	// 3. Koristimo useEffect da reagujemo na promenu podataka iz SWR-a
 	useEffect(() => {
-		// Ako nema podataka ili viewer-a, ne radimo ništa
 		if (!userMetaData || !viewer) {
 			return
 		}
 
-		// Ažuriramo osnovne podatke o korisniku
 		dispatch(updateViewerToStore(viewer))
 
 		const user = userMetaData?.data?.user
 		if (user) {
-			// Ažuriramo dodatne meta podatke
 			dispatch(updateViewerToStore(user))
 
 			if (user?.userReactionFields) {
-				const { likedPosts = '', savedPosts = '', viewedPosts = '' } = user.userReactionFields;
+				// Sada je bezbedno proslediti vrednosti direktno, jer naša funkcija zna šta da radi sa njima
+				const { likedPosts, savedPosts, viewedPosts } = user.userReactionFields;
 				
-				const createReactionPosts = (ids: string, type: 'LIKE' | 'SAVE' | 'VIEW') => {
-					return ids.split(',').filter(id => id).map(id => ({ id, title: `${id},${type}` }));
-				}
-
 				const likesPosts = createReactionPosts(likedPosts, 'LIKE');
 				const savesPosts = createReactionPosts(savedPosts, 'SAVE');
 				const viewsPosts = createReactionPosts(viewedPosts, 'VIEW');
@@ -69,13 +70,11 @@ export function SiteWrapperChild({
 				}
 			}
 		}
-	}, [userMetaData, viewer, dispatch]) // Ovaj hook zavisi samo od podataka
+	}, [userMetaData, viewer, dispatch])
 
 	if (error) {
 		console.error("SWR Fetch Error:", error);
 	}
-
-	// --- KRAJ VELIKE ISPRAVKE ---
 
 	// update general settings to store
 	useEffect(() => {
