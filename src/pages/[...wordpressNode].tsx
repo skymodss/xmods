@@ -1,100 +1,65 @@
-import React from 'react';
-import { WordPressTemplate, getWordPressProps } from '@faustwp/core';
-import type { GetStaticProps, GetStaticPaths } from 'next';
-import type { WordPressTemplateProps } from '../types';
-import { REVALIDATE_TIME } from '@/contains/contants';
-import { IS_CHISNGHIAX_DEMO_SITE } from '@/contains/site-settings';
-import { request, gql } from 'graphql-request';
-
-// --- POČETAK ISPRAVKE ---
-
-// 1. Definišemo tipove (oblike) podataka koje očekujemo od GraphQL-a
-interface UriNode {
-  uri: string;
-}
-
-interface GraphQLResponse {
-  posts: {
-    nodes: UriNode[];
-  };
-  categories: {
-    nodes: UriNode[];
-  };
-}
-
-// --- KRAJ ISPRAVKE ---
+import { getWordPressProps, WordPressTemplate } from '@faustwp/core'
+import { GetStaticProps } from 'next'
+import { WordPressTemplateProps } from '../types'
+import { REVALIDATE_TIME } from '@/contains/contants'
+import { IS_CHISNGHIAX_DEMO_SITE } from '@/contains/site-settings'
 
 export default function Page(props: WordPressTemplateProps) {
-  return <WordPressTemplate {...props} />;
+	return <WordPressTemplate {...props} />
 }
 
-async function fetchAllUris(): Promise<string[]> {
-  const endpoint = process.env.NEXT_PUBLIC_WORDPRESS_URL?.replace(/\/$/, '') + '/graphql';
+export async function myGetPaths() {
+	const response = await fetch(
+		process.env.NEXT_PUBLIC_WORDPRESS_URL?.replace(/\/$/, '') +
+			'/wp-json/wp/v2/posts?per_page=50&_fields=slug',
+	)
+	const getAllCategories = await fetch(
+		process.env.NEXT_PUBLIC_WORDPRESS_URL?.replace(/\/$/, '') +
+			'/wp-json/wp/v2/categories?per_page=20&_fields=slug',
+	)
 
-  const query = gql`
-    query GetAllUris {
-      posts(first: 10000) {
-        nodes {
-          uri
-        }
-      }
-      categories(first: 1000) {
-        nodes {
-          uri
-        }
-      }
-    }
-  `;
+	let posts = (await response.json()) as any[]
+	let categories = (await getAllCategories.json()) as any[]
 
-  try {
-    // --- POČETAK ISPRAVKE ---
+	if (!categories?.length) {
+		categories = []
+	}
+	if (!posts?.length) {
+		posts = []
+	}
 
-    // 2. Kažemo `request` funkciji koji oblik podataka da očekuje (<GraphQLResponse>)
-    const data = await request<GraphQLResponse>(endpoint, query);
+	posts = [
+		...categories.map((category) => ({ slug: 'category/' + category.slug })),
+		...posts,
+	]
 
-    // --- KRAJ ISPRAVKE ---
+	if (IS_CHISNGHIAX_DEMO_SITE) {
+		posts = [
+			...posts,
+			// Add more demo pages
+			{ slug: 'home-2' },
+			{ slug: 'home-3-podcast' },
+			{ slug: 'home-4-video' },
+			{ slug: 'home-5-gallery' },
+			{ slug: 'home-6' },
+			{ slug: 'search/posts/' },
+		]
+	}
 
-    const postUris = data.posts.nodes.map(node => node.uri);
-    const categoryUris = data.categories.nodes.map(node => node.uri);
-
-    let uris = [...postUris, ...categoryUris].map(uri => uri.replace(/^\/|\/$/g, ''));
-
-    if (IS_CHISNGHIAX_DEMO_SITE) {
-        uris = [
-            ...uris,
-            'home-2',
-            'home-3-podcast',
-            'home-4-video',
-            'home-5-gallery',
-            'home-6',
-            'search/posts/',
-        ];
-    }
-    
-    return uris;
-
-  } catch (error) {
-    console.error("Failed to fetch URIs for Static Paths:", error);
-    return [];
-  }
+	return posts.map((page) => ({
+		params: { wordpressNode: [page.slug] },
+	}))
 }
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const uris = await fetchAllUris();
+export async function getStaticPaths() {
+	const paths = await myGetPaths()
 
-  const paths = uris.map(uri => ({
-    params: { wordpressNode: uri.split('/') },
-  }));
+	return {
+		paths,
+		fallback: 'blocking',
+	}
+}
 
-  return {
-    paths,
-    fallback: 'blocking',
-  };
-};
-
-export const getStaticProps: GetStaticProps = async (ctx) => {
-  return getWordPressProps({
-    ctx,
-    revalidate: REVALIDATE_TIME,
-  });
-};
+export const getStaticProps: GetStaticProps = (ctx) => {
+	return getWordPressProps({ ctx, revalidate: REVALIDATE_TIME })
+}
