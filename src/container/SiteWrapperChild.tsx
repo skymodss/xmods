@@ -1,126 +1,84 @@
-import { useAuth } from '@faustwp/core'
-import { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
-import {
-	updateViewer as updateViewerToStore,
-	updateAuthorizedUser,
-} from '@/stores/viewer/viewerSlice'
-import { updateGeneralSettings } from '@/stores/general-settings/generalSettingsSlice'
-import ControlSettingsDemo from './ControlSettingsDemo'
-import CookiestBoxPopover from '@/components/CookiestBoxPopover'
-import MusicPlayer from '@/components/MusicPlayer/MusicPlayer'
-import { initLocalPostsSavedListFromLocalstored } from '@/stores/localPostSavedList/localPostsSavedListSlice'
-import { usePathname } from 'next/navigation'
-import { CMSUserMetaResponseData } from '@/pages/api/cms-user-meta/[id]'
-import { addViewerReactionPosts } from '@/stores/viewer/viewerSlice'
+import React from 'react';
+import { WordPressTemplate, getWordPressProps } from '@faustwp/core';
+import type { GetStaticProps, GetStaticPaths } from 'next';
+import type { WordPressTemplateProps } from '../types';
+import { REVALIDATE_TIME } from '@/contains/contants';
+import { IS_CHISNGHIAX_DEMO_SITE } from '@/contains/site-settings';
+import { request, gql } from 'graphql-request'; // <-- DODAJEMO OVO
 
-export function SiteWrapperChild({
-	...props
-}: {
-	__TEMPLATE_QUERY_DATA__: any
-}) {
-	const { isAuthenticated, isReady, loginUrl, viewer } = useAuth()
-	const dispatch = useDispatch()
-	const pathname = usePathname()
-
-	const [isFirstFetchApis, setIsFirstFetchApis] = useState(false)
-
-	useEffect(() => {
-		if (!isAuthenticated || !viewer?.userId || isFirstFetchApis) {
-			return
-		}
-		setIsFirstFetchApis(true)
-		dispatch(updateViewerToStore(viewer))
-		// get user meta data
-		fetch('/api/cms-user-meta/' + viewer?.userId)
-			.then((res) => res.json())
-			.then((data: CMSUserMetaResponseData) => {
-				const user = data?.data?.user
-				if (user) {
-					dispatch(updateViewerToStore(user))
-				}
-				if (user?.userReactionFields) {
-					const likes = user.userReactionFields.likedPosts || ''
-					const saves = user.userReactionFields.savedPosts || ''
-					const views = user.userReactionFields.viewedPosts || ''
-
-					const a_likes = likes.split(',') || []
-					const a_saves = saves.split(',') || []
-					const a_views = views.split(',') || []
-
-					// convert a_likes to array of fake posts
-					const likesPosts = a_likes.map((id) => {
-						return {
-							id: id,
-							title: id + ',LIKE',
-						}
-					})
-
-					// convert a_saves to array of fake posts
-					const savesPosts = a_saves.map((id) => {
-						return {
-							id: id,
-							title: id + ',SAVE',
-						}
-					})
-
-					// convert a_views to array of fake posts
-					const viewsPosts = a_views.map((id) => {
-						return {
-							id: id,
-							title: id + ',VIEW',
-						}
-					})
-
-					const reactionPosts = [...likesPosts, ...savesPosts, ...viewsPosts]
-					if (reactionPosts.length > 0) {
-						dispatch(addViewerReactionPosts(reactionPosts))
-					}
-				}
-			})
-			.catch((error) => {
-				console.error(error)
-			})
-	}, [isAuthenticated, viewer?.userId, isFirstFetchApis])
-
-	// update general settings to store
-	useEffect(() => {
-		const generalSettings =
-			props?.__TEMPLATE_QUERY_DATA__?.generalSettings ?? {}
-		dispatch(updateGeneralSettings(generalSettings))
-	}, [])
-
-	useEffect(() => {
-		const initialStateLocalSavedPosts: number[] = JSON.parse(
-			typeof window !== 'undefined'
-				? localStorage?.getItem('localSavedPosts') || '[]'
-				: '[]',
-		)
-		dispatch(
-			initLocalPostsSavedListFromLocalstored(initialStateLocalSavedPosts),
-		)
-	}, [])
-
-	// update updateAuthorizedUser to store
-	useEffect(() => {
-		dispatch(
-			updateAuthorizedUser({
-				isAuthenticated,
-				isReady,
-				loginUrl,
-			}),
-		)
-	}, [isAuthenticated])
-
-	if (pathname?.startsWith('/ncmaz_for_ncmazfc_preview_blocks')) {
-		return null
-	}
-
-	return (
-		<div>
-			<CookiestBoxPopover />
-			<ControlSettingsDemo />
-			<MusicPlayer />
-		</div>
-	)
+export default function Page(props: WordPressTemplateProps) {
+  return <WordPressTemplate {...props} />;
 }
+
+// OPTIMIZOVANA FUNKCIJA
+async function fetchAllUris(): Promise<string[]> {
+  const endpoint = process.env.NEXT_PUBLIC_WORDPRESS_URL?.replace(/\/$/, '') + '/graphql';
+
+  // Jedan jedini GraphQL upit koji traži SVE javne postove i kategorije
+  const query = gql`
+    query GetAllUris {
+      posts(first: 10000) { # Tražimo veliki broj da dobijemo sve
+        nodes {
+          uri
+        }
+      }
+      categories(first: 1000) { # I sve kategorije
+        nodes {
+          uri
+        }
+      }
+    }
+  `;
+
+  try {
+    const data = await request(endpoint, query);
+
+    // Vadimo URI-je (npr. "/moj-prvi-post/" ili "/category/saveti/")
+    const postUris = data.posts.nodes.map(node => node.uri);
+    const categoryUris = data.categories.nodes.map(node => node.uri);
+
+    // Spajamo sve u jedan niz i čistimo kose crte
+    let uris = [...postUris, ...categoryUris].map(uri => uri.replace(/^\/|\/$/g, ''));
+
+    // Dodajemo demo stranice ako je potrebno
+    if (IS_CHISNGHIAX_DEMO_SITE) {
+        uris = [
+            ...uris,
+            'home-2',
+            'home-3-podcast',
+            'home-4-video',
+            'home-5-gallery',
+            'home-6',
+            'search/posts/',
+        ];
+    }
+    
+    return uris;
+
+  } catch (error) {
+    console.error("Failed to fetch URIs for Static Paths:", error);
+    return []; // Vraćamo prazan niz u slučaju greške
+  }
+}
+
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  // Pozivamo novu, optimizovanu funkciju
+  const uris = await fetchAllUris();
+
+  const paths = uris.map(uri => ({
+    params: { wordpressNode: uri.split('/') },
+  }));
+
+  return {
+    paths,
+    fallback: 'blocking',
+  };
+};
+
+export const getStaticProps: GetStaticProps = async (ctx) => {
+  return getWordPressProps({
+    ctx,
+    revalidate: REVALIDATE_TIME,
+  });
+};
