@@ -1,5 +1,5 @@
 {
-  "name": "ncmaz-faust",
+  "name": "xmods",
   "private": true,
   "version": "2.10.1",
   "scripts": {
@@ -43,6 +43,7 @@
     "@tiptap/starter-kit": "^2.3.1",
     "@wordpress/style-engine": "^1.41.0",
     "autoprefixer": "^10.4.16",
+    "axios": "^1.7.2",
     "clsx": "^2.1.1",
     "framer-motion": "^11.12.0",
     "graphql": "^16.9.0",
@@ -68,8 +69,8 @@
     "redux-logger": "^3.0.6",
     "redux-persist": "^6.0.0",
     "sass": "^1.69.5",
-    "tailwindcss": "^3.4.3",
-    "axios": "^1.7.2"
+    "swr": "^2.2.5",
+    "tailwindcss": "^3.4.3"
   },
   "devDependencies": {
     "@types/jsonwebtoken": "^9.0.2",
