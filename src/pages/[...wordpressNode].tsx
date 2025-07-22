@@ -4,25 +4,41 @@ import type { GetStaticProps, GetStaticPaths } from 'next';
 import type { WordPressTemplateProps } from '../types';
 import { REVALIDATE_TIME } from '@/contains/contants';
 import { IS_CHISNGHIAX_DEMO_SITE } from '@/contains/site-settings';
-import { request, gql } from 'graphql-request'; // <-- DODAJEMO OVO
+import { request, gql } from 'graphql-request';
+
+// --- POČETAK ISPRAVKE ---
+
+// 1. Definišemo tipove (oblike) podataka koje očekujemo od GraphQL-a
+interface UriNode {
+  uri: string;
+}
+
+interface GraphQLResponse {
+  posts: {
+    nodes: UriNode[];
+  };
+  categories: {
+    nodes: UriNode[];
+  };
+}
+
+// --- KRAJ ISPRAVKE ---
 
 export default function Page(props: WordPressTemplateProps) {
   return <WordPressTemplate {...props} />;
 }
 
-// OPTIMIZOVANA FUNKCIJA
 async function fetchAllUris(): Promise<string[]> {
   const endpoint = process.env.NEXT_PUBLIC_WORDPRESS_URL?.replace(/\/$/, '') + '/graphql';
 
-  // Jedan jedini GraphQL upit koji traži SVE javne postove i kategorije
   const query = gql`
     query GetAllUris {
-      posts(first: 10000) { # Tražimo veliki broj da dobijemo sve
+      posts(first: 10000) {
         nodes {
           uri
         }
       }
-      categories(first: 1000) { # I sve kategorije
+      categories(first: 1000) {
         nodes {
           uri
         }
@@ -31,16 +47,18 @@ async function fetchAllUris(): Promise<string[]> {
   `;
 
   try {
-    const data = await request(endpoint, query);
+    // --- POČETAK ISPRAVKE ---
 
-    // Vadimo URI-je (npr. "/moj-prvi-post/" ili "/category/saveti/")
+    // 2. Kažemo `request` funkciji koji oblik podataka da očekuje (<GraphQLResponse>)
+    const data = await request<GraphQLResponse>(endpoint, query);
+
+    // --- KRAJ ISPRAVKE ---
+
     const postUris = data.posts.nodes.map(node => node.uri);
     const categoryUris = data.categories.nodes.map(node => node.uri);
 
-    // Spajamo sve u jedan niz i čistimo kose crte
     let uris = [...postUris, ...categoryUris].map(uri => uri.replace(/^\/|\/$/g, ''));
 
-    // Dodajemo demo stranice ako je potrebno
     if (IS_CHISNGHIAX_DEMO_SITE) {
         uris = [
             ...uris,
@@ -57,13 +75,11 @@ async function fetchAllUris(): Promise<string[]> {
 
   } catch (error) {
     console.error("Failed to fetch URIs for Static Paths:", error);
-    return []; // Vraćamo prazan niz u slučaju greške
+    return [];
   }
 }
 
-
 export const getStaticPaths: GetStaticPaths = async () => {
-  // Pozivamo novu, optimizovanu funkciju
   const uris = await fetchAllUris();
 
   const paths = uris.map(uri => ({
