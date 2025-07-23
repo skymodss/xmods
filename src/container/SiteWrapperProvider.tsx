@@ -5,15 +5,21 @@ import { usePathname } from 'next/navigation'
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 
-// Korišćenje relativnih putanja da se izbegnu problemi sa build-om
-import { useAuth } from '../context/AuthContext'
-import { Viewer, getViewer } from '../lib/viewer'
+// =================================================================
+// POČETAK ISPRAVKE: Apsolutno tačne putanje na osnovu strukture repozitorijuma
+// =================================================================
+// '@/' alias je ispravan jer pokazuje na 'src/' direktorijum.
+import { useAuth } from '@/context/AuthContext'
+import { Viewer, getViewer } from '@/lib/viewer' // Fajl je u src/lib/viewer.ts
 import {
 	updateAuthorizedUser,
 	updateViewer,
-} from '../stores/viewer/viewerSlice'
-import Footer from './Footer'
-import Nav from './Nav'
+} from '@/stores/viewer/viewerSlice'
+import Footer from '@/container/Footer/Footer' // Ispravna putanja do Footer komponente
+import Nav from '@/container/Nav/Nav' // Ispravna putanja do Nav komponente
+// =================================================================
+// KRAJ ISPRAVKE
+// =================================================================
 
 export default function SiteWrapperProvider({
 	children,
