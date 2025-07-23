@@ -99,7 +99,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                 }));
                 
                 // <-- 3. Dodajte ovu liniju za preusmeravanje
-                router.push("/"); 
+                window.location.href = "/";
 
               } else {
                 setError("Failed to sync with WordPress.");
