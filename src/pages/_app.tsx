@@ -38,6 +38,7 @@ export default function MyApp({
         <SessionProvider session={pageProps.session}>
           <GoogleAnalytics trackPageViews />
           <AuthProvider>
+            <LoginModal />
             <WordPressBlocksProvider
               config={{
                 blocks,
@@ -62,7 +63,6 @@ export default function MyApp({
                   }}
                   containerClassName="text-sm"
                 />
-                <LoginModal />
               </SiteWrapperProvider>
             </WordPressBlocksProvider>
           </AuthProvider>
