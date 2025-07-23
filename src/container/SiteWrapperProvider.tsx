@@ -1,14 +1,24 @@
 'use client'
 
-import { useAuth } from '@/context/AuthContext'
-import { Viewer, getViewer } from '@/lib/viewer'
-import { updateAuthorizedUser, updateViewer } from '@/stores/viewer/viewerSlice'
 import { useQuery } from '@apollo/client'
-import { usePathname, useRouter } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
+
+// =================================================================
+// POČETAK ISPRAVKE: Korišćenje relativnih putanja
+// =================================================================
+import { useAuth } from '../context/AuthContext'
+import { Viewer, getViewer } from '../lib/viewer'
+import {
+	updateAuthorizedUser,
+	updateViewer,
+} from '../stores/viewer/viewerSlice'
 import Footer from './Footer'
 import Nav from './Nav'
+// =================================================================
+// KRAJ ISPRAVKE
+// =================================================================
 
 export default function SiteWrapperProvider({
 	children,
@@ -18,11 +28,7 @@ export default function SiteWrapperProvider({
 	const dispatch = useDispatch()
 	const { data, loading } = useQuery(getViewer)
 	const viewer = data?.viewer as Viewer | null | undefined
-	const { isLoggedIn } = useAuth()
-	const router = useRouter()
 	const pathname = usePathname()
-
-	const [isReady, setIsReady] = useState(false)
 
 	useEffect(() => {
 		if (loading) {
@@ -37,18 +43,11 @@ export default function SiteWrapperProvider({
 				isReady: true,
 			}),
 		)
-
-		setIsReady(true)
 	}, [viewer, dispatch, loading])
 
-	// =================================================================
-	// POČETAK ISPRAVKE
-	// =================================================================
-	// Uklanjamo duplu `Nav` komponentu i renderujemo je samo jednom,
-	// ali sa ispravnim `viewer` podatkom koji će unutar nje odlučiti
-	// da li da prikaže "Login" ili "Logout" dugme.
 	return (
 		<div className="bg-white text-base dark:bg-neutral-900 text-neutral-900 dark:text-neutral-200">
+			{/* Prosleđujemo viewer i loading podatke u Nav komponentu */}
 			<Nav viewer={viewer} loading={loading} />
 
 			<div
@@ -62,7 +61,4 @@ export default function SiteWrapperProvider({
 			<Footer />
 		</div>
 	)
-	// =================================================================
-	// KRAJ ISPRAVKE
-	// =================================================================
 }
