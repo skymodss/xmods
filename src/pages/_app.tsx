@@ -18,12 +18,8 @@ import { AuthProvider } from '@/context/AuthContext'
 import { SessionProvider } from 'next-auth/react'
 import { store } from '@/stores/store'
 import { Provider } from 'react-redux'
-
-// --- POČETAK IZMENE ---
-// 1. Uvezite LoginModal i njegov Provider
-import LoginModal from '@/components/LoginModal/LoginModal'
+import LoginModal from '@/container/LoginModal'
 import { LoginModalProvider } from '@/hooks/useLoginModal'
-// --- KRAJ IZMENE ---
 
 const poppins = Poppins({
   subsets: ['latin'],
