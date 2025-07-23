@@ -3,6 +3,7 @@ import { useSession, signIn, signOut } from "next-auth/react";
 import { wpSocialLogin } from "@/utils/wpSocialLogin";
 import { useDispatch } from "react-redux";
 import { updateAuthorizedUser, updateViewer } from "@/stores/viewer/viewerSlice";
+import { useRouter } from "next/router"; // <-- 1. Uvezite useRouter
 
 // Tipovi ostaju nepromenjeni
 interface WpAuthSuccess {
@@ -35,6 +36,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  
+  const router = useRouter(); // <-- 2. Inicijalizujte ruter
 
   const { data: session, status } = useSession();
   const hasSynced = useRef(false);
@@ -91,10 +94,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
                 dispatch(updateViewer({
                   databaseId: wpUser.id,
-                  name: wpUser.displayname, // Polje 'name' je ispravno i postoji
+                  name: wpUser.displayname,
                   email: wpUser.email,
-                  // ✅ UKLONJENA LINIJA KOJA JE IZAZVALA GREŠKU
                 }));
+                
+                // <-- 3. Dodajte ovu liniju za preusmeravanje
+                router.push("/"); 
 
               } else {
                 setError("Failed to sync with WordPress.");
@@ -116,7 +121,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     };
 
     resolveAuth();
-  }, [status, session, isLoggedIn, dispatch]);
+  }, [status, session, isLoggedIn, dispatch, router]); // <-- 4. Dodajte `router` u dependency array
 
   const value = { user, isLoggedIn, isLoading, error, loginWithGoogle, logout };
 
