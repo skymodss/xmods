@@ -264,7 +264,7 @@ const AuthorLayout: FC<Props> = ({ className = '', children, user }) => {
 							sizes="150px"
 						/>
 						{/*  */}
-						<div className="flex-grow md:pt-[30px] md:pl-[10px] lg:pl-[10px] lg:pt-[50px]">
+						<div className="flex-grow md:pt-[30px] md:pl-[5px] lg:pl-[5px] lg:pt-[50px]">
 							<div className="max-w-screen-sm space-y-3.5">
 								<h1 className="inline-flex items-center text-xl font-semibold sm:text-2xl md:text-3xl lg:text-4xl">
 									<span>{name}</span>
