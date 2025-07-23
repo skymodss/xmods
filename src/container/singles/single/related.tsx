@@ -14,7 +14,7 @@ import SingleRelatedPosts from '@/container/singles/SingleRelatedPosts';
 
 export const GET_RELATED_POSTS = gql`
   query GetRelatedPosts4($databaseId: Int!) {
-    posts(where: { isRelatedOfPostId: $databaseId } ) {
+    posts(where: { isRelatedOfPostId: $databaseId }, first: 6) {
       nodes {
         databaseId
         title
