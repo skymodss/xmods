@@ -3,9 +3,8 @@ import { useSession, signIn, signOut } from "next-auth/react";
 import { wpSocialLogin } from "@/utils/wpSocialLogin";
 import { useDispatch } from "react-redux";
 import { updateAuthorizedUser, updateViewer } from "@/stores/viewer/viewerSlice";
-import { useRouter } from "next/router"; // <-- 1. Uvezite useRouter
 
-// Tipovi ostaju nepromenjeni
+// Tipovi i interfejsi ostaju isti...
 interface WpAuthSuccess {
   token: string;
   user_id: number;
@@ -31,13 +30,14 @@ function isSuccessResponse(response: any): response is WpAuthSuccess {
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
+// Ključ koji ćemo koristiti za sessionStorage
+const REFRESH_FLAG_KEY = 'hasRefreshedAfterLogin';
+
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  
-  const router = useRouter(); // <-- 2. Inicijalizujte ruter
 
   const { data: session, status } = useSession();
   const hasSynced = useRef(false);
@@ -51,6 +51,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const logout = () => {
     localStorage.removeItem("wp_jwt");
     document.cookie = "wp_jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    // Obavezno obrišemo i našu oznaku za refresh
+    sessionStorage.removeItem(REFRESH_FLAG_KEY);
     setUser(null);
     setIsLoggedIn(false);
     hasSynced.current = false;
@@ -66,9 +68,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         setIsLoading(true);
         return;
       }
+      
+      // Proveravamo da li je oznaka za refresh postavljena
+      const hasRefreshed = sessionStorage.getItem(REFRESH_FLAG_KEY) === 'true';
 
       if (status === "authenticated") {
-        if (!isLoggedIn && !hasSynced.current) {
+        // Dodajemo proveru za `hasRefreshed` u uslov
+        if (!isLoggedIn && !hasSynced.current && !hasRefreshed) {
           hasSynced.current = true;
 
           const google_id = (session.user as any)?.sub;
@@ -97,8 +103,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                   name: wpUser.displayname,
                   email: wpUser.email,
                 }));
-                
-                // <-- 3. Dodajte ovu liniju za preusmeravanje
+
+                // 1. Postavljamo oznaku da ćemo uraditi refresh
+                sessionStorage.setItem(REFRESH_FLAG_KEY, 'true');
+                // 2. Radimo refresh
                 window.location.href = "/";
 
               } else {
@@ -115,13 +123,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         if (isLoggedIn) {
           logout();
         }
+        // Ako je korisnik neautentifikovan, brišemo oznaku za svaki slučaj
+        sessionStorage.removeItem(REFRESH_FLAG_KEY);
       }
       
       setIsLoading(false);
     };
 
     resolveAuth();
-  }, [status, session, isLoggedIn, dispatch, router]); // <-- 4. Dodajte `router` u dependency array
+  }, [status, session, isLoggedIn, dispatch]);
 
   const value = { user, isLoggedIn, isLoading, error, loginWithGoogle, logout };
 
