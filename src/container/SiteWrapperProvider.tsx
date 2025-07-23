@@ -2,12 +2,10 @@
 
 import { useQuery } from '@apollo/client'
 import { usePathname } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 
-// =================================================================
-// POČETAK ISPRAVKE: Korišćenje relativnih putanja
-// =================================================================
+// Korišćenje relativnih putanja da se izbegnu problemi sa build-om
 import { useAuth } from '../context/AuthContext'
 import { Viewer, getViewer } from '../lib/viewer'
 import {
@@ -16,9 +14,6 @@ import {
 } from '../stores/viewer/viewerSlice'
 import Footer from './Footer'
 import Nav from './Nav'
-// =================================================================
-// KRAJ ISPRAVKE
-// =================================================================
 
 export default function SiteWrapperProvider({
 	children,
@@ -47,7 +42,6 @@ export default function SiteWrapperProvider({
 
 	return (
 		<div className="bg-white text-base dark:bg-neutral-900 text-neutral-900 dark:text-neutral-200">
-			{/* Prosleđujemo viewer i loading podatke u Nav komponentu */}
 			<Nav viewer={viewer} loading={loading} />
 
 			<div
