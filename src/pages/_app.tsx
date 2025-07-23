@@ -19,6 +19,12 @@ import { SessionProvider } from 'next-auth/react'
 import { store } from '@/stores/store'
 import { Provider } from 'react-redux'
 
+// --- POČETAK IZMENE ---
+// 1. Uvezite LoginModal i njegov Provider
+import LoginModal from '@/components/LoginModal/LoginModal'
+import { LoginModalProvider } from '@/hooks/useLoginModal'
+// --- KRAJ IZMENE ---
+
 const poppins = Poppins({
   subsets: ['latin'],
   display: 'swap',
@@ -37,32 +43,37 @@ export default function MyApp({
         <SessionProvider session={pageProps.session}>
           <GoogleAnalytics trackPageViews />
           <AuthProvider>
-            <WordPressBlocksProvider
-              config={{
-                blocks,
-                theme: fromThemeJson(themeJson),
-              }}
-            >
-              <SiteWrapperProvider {...pageProps}>
-                <style jsx global>{`
-                  html {
-                    font-family: ${poppins.style.fontFamily};
-                  }
-                `}</style>
-                <NextNProgress color="#818cf8" />
-                <Component {...pageProps} key={router.asPath} />
-                <Toaster
-                  position="bottom-left"
-                  toastOptions={{
-                    style: {
-                      fontSize: '14px',
-                      borderRadius: '0.75rem',
-                    },
-                  }}
-                  containerClassName="text-sm"
-                />
-              </SiteWrapperProvider>
-            </WordPressBlocksProvider>
+            {/* 2. Obavijte sve sa LoginModalProvider */}
+            <LoginModalProvider>
+              <WordPressBlocksProvider
+                config={{
+                  blocks,
+                  theme: fromThemeJson(themeJson),
+                }}
+              >
+                <SiteWrapperProvider {...pageProps}>
+                  <style jsx global>{`
+                    html {
+                      font-family: ${poppins.style.fontFamily};
+                    }
+                  `}</style>
+                  <NextNProgress color="#818cf8" />
+                  <Component {...pageProps} key={router.asPath} />
+                  <Toaster
+                    position="bottom-left"
+                    toastOptions={{
+                      style: {
+                        fontSize: '14px',
+                        borderRadius: '0.75rem',
+                      },
+                    }}
+                    containerClassName="text-sm"
+                  />
+                  {/* 3. Pozovite LoginModal komponentu ovde */}
+                  <LoginModal />
+                </SiteWrapperProvider>
+              </WordPressBlocksProvider>
+            </LoginModalProvider>
           </AuthProvider>
         </SessionProvider>
       </FaustProvider>
