@@ -18,6 +18,7 @@ import { AuthProvider } from '@/context/AuthContext'
 import { SessionProvider } from 'next-auth/react'
 import { store } from '@/stores/store'
 import { Provider } from 'react-redux'
+import { LoginLayout } from '@/container/login/LoginLayout'
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -51,6 +52,7 @@ export default function MyApp({
                 `}</style>
                 <NextNProgress color="#818cf8" />
                 <Component {...pageProps} key={router.asPath} />
+                <LoginLayout />
                 <Toaster
                   position="bottom-left"
                   toastOptions={{
