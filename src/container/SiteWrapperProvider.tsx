@@ -11,23 +11,22 @@ export default function SiteWrapperProvider({
 	children: React.ReactNode
 }) {
 	// =================================================================
-	// POČETAK ISPRAVKE: Koristimo ispravna polja iz useAuth
+	// POČETAK KONAČNE ISPRAVKE:
+	// Koristimo 'user' i 'loading' koji zaista postoje u useAuth()
 	// =================================================================
-	const { isAuthenticated, isReady } = useAuth()
+	const { user, loading } = useAuth()
 	const pathname = usePathname()
-
-	// Kreiramo lažni 'viewer' objekat i 'loading' stanje na osnovu onoga što imamo
-	// Nav komponenta očekuje ovakvu strukturu
-	const viewer = isAuthenticated ? { databaseId: 1 } : null
-	const loading = !isReady
 	// =================================================================
-	// KRAJ ISPRAVKE
+	// KRAJ KONAČNE ISPRAVKE
 	// =================================================================
 
 	return (
 		<div className="bg-white text-base dark:bg-neutral-900 text-neutral-900 dark:text-neutral-200">
-			{/* Prosleđujemo prilagođene podatke u Nav komponentu */}
-			<Nav viewer={viewer} loading={loading} />
+			{/* 
+        Prosleđujemo 'user' kao 'viewer' u Nav komponentu.
+        'Nav' očekuje prop pod imenom 'viewer', pa mu dodeljujemo vrednost iz 'user'.
+      */}
+			<Nav viewer={user} loading={loading} />
 
 			<div
 				className={`pt-16 sm:pt-20 ${
