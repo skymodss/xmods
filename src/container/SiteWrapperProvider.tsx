@@ -10,7 +10,7 @@ import { useDispatch } from 'react-redux'
 // =================================================================
 // '@/' alias je ispravan jer pokazuje na 'src/' direktorijum.
 import { useAuth } from '@/context/AuthContext'
-import { Viewer, getViewer } from '@/data/viewer' // Fajl je u src/lib/viewer.ts
+import { Viewer, getViewer } from '@/graphql/queries/viewer'
 import {
 	updateAuthorizedUser,
 	updateViewer,
