@@ -1,50 +1,35 @@
 'use client'
 
-import { useQuery } from '@apollo/client'
 import { usePathname } from 'next/navigation'
-import { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+// Uklonili smo sve što je vezano za Apollo Client, getViewer i Redux jer ne postoje
+// import { useQuery } from '@apollo/client'
+// import { useDispatch } from 'react-redux'
 
 // =================================================================
-// POČETAK ISPRAVKE: Apsolutno tačne putanje na osnovu strukture repozitorijuma
+// POČETAK ISPRAVKE: Potpuno pojednostavljena verzija
 // =================================================================
-// '@/' alias je ispravan jer pokazuje na 'src/' direktorijum.
+// Oslanjamo se samo na AuthContext, koji sigurno postoji
 import { useAuth } from '@/context/AuthContext'
-import { Viewer, getViewer } from '@/graphql/queries/viewer'
-import {
-	updateAuthorizedUser,
-	updateViewer,
-} from '@/stores/viewer/viewerSlice'
 import Footer from '@/components/Footer/Footer' // Ispravna putanja do Footer komponente
 import Nav from '@/components/Nav/Nav' // Ispravna putanja do Nav komponente
+// =================================================================
+// KRAJ ISPRAVKE
+// =================================================================
 
 export default function SiteWrapperProvider({
 	children,
 }: {
 	children: React.ReactNode
 }) {
-	const dispatch = useDispatch()
-	const { data, loading } = useQuery(getViewer)
-	const viewer = data?.viewer as Viewer | null | undefined
+	// Dohvatamo podatke o korisniku direktno iz AuthContext-a
+	const { viewer, loading } = useAuth()
 	const pathname = usePathname()
 
-	useEffect(() => {
-		if (loading) {
-			return
-		}
-		if (viewer) {
-			dispatch(updateViewer(viewer))
-		}
-		dispatch(
-			updateAuthorizedUser({
-				isAuthenticated: !!viewer?.databaseId,
-				isReady: true,
-			}),
-		)
-	}, [viewer, dispatch, loading])
+	// Uklonili smo ceo useEffect blok koji je radio sa Redux-om i nepostojećim viewer-om
 
 	return (
 		<div className="bg-white text-base dark:bg-neutral-900 text-neutral-900 dark:text-neutral-200">
+			{/* Prosleđujemo viewer i loading podatke direktno iz AuthContext-a u Nav */}
 			<Nav viewer={viewer} loading={loading} />
 
 			<div
