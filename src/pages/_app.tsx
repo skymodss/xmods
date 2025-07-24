@@ -33,13 +33,11 @@ export default function MyApp({
   const router = useRouter()
 
   return (
-    
-    <GoogleAnalytics trackPageViews />
-
     <Provider store={store}>
       <FaustProvider pageProps={pageProps}>
         <SessionProvider session={pageProps.session}>
           <AuthProvider>
+            <GoogleAnalytics trackPageViews />
             <LoginModal />
             <WordPressBlocksProvider
               config={{
