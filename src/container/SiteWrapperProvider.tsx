@@ -12,10 +12,14 @@ export default function SiteWrapperProvider({
 }) {
 	// =================================================================
 	// POČETAK KONAČNE ISPRAVKE:
-	// Koristimo 'user' i 'loading' koji zaista postoje u useAuth()
+	// Dohvatamo samo 'user' koji sigurno postoji.
 	// =================================================================
-	const { user, loading } = useAuth()
+	const { user } = useAuth()
 	const pathname = usePathname()
+
+	// Izvodimo 'loading' stanje. Kontekst je u stanju učitavanja
+	// sve dok 'user' nije definisan (ni kao objekat, ni kao null).
+	const loading = user === undefined
 	// =================================================================
 	// KRAJ KONAČNE ISPRAVKE
 	// =================================================================
