@@ -1,65 +1,34 @@
-import { useEffect, useState } from "react";
+import { createGlobalState } from "react-hooks-global-state";
 
-// key za localStorage
-const TOKEN_KEY = "xmods_jwt";
+const initialState: {
+  isOpen: boolean;
+  isLogedIn: boolean;
+  url?: string;
+} = {
+  isOpen: false,
+  isLogedIn: false,
+  url: undefined,
+};
 
-export function useLoginModal() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [token, setToken] = useState<string | undefined>(undefined);
-  const [redirectPath, setRedirectPath] = useState<string|undefined>(undefined);
+const { useGlobalState } = createGlobalState(initialState);
 
-  // pri mountu, uzmi token iz localStorage
-  useEffect(() => {
-    const saved = typeof window !== "undefined"
-      ? localStorage.getItem(TOKEN_KEY)
-      : null;
-    if (saved) {
-      setToken(saved);
-      setIsLoggedIn(true);
-    }
-  }, []);
-
-  // kad se token promijeni u stateu, ažuriraj localStorage
-  useEffect(() => {
-    if (token) {
-      localStorage.setItem(TOKEN_KEY, token);
-    } else {
-      localStorage.removeItem(TOKEN_KEY);
-    }
-  }, [token]);
-
-  const open = (path?: string) => {
-    setRedirectPath(path);
-    setIsOpen(true);
-  };
-  const close = () => {
-    setIsOpen(false);
-    setRedirectPath(undefined);
-  };
-
-  const login = (newToken: string) => {
-    setToken(newToken);
-    setIsLoggedIn(true);
-    setIsOpen(false);
-  };
-
-  const logout = () => {
-    setToken(undefined);
-    setIsLoggedIn(false);
-    setIsOpen(false);
-  };
+export const useLoginModal = () => {
+  const [isOpen, setIsOpen] = useGlobalState("isOpen");
+  const [isLogedIn, setIsLogedIn] = useGlobalState("isLogedIn");
+  const [url, setUrl] = useGlobalState("url");
 
   return {
     isOpen,
-    isLoggedIn,
-    token,
-    open,
-    close,
-    openLoginModal: open,
-    closeLoginModal: close,
-    urlRiderect: redirectPath,
-    login,
-    logout,
+    isLogedIn,
+    setIsLogedIn,
+    urlRiderect: url,
+    openLoginModal: (url?: string) => {
+      setIsOpen(true);
+      url && setUrl(url);
+    },
+    closeLoginModal: () => {
+      setIsOpen(false);
+      setUrl(undefined);
+    },
   };
-}
+};
