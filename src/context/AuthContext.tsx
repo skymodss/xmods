@@ -4,7 +4,7 @@ import { wpSocialLogin } from "@/utils/wpSocialLogin";
 import { useDispatch } from "react-redux";
 import { updateAuthorizedUser, updateViewer } from "@/stores/viewer/viewerSlice";
 
-// Tipovi i interfejsi ostaju isti...
+// Tipovi i interfejsi
 interface WpAuthSuccess {
   token: string;
   user_id: number;
@@ -30,7 +30,6 @@ function isSuccessResponse(response: any): response is WpAuthSuccess {
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
-// Ključ koji ćemo koristiti za sessionStorage
 const REFRESH_FLAG_KEY = 'hasRefreshedAfterLogin';
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
@@ -51,7 +50,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const logout = () => {
     localStorage.removeItem("wp_jwt");
     document.cookie = "wp_jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    // Obavezno obrišemo i našu oznaku za refresh
     sessionStorage.removeItem(REFRESH_FLAG_KEY);
     setUser(null);
     setIsLoggedIn(false);
@@ -69,21 +67,22 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         return;
       }
       
-      // Proveravamo da li je oznaka za refresh postavljena
       const hasRefreshed = sessionStorage.getItem(REFRESH_FLAG_KEY) === 'true';
 
       if (status === "authenticated") {
-        // Dodajemo proveru za `hasRefreshed` u uslov
         if (!isLoggedIn && !hasSynced.current && !hasRefreshed) {
           hasSynced.current = true;
 
           const google_id = (session.user as any)?.sub;
           const email = session.user?.email;
           const display_name = session.user?.name;
+          const avatar_url = session.user?.image; // Uzimamo sliku iz sesije
 
-          if (google_id && email && display_name) {
+          if (google_id && email && display_name && avatar_url) {
             try {
-              const data = await wpSocialLogin(google_id, email, display_name);
+              // Prosleđujemo sve podatke, uključujući i URL avatara
+              const data = await wpSocialLogin(google_id, email, display_name, avatar_url);
+
               if (isSuccessResponse(data)) {
                 localStorage.setItem("wp_jwt", data.token);
                 document.cookie = `wp_jwt=${data.token}; path=/; max-age=${60 * 60 * 24 * 7}; secure; samesite=lax`;
@@ -104,9 +103,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                   email: wpUser.email,
                 }));
 
-                // 1. Postavljamo oznaku da ćemo uraditi refresh
                 sessionStorage.setItem(REFRESH_FLAG_KEY, 'true');
-                // 2. Radimo refresh
                 window.location.href = "/";
 
               } else {
@@ -123,7 +120,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         if (isLoggedIn) {
           logout();
         }
-        // Ako je korisnik neautentifikovan, brišemo oznaku za svaki slučaj
         sessionStorage.removeItem(REFRESH_FLAG_KEY);
       }
       
