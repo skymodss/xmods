@@ -171,21 +171,21 @@ export default function SignUp() {
 							onChange={e => setEmail(e.target.value)}
 						/>
 					</div>
-					<div className="grid pt-2">
+					<div className="grid">
 						<ButtonPrimary loading={loading}>{T['Sign up']}</ButtonPrimary>
 
 						{!!error?.message && (
 							<Error className="mt-2 text-center" error={error.message} />
 						)}
 					</div>
-					<div className="flex items-center my-2 select-none">
+					<div className="flex items-center select-none">
       						<div className="flex-grow h-px bg-gray-300"></div>
       						<span className="mx-1 flex items-center justify-center px-1 py-0.5 text-gray-400 font-medium text-base">
         						or
       						</span>
       						<div className="flex-grow h-px bg-gray-300"></div>
     					</div>
-					<div className="grid pt-2">
+					<div className="grid">
 						<GoogleLoginButton />
 					</div>
 				</div>
