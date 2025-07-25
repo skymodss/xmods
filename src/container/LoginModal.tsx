@@ -73,6 +73,11 @@ const LoginModal: FC = () => {
 			renderTrigger={() => null}
 			renderContent={() => (
 				<div className="flex min-h-full flex-1 flex-col justify-center py-2.5 sm:p-6 lg:pb-8">
+					<div className="text-center">
+						<h2 className="mt-5 text-center text-xl font-semibold leading-9 tracking-tight text-neutral-900 sm:mt-7 md:text-2xl dark:text-neutral-200">
+							{T['Sign in to your account']}
+						</h2>
+					</div>
 					<div className="mt-5 sm:mx-auto sm:mt-10 sm:w-full sm:max-w-sm">
 						<form className="grid gap-6" onSubmit={handleSubmit}>
 							<div className="grid gap-4">
