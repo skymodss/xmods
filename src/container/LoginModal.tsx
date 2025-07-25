@@ -12,6 +12,7 @@ import getTrans from '@/utils/getTrans'
 import { useLoginModal } from '@/hooks/useLoginModal'
 import NcModal from '@/components/NcModal/NcModal'
 import { useRouter } from 'next/router'
+import GoogleLoginButton from '@/components/GoogleLoginButton'
 
 const LoginModal: FC = () => {
 	const { login, loading, data, error } = useLogin()
@@ -116,6 +117,17 @@ const LoginModal: FC = () => {
 								{!!errorMessage && (
 									<Error className="mt-2 text-center" error={errorMessage} />
 								)}
+								
+							</div>
+							<div className="flex items-center my-2 select-none">
+      								<div className="flex-grow h-px bg-gray-300"></div>
+      								<span className="mx-1 flex items-center justify-center px-1 py-0.5 text-gray-400 font-medium text-base">
+        								or
+      								</span>
+      								<div className="flex-grow h-px bg-gray-300"></div>
+    							</div>
+							<div className="grid pt-2">
+								<GoogleLoginButton />
 							</div>
 						</form>
 						<p className="mt-5 text-center text-sm leading-6 text-neutral-500 sm:mt-10 dark:text-neutral-400">
