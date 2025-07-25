@@ -178,13 +178,13 @@ export default function SignUp() {
 							<Error className="mt-2 text-center" error={error.message} />
 						)}
 					</div>
-					<div className="flex items-center my-2">
-  						<div className="flex-grow h-0.2 bg-gradient-to-r from-primary-400 via-primary-200 to-primary-400 rounded-full shadow"></div>
-  						<span className="mx-1 px-1 py-1 text-secondary-600 text-base font-semibold ">
-    							or
-  						</span>
-  						<div className="flex-grow h-0.2 bg-gradient-to-l from-primary-400 via-primary-200 to-primary-400 rounded-full shadow"></div>
-					</div>
+					<div className="flex items-center my-2 select-none">
+      						<div className="flex-grow h-px bg-gray-300"></div>
+      						<span className="mx-4 flex items-center justify-center rounded-full bg-white px-3 py-0.5 text-gray-400 font-semibold text-base shadow-sm border border-gray-200">
+        						or
+      						</span>
+      						<div className="flex-grow h-px bg-gray-300"></div>
+    					</div>
 					<div className="grid pt-2">
 						<GoogleLoginButton />
 					</div>
