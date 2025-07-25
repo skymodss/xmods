@@ -180,7 +180,7 @@ export default function SignUp() {
 					</div>
 					<div className="flex items-center my-2 select-none">
       						<div className="flex-grow h-px bg-gray-300"></div>
-      						<span className="mx-1 flex items-center justify-center px-1 py-0.5 text-gray-400 font-semibold text-base">
+      						<span className="mx-1 flex items-center justify-center px-1 py-0.5 text-gray-400 font-medium text-base">
         						or
       						</span>
       						<div className="flex-grow h-px bg-gray-300"></div>
