@@ -4,13 +4,13 @@ import { GetStaticProps } from 'next'
 import { REVALIDATE_TIME } from '@/contains/contants'
 
 // Import custom FaustPage
-import FaustPage, { getServerSideProps as getFaustServerSideProps } from '@/pages/posts/index' // promijeni import po svom fajlu
+import Page, { getServerSideProps as getFaustServerSideProps } from '@/pages/posts/index' // promijeni import po svom fajlu
 
 export default function HomePage(props: WordPressTemplateProps) {
   return (
     <>
       <WordPressTemplate {...props} />
-      <FaustPage />
+      <Page />
     </>
   )
 }
