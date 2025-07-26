@@ -3,10 +3,25 @@ import { WordPressTemplateProps } from '../types'
 import { GetStaticProps } from 'next'
 import { REVALIDATE_TIME } from '@/contains/contants'
 
-export default function Page(props: WordPressTemplateProps) {
-	return <WordPressTemplate {...props} />
+// Import custom FaustPage
+import FaustPage, { getServerSideProps as getFaustServerSideProps } from '@/pages/posts/index' // promijeni import po svom fajlu
+
+export default function HomePage(props: WordPressTemplateProps) {
+  return (
+    <>
+      <WordPressTemplate {...props} />
+      <FaustPage {...props} />
+    </>
+  )
 }
 
-export const getStaticProps: GetStaticProps = (ctx) => {
-	return getWordPressProps({ ctx, revalidate: REVALIDATE_TIME })
+export const getStaticProps: GetStaticProps = async (ctx) => {
+  // WordPressTemplate props
+  const wpProps = await getWordPressProps({ ctx, revalidate: REVALIDATE_TIME })
+  // FaustPage props (ako trebaš fetchovati podatke)
+  // const faustProps = await getFaustServerSideProps(ctx)
+  return {
+    ...wpProps,
+    // ...faustProps, // Dodaj ako trebaš više podataka
+  }
 }
