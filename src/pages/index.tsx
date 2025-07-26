@@ -10,7 +10,13 @@ export default function HomePage(props: WordPressTemplateProps) {
   return (
     <>
       <WordPressTemplate {...props} />
-      <Page />
+      <Page
+        posts={props.posts}
+        primaryMenuItems={props.primaryMenuItems}
+        footerMenuItems={props.footerMenuItems}
+        generalSettings={props.generalSettings}
+        ctxQuery={props.ctxQuery}
+      />
     </>
   )
 }
