@@ -20,7 +20,6 @@ import { FireIcon } from '@/components/Icons/Icons'
 import ArchiveFilterListBox from '@/components/ArchiveFilterListBox/ArchiveFilterListBox'
 import React from 'react'
 
-// Translation function and constants
 const T = getTrans()
 const GET_POSTS_FIRST_COMMON = 24
 
@@ -37,10 +36,15 @@ interface ConTextQuery {
   before: string | null
 }
 
-function HomePage(props: { data?: PostsFilterPageQueryGetPostsQuery; __PAGE_VARIABLES__?: any }) {
-  const { posts } = props.data || {}
+function HomePage(props: any) {
+  // Odvoji propse za WordPressTemplate
+  const {
+    data,
+    __PAGE_VARIABLES__,
+    ...wpProps // Ostali propsi za WordPressTemplate
+  } = props
 
-  // Next router, but safe for SSR
+  const { posts } = data || {}
   const router = typeof window !== "undefined" ? require('next/router').useRouter() : null
 
   useGetPostsNcmazMetaByIds({
@@ -48,7 +52,7 @@ function HomePage(props: { data?: PostsFilterPageQueryGetPostsQuery; __PAGE_VARI
   })
 
   const initPosts = (posts?.nodes as PostDataFragmentType[]) || []
-  const ctxQuery: ConTextQuery = props.__PAGE_VARIABLES__?.ctxQuery || {}
+  const ctxQuery: ConTextQuery = __PAGE_VARIABLES__?.ctxQuery || {}
 
   // Helper functions
   const removeEmptyKey = (obj: Record<string, any>) => {
@@ -144,15 +148,15 @@ function HomePage(props: { data?: PostsFilterPageQueryGetPostsQuery; __PAGE_VARI
   return (
     <>
       {/* FaustWP WordPressTemplate */}
-      <WordPressTemplate {...props} />
+      <WordPressTemplate {...wpProps} />
       {/* Archive/Posts logic */}
       <PageLayout
-        headerMenuItems={props.data?.primaryMenuItems?.nodes || []}
-        footerMenuItems={props.data?.footerMenuItems?.nodes || []}
+        headerMenuItems={data?.primaryMenuItems?.nodes || []}
+        footerMenuItems={data?.footerMenuItems?.nodes || []}
         pageFeaturedImageUrl={null}
         pageTitle={T.Posts}
         generalSettings={
-          props.data?.generalSettings as NcgeneralSettingsFieldsFragmentFragment
+          data?.generalSettings as NcgeneralSettingsFieldsFragmentFragment
         }
       >
         <div className={`nc-PageCollection`}>
@@ -365,9 +369,4 @@ export function getServerSideProps(ctx: GetServerSidePropsContext) {
   }
 }
 
-export default {
-  query: HomePage.query,
-  variables: HomePage.variables,
-  // Next.js expects default export to be a component
-  default: HomePage,
-}
+export default HomePage
