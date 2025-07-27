@@ -1,5 +1,4 @@
-import { getWordPressProps, WordPressTemplate, FaustPage, getNextServerSideProps } from '@faustwp/core'
-import { WordPressTemplateProps } from '../types'
+import { getWordPressProps, WordPressTemplate } from '@faustwp/core'
 import { GetServerSidePropsContext } from 'next'
 import { REVALIDATE_TIME, FILTERS_OPTIONS } from '@/contains/contants'
 import { gql } from '@/__generated__'
@@ -21,6 +20,7 @@ import { FireIcon } from '@/components/Icons/Icons'
 import ArchiveFilterListBox from '@/components/ArchiveFilterListBox/ArchiveFilterListBox'
 import React from 'react'
 
+// Translation function and constants
 const T = getTrans()
 const GET_POSTS_FIRST_COMMON = 24
 
@@ -37,8 +37,10 @@ interface ConTextQuery {
   before: string | null
 }
 
-function HomePage(props: WordPressTemplateProps & { data?: PostsFilterPageQueryGetPostsQuery; __PAGE_VARIABLES__?: any }) {
+function HomePage(props: { data?: PostsFilterPageQueryGetPostsQuery; __PAGE_VARIABLES__?: any }) {
   const { posts } = props.data || {}
+
+  // Next router, but safe for SSR
   const router = typeof window !== "undefined" ? require('next/router').useRouter() : null
 
   useGetPostsNcmazMetaByIds({
@@ -48,6 +50,7 @@ function HomePage(props: WordPressTemplateProps & { data?: PostsFilterPageQueryG
   const initPosts = (posts?.nodes as PostDataFragmentType[]) || []
   const ctxQuery: ConTextQuery = props.__PAGE_VARIABLES__?.ctxQuery || {}
 
+  // Helper functions
   const removeEmptyKey = (obj: Record<string, any>) => {
     Object.keys(obj).forEach((key) => !obj[key] && delete obj[key])
     return obj
@@ -66,6 +69,7 @@ function HomePage(props: WordPressTemplateProps & { data?: PostsFilterPageQueryG
     }
   }
 
+  // Pagination and filter handlers
   const onCategoriesUpdated = (ids: number[]) => {
     router?.push({
       query: removeEmptyKey({
@@ -228,7 +232,7 @@ function HomePage(props: WordPressTemplateProps & { data?: PostsFilterPageQueryG
 
 // Faust variables & query
 HomePage.variables = (context: GetServerSidePropsContext) => {
-  const { params, query = {} } = context
+  const { query = {} } = context
   const search = typeof query.search === 'string' ? query.search || null : null
 
   const tagIn = (
@@ -354,11 +358,16 @@ HomePage.query = gql(`
   }
 `)
 
-// SAMO getServerSideProps!
+// ONLY getServerSideProps!
 export function getServerSideProps(ctx: GetServerSidePropsContext) {
-  return getNextServerSideProps(ctx, {
-    Page: HomePage,
-  })
+  return {
+    props: {},
+  }
 }
 
-export default HomePage
+export default {
+  query: HomePage.query,
+  variables: HomePage.variables,
+  // Next.js expects default export to be a component
+  default: HomePage,
+}
