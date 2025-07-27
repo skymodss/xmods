@@ -1,6 +1,6 @@
 import { getWordPressProps, WordPressTemplate, FaustPage, getNextServerSideProps } from '@faustwp/core'
 import { WordPressTemplateProps } from '../types'
-import { GetStaticProps, GetServerSidePropsContext } from 'next'
+import { GetServerSidePropsContext } from 'next'
 import { REVALIDATE_TIME, FILTERS_OPTIONS } from '@/contains/contants'
 import { gql } from '@/__generated__'
 import {
@@ -37,19 +37,17 @@ interface ConTextQuery {
   before: string | null
 }
 
-// Merged HomePage function
 function HomePage(props: WordPressTemplateProps & { data?: PostsFilterPageQueryGetPostsQuery; __PAGE_VARIABLES__?: any }) {
-  // Faust/Archive logic
   const { posts } = props.data || {}
   const router = typeof window !== "undefined" ? require('next/router').useRouter() : null
 
-  const {} = useGetPostsNcmazMetaByIds({
+  useGetPostsNcmazMetaByIds({
     posts: (posts?.nodes || []) as TPostCard[],
   })
+
   const initPosts = (posts?.nodes as PostDataFragmentType[]) || []
   const ctxQuery: ConTextQuery = props.__PAGE_VARIABLES__?.ctxQuery || {}
 
-  // Filtering and Pagination handlers
   const removeEmptyKey = (obj: Record<string, any>) => {
     Object.keys(obj).forEach((key) => !obj[key] && delete obj[key])
     return obj
@@ -143,7 +141,7 @@ function HomePage(props: WordPressTemplateProps & { data?: PostsFilterPageQueryG
     <>
       {/* FaustWP WordPressTemplate */}
       <WordPressTemplate {...props} />
-      {/* Archive/Posts logic from second page */}
+      {/* Archive/Posts logic */}
       <PageLayout
         headerMenuItems={props.data?.primaryMenuItems?.nodes || []}
         footerMenuItems={props.data?.footerMenuItems?.nodes || []}
@@ -228,16 +226,7 @@ function HomePage(props: WordPressTemplateProps & { data?: PostsFilterPageQueryG
   )
 }
 
-// Static props for SSR/SSG
-export const getStaticProps: GetStaticProps = async (ctx) => {
-  // WordPressTemplate props
-  const wpProps = await getWordPressProps({ ctx, revalidate: REVALIDATE_TIME })
-  return {
-    ...wpProps,
-  }
-}
-
-// Faust variables from Page
+// Faust variables & query
 HomePage.variables = (context: GetServerSidePropsContext) => {
   const { params, query = {} } = context
   const search = typeof query.search === 'string' ? query.search || null : null
@@ -365,6 +354,7 @@ HomePage.query = gql(`
   }
 `)
 
+// SAMO getServerSideProps!
 export function getServerSideProps(ctx: GetServerSidePropsContext) {
   return getNextServerSideProps(ctx, {
     Page: HomePage,
