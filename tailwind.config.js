@@ -80,6 +80,7 @@ module.exports = {
           700: customColors("--c-neutral-700"),
           800: customColors("--c-neutral-800"),
           900: customColors("--c-neutral-900"),
+          990: customColors("--c-neutral-990"),
         },
       },
     },
