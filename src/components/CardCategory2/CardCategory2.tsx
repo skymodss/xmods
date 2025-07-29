@@ -20,7 +20,7 @@ const CardCategory2: FC<CardCategory2Props> = ({
 	return (
 		<Link
 			href={uri}
-			className={`nc-CardCategory2 relative flex flex-col items-center justify-center rounded-3xl border border-neutral-100 bg-white px-3 py-5 text-center transition-colors sm:p-6 dark:border-black/20 dark:bg-neutral-900 ${className}`}
+			className={`nc-CardCategory2 relative flex flex-col items-center justify-center rounded-3xl border border-neutral-100 bg-neutral-300 px-3 py-5 text-center transition-colors sm:p-6 dark:border-black/20 dark:bg-neutral-600 ${className}`}
 		>
 			{index && (
 				<Badge
@@ -30,7 +30,7 @@ const CardCategory2: FC<CardCategory2Props> = ({
 				/>
 			)}
 			<NcImage
-				containerClassName={`relative flex-shrink-0 w-20 h-20 rounded-full shadow-lg overflow-hidden z-0`}
+				containerClassName={`relative flex-shrink-0 w-20 h-20 rounded-2xl shadow-lg overflow-hidden z-0`}
 				src={featuredImageMeta?.sourceUrl || ''}
 				fill
 				sizes="80px"
@@ -42,7 +42,7 @@ const CardCategory2: FC<CardCategory2Props> = ({
 				<span
 					className={`mt-1 block text-sm text-neutral-500 dark:text-neutral-400`}
 				>
-					{count} Articles
+					{count} Mods
 				</span>
 			</div>
 		</Link>
