@@ -55,13 +55,15 @@
 .dark\:zeleni {
     background-color: rgba(var(--c-secondary-400),var(--tw-bg-opacity,1)) // 1 je za potpunu neprovidnost
 }
-
+ --tw-bg-opacity: 1;
+    background-color: rgb(255 255 255/var(--tw-bg-opacity,1))
 .custom-scale {
   transform: scale(1.03); /* Primer za 102% */
 }
 
 .bg-bijela {
-    background-color: rgb(229 231 235)
+    --tw-bg-opacity: 1;
+    background-color: rgb(229 231 235/var(--tw-bg-opacity,1))
 }
 
 .bg-crna {
