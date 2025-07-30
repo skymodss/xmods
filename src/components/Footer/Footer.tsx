@@ -48,7 +48,7 @@ export default function Footer({ menuItems }: Props) {
 
 	return (
 		<footer
-			className="border-t border-neutral-900/10 bg-white dark:border-transparent dark:bg-neutral-900"
+			className="border-t border-neutral-200/70 bg-white/85 backdrop-blur-2xl dark:bg-neutral-900/85 dark:border-neutral-600"
 			aria-labelledby="footer-heading"
 		>
 			<h2 id="footer-heading" className="sr-only">
