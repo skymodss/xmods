@@ -259,7 +259,7 @@ const AuthorLayout: FC<Props> = ({ className = '', children, user }) => {
 								getImageDataFromImageFragment(ncUserMeta?.featuredImage?.node)
 									.sourceUrl
 							}
-							sizeClass="w-20 h-20 text-xl sm:text-3xl lg:text-4xl lg:w-36 lg:h-36 ring-4 ring-white dark:ring-0 shadow-2xl z-0"
+							sizeClass="w-20 h-20 text-xl sm:text-3xl lg:text-4xl lg:w-36 lg:h-36 ring-4 ring-white dark:ring-4 shadow-2xl z-0"
 							priority
 							sizes="150px"
 						/>
