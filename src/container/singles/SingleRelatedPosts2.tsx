@@ -16,7 +16,7 @@ const SingleRelatedPosts2: FC<SingleRelatedPostsProps> = ({
   }
 
   return (
-    <div className="w-full bg-neutral-300 space-y-4 text-card-foreground dark:bg-neutral-600 rounded-3xl pl-[14px] pr-[14px] pt-[14px] pb-[14px]">
+    <div className="w-full border bg-neutral-300 dark:bg-neutral-600 text-card-foreground bg-card/70 dark:border-neutral-600 border-neutral-200/70 space-y-4 rounded-3xl pl-[14px] pr-[14px] pt-[14px] pb-[14px]">
       {posts.map((post, index) => (
         <div key={post.databaseId || index} className="mb-4 last:mb-0">
           <Card9 
