@@ -100,7 +100,7 @@ const SingleType1: FC<SingleType1Props> = ({ post, showRightSidebar }) => {
                                                 <div className="flex items-center justify-between gap-3 mt-[5px]">
                                                     <div className="flex min-w-0 items-center gap-3">
                                                         <div className="min-w-0">
-                                                            <div className="text-2xl font-semibold leading-none tracking-tight">
+                                                            <div className="text-2xl font-semibold leading-none">
                                                                 <h2 className="text-neutral-900 truncate text-xl font-bold sm:text-2xl dark:text-neutral-100">{title}</h2>
                                                             </div>
                                                         </div>
@@ -236,7 +236,7 @@ const SingleType1: FC<SingleType1Props> = ({ post, showRightSidebar }) => {
                                 <section className="script-description">
                                     <div className="rounded-2xl border bg-neutral-300 dark:bg-neutral-600 text-card-foreground bg-card/70 dark:border-neutral-600 border-neutral-200/70">
                                         <div className="flex flex-col space-y-1.5 p-6">
-                                            <div className="text-2xl font-bold leading-none tracking-tight">
+                                            <div className="text-2xl font-bold leading-none">
                                                 <h2>Description</h2>
                                             </div>
                                         </div>
@@ -254,8 +254,8 @@ const SingleType1: FC<SingleType1Props> = ({ post, showRightSidebar }) => {
 				<section className="script-description">
                                     <div className="rounded-2xl border bg-neutral-300 dark:bg-neutral-600 text-card-foreground bg-card/70 dark:border-neutral-600 border-neutral-200/70">
                                         <div className="flex flex-col space-y-1.5 p-6">
-                                            <div className="font-semibold leading-none tracking-tight">
-                                                <h2 className="text-2xl font-bold leading-none tracking-tight">Comments ({commentCount})</h2> 
+                                            <div className="font-semibold leading-none">
+                                                <h2 className="text-2xl font-bold leading-none">Comments ({commentCount})</h2> 
                                             </div>
                                         </div>
                                         <div className="p-6 pt-0 space-y-4">
@@ -278,7 +278,7 @@ const SingleType1: FC<SingleType1Props> = ({ post, showRightSidebar }) => {
 				<section className="script-description">
                                     <div className="rounded-2xl border bg-neutral-300 dark:bg-neutral-600 text-card-foreground bg-card/70 dark:border-neutral-600 border-neutral-200/70">
                                         <div className="flex flex-col space-y-1.5 p-6">
-                                            <div className="text-2xl font-bold leading-none tracking-tight">
+                                            <div className="text-2xl font-bold leading-none">
                                                 <h2>Tags</h2>
                                             </div>
                                         </div>
