@@ -43,6 +43,9 @@ module.exports = {
         3: '0.03',
         5: '0.05'
       },
+      borderWidth: {
+        '1.5': '1.5px',
+      },
       colors: {
         'neutral-900-93': 'rgba(23,23,23,0.93)',
         primary: {
