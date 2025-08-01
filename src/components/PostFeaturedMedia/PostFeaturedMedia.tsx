@@ -92,14 +92,6 @@ const PostFeaturedMedia: FC<PostFeaturedMediaProps> = ({
       {postType !== 'gallery' && (
         <>
           <MyImage
-            alt=""
-            fill
-            className="h-full w-full object-cover rounded-3xl opacity-50 blur-3xl scale-100"
-            src={featuredImage?.sourceUrl || ''}
-            sizes="(max-width: 600px) 480px, 800px"
-            aria-hidden
-          />
-          <MyImage
             alt={title || 'Post Featured Image'}
             fill
             className="object-cover duration-300 group-hover:scale-100"
