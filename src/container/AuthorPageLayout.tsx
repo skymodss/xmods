@@ -242,12 +242,12 @@ const AuthorLayout: FC<Props> = ({ className = '', children, user }) => {
 									getImageDataFromImageFragment(ncUserMeta?.backgroundImage?.node)
 										.sourceUrl
 								}
-								className="h-full w-full object-cover rounded-3xl"
+								className="h-full w-full object-cover rounded-3xl shadow-ocak"
 								fill
 								priority
 							/>
 						) : (
-							<div className="absolute inset-0 bg-neutral-200/70 shadow-2xl dark:bg-black/40 rounded-3xl" />
+							<div className="absolute inset-0 bg-neutral-200/70 rounded-3xl" />
 						)}
 					</div>
 				</div>
