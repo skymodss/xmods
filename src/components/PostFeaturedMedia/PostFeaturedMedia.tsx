@@ -94,7 +94,7 @@ const PostFeaturedMedia: FC<PostFeaturedMediaProps> = ({
           <MyImage
             alt={title || 'Post Featured Image'}
             fill
-            className="object-cover duration-300 border-4 border-white/50 box-border group-hover:scale-100"
+            className="object-cover duration-300 group-hover:scale-105 rounded-3xl border border-white/50 box-border"
             src={featuredImage?.sourceUrl || ''}
             sizes="(max-width: 600px) 480px, 800px"
           />
