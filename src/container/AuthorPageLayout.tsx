@@ -69,7 +69,7 @@ const AuthorLayout: FC<Props> = ({ className = '', children, user }) => {
                   containerClassName="absolute inset-0"
                   sizes="(max-width: 1280px) 100vw, 1536px"
                   src={getImageDataFromImageFragment(ncUserMeta?.backgroundImage?.node).sourceUrl}
-                  className="h-full w-full object-cover rounded-3xl"
+                  className="h-full w-full object-cover rounded-3xl border border-white/50 box-border shadow-2xl"
                   fill
                   priority
                 />
