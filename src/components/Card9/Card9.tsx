@@ -74,7 +74,7 @@ const Card9: FC<Card9Props> = ({
 					<MyImage
 						fill
 						alt={title || ''}
-						className="h-full w-full rounded-xl object-cover dark:filter duration-300 group-hover:scale-105"
+						className="h-full w-full rounded-xl object-cover dark:filter duration-300 group-hover:scale-105 border border-white/10 box-border"
 						src={featuredImage?.sourceUrl || ''}
 						sizes="(max-width: 600px) 480px, 500px"
 					/>
