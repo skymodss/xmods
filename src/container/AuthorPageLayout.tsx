@@ -58,7 +58,7 @@ const AuthorLayout: FC<Props> = ({ className = '', children, user }) => {
                   containerClassName="absolute inset-0"
                   sizes="(max-width: 1280px) 100vw, 1536px"
                   src={getImageDataFromImageFragment(ncUserMeta?.backgroundImage?.node).sourceUrl}
-                  className="h-full w-full object-cover rounded-3xl blur-xl opacity-50 scale-100"
+                  className="h-full w-full object-cover rounded-3xl blur-2xl scale-100"
                   aria-hidden
                   fill
                   priority
@@ -69,7 +69,7 @@ const AuthorLayout: FC<Props> = ({ className = '', children, user }) => {
                   containerClassName="absolute inset-0"
                   sizes="(max-width: 1280px) 100vw, 1536px"
                   src={getImageDataFromImageFragment(ncUserMeta?.backgroundImage?.node).sourceUrl}
-                  className="h-full w-full object-cover rounded-3xl border border-white/50 box-border shadow-2xl"
+                  className="h-full w-full object-cover rounded-3xl border border-white/90 box-border shadow-xl shadow-black/40"
                   fill
                   priority
                 />
