@@ -119,7 +119,7 @@ const CommentCard: FC<CommentCardProps> = ({
 					imgUrl={getAuthorAvatar()}
 					userName={author?.node.name || 'N'}
 				/>
-				<div className="nc-CommentCard__box flex flex-1 flex-col overflow-hidden rounded-xl border border-neutral-200 p-2 text-sm sm:p-4 sm:text-base dark:border-neutral-700">
+				<div className="nc-CommentCard__box flex flex-1 flex-col overflow-hidden rounded-xl border-2 border-neutral-200 p-2 text-sm sm:p-4 sm:text-base dark:border-neutral-800">
 					{/* AUTHOR INFOR */}
 					<div className="space-y-1">
 						<div className="relative flex items-center">
