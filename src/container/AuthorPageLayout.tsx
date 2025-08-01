@@ -232,6 +232,19 @@ const AuthorLayout: FC<Props> = ({ className = '', children, user }) => {
 					<div className="relative h-40 w-full md:h-60 2xl:h-72">
 						{ncUserMeta?.backgroundImage?.node ? (
 							<NcImage
+          							alt=""
+          							containerClassName="absolute inset-0"
+          							sizes="(max-width: 1280px) 100vw, 1536px"
+          							src={
+            								getImageDataFromImageFragment(ncUserMeta?.backgroundImage?.node)
+              								.sourceUrl
+          							}
+         	 						className="h-full w-full object-cover rounded-3xl blur-xl opacity-50 scale-105"
+          							aria-hidden
+          							fill
+          							priority
+        						/>
+							<NcImage
 								alt={
 									getImageDataFromImageFragment(ncUserMeta?.backgroundImage?.node)
 										.altText || ''
@@ -242,12 +255,12 @@ const AuthorLayout: FC<Props> = ({ className = '', children, user }) => {
 									getImageDataFromImageFragment(ncUserMeta?.backgroundImage?.node)
 										.sourceUrl
 								}
-								className="h-full w-full object-cover rounded-3xl shadow-2xl shadow-black/40"
+								className="h-full w-full object-cover rounded-3xl"
 								fill
 								priority
 							/>
 						) : (
-							<div className="absolute inset-0 bg-neutral-200/70 rounded-3xl shadow-2xl dark:bg-black/40" />
+							<div className="absolute inset-0 bg-neutral-200/70 rounded-3xl" />
 						)}
 					</div>
 				</div>
