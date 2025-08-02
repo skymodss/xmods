@@ -43,7 +43,7 @@ const Card10V2: FC<Card10V2Props> = ({ className = 'h-full', post }) => {
 					 <MyImage
             					alt=""
             					fill
-            					className="object-cover rounded-3xl opacity-50 blur-3xl scale-105 rounded-3xl"
+            					className="h-full w-full object-cover rounded-3xl opacity-50 blur-3xl scale-105 rounded-3xl"
             					src={featuredImage?.sourceUrl || ''}
             					sizes="(max-width: 600px) 480px, 800px"
          				 />
