@@ -40,23 +40,7 @@ const Card10V2: FC<Card10V2Props> = ({ className = 'h-full', post }) => {
 		>
 			<div className="group aspect-h-9 aspect-w-16 relative z-0 block w-full flex-shrink-0 rounded-3xl sm:aspect-h-9">
 				<div>
-					 <MyImage
-            					alt=""
-            					fill
-            					className="h-full w-full object-cover transition-all duration-200 rounded-xl opacity-50 blur-3xl hover:scale-103 rounded-3xl"
-            					src={featuredImage?.sourceUrl || ''}
-            					sizes="(max-width: 600px) 480px, 800px"
-						aria-hidden
-						style={{ zIndex: 0 }}
-         				 />
-					 <MyImage
-            					alt=""
-            					fill
-            					className="object-cover duration-300 group-hover:scale-105 rounded-3xl border border-white/10 box-border"
-            					src={featuredImage?.sourceUrl || ''}
-            					sizes="(max-width: 600px) 480px, 800px"
-						style={{ zIndex: 10 }}
-         				 />
+					<PostFeaturedMedia post={post} isHover={isHover} />
 				</div>
 
 				<Link
