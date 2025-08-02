@@ -8,7 +8,6 @@ import Link from 'next/link'
 import { CommonPostCardProps } from '../Card2/Card2'
 import { getPostDataFromPostFragment } from '@/utils/getPostDataFromPostFragment'
 import convertNumbThousand from '@/utils/convertNumbThousand'
-import MyImage from '../MyImage'
 
 export interface Card10V2Props extends CommonPostCardProps {}
 
@@ -38,7 +37,7 @@ const Card10V2: FC<Card10V2Props> = ({ className = 'h-full', post }) => {
 			onMouseEnter={() => setIsHover(true)}
 			onMouseLeave={() => setIsHover(false)}
 		>
-			<div className="group aspect-h-9 aspect-w-16 relative z-0 block w-full flex-shrink-0 overflow-hidden rounded-3xl sm:aspect-h-9>
+			<div className="group aspect-h-9 aspect-w-16 relative z-0 block w-full flex-shrink-0 overflow-hidden rounded-3xl sm:aspect-h-9">
 				<div>
 					<PostFeaturedMedia post={post} isHover={isHover} />
 				</div>
