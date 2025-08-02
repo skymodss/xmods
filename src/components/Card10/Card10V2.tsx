@@ -43,10 +43,10 @@ const Card10V2: FC<Card10V2Props> = ({ className = 'h-full', post }) => {
 					 <MyImage
             					alt=""
             					fill
-            					className="h-full w-full object-cover rounded-3xl opacity-50 blur-3xl scale-100 rounded-3xl"
+            					className="h-full w-full object-cover transition-all duration-200 rounded-xl opacity-50 blur-3xl hover:scale-103 rounded-3xl"
             					src={featuredImage?.sourceUrl || ''}
             					sizes="(max-width: 600px) 480px, 800px"
-						aria-hiddenž
+						aria-hidden
 						style={{ zIndex: 0 }}
          				 />
 					 <MyImage
