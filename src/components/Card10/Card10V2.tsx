@@ -39,7 +39,7 @@ const Card10V2: FC<Card10V2Props> = ({ className = 'h-full', post }) => {
 			onMouseLeave={() => setIsHover(false)}
 		>
 			<div className="group aspect-h-9 aspect-w-16 relative z-0 block w-full flex-shrink-0 overflow-hidden rounded-3xl sm:aspect-h-9">
-				<div className="relative h-40 w-full md:h-60 2xl:h-72">
+				<div>
 					 <MyImage
             					alt=""
             					fill
