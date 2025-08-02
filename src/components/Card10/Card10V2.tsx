@@ -39,10 +39,11 @@ const Card10V2: FC<Card10V2Props> = ({ className = 'h-full', post }) => {
 			onMouseLeave={() => setIsHover(false)}
 		>
 			<div className="group aspect-h-9 aspect-w-16 relative z-0 block w-full flex-shrink-0 overflow-hidden rounded-3xl sm:aspect-h-9">
-				<div>
+				<div className="relative h-40 w-full md:h-60 2xl:h-72">
 					 <MyImage
             					alt=""
             					fill
+						containerClassName="absolute inset-0"
             					className="h-full w-full object-cover rounded-3xl opacity-50 blur-3xl scale-100 rounded-3xl"
             					src={featuredImage?.sourceUrl || ''}
             					sizes="(max-width: 600px) 480px, 800px"
@@ -51,6 +52,7 @@ const Card10V2: FC<Card10V2Props> = ({ className = 'h-full', post }) => {
 					 <MyImage
             					alt=""
             					fill
+						containerClassName="absolute inset-0"
             					className="object-cover duration-300 group-hover:scale-105 rounded-3xl border border-white/10 box-border"
             					src={featuredImage?.sourceUrl || ''}
             					sizes="(max-width: 600px) 480px, 800px"
