@@ -36,6 +36,9 @@ module.exports = {
     },
 
     extend: {
+      backdropBlur: {
+      '30': '30px', 
+    },
       boxShadow: {
         'ocak': '0 20px 40px 0 rgba(0,0,0,0.45), 0 2px 4px 0 rgba(0,0,0,0.15)',
       },
