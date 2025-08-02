@@ -52,7 +52,7 @@ export default function MySlider<T>({
 	return (
 		<div className={`nc-MySlider relative ${className}`}>
 			<div
-				className="hiddenScrollbar relative -mx-2 flex snap-x snap-mandatory py-1 lg:-mx-4"
+				className="hiddenScrollbar relative -mx-2 flex snap-x overflow-x-auto overflow-y-hidden snap-mandatory py-1 lg:-mx-4"
 				ref={sliderRef}
 			>
 				{data.map((item, indx) => (
