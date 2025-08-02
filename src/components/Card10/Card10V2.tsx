@@ -46,7 +46,8 @@ const Card10V2: FC<Card10V2Props> = ({ className = 'h-full', post }) => {
             					className="h-full w-full object-cover rounded-3xl opacity-50 blur-3xl scale-100 rounded-3xl"
             					src={featuredImage?.sourceUrl || ''}
             					sizes="(max-width: 600px) 480px, 800px"
-						aria-hidden
+						aria-hiddenž
+						style={{ zIndex: 0 }}
          				 />
 					 <MyImage
             					alt=""
@@ -54,6 +55,7 @@ const Card10V2: FC<Card10V2Props> = ({ className = 'h-full', post }) => {
             					className="object-cover duration-300 group-hover:scale-105 rounded-3xl border border-white/10 box-border"
             					src={featuredImage?.sourceUrl || ''}
             					sizes="(max-width: 600px) 480px, 800px"
+						style={{ zIndex: 10 }}
          				 />
 				</div>
 
@@ -71,7 +73,7 @@ const Card10V2: FC<Card10V2Props> = ({ className = 'h-full', post }) => {
 				/>
 			</div>
 
-			<div className="mt-4 space-y-2.5 px-2 sm:px-4">
+			<div className="mt-4 space-y-2.5">
 				<PostCardMetaV2 meta={{ author, date, title, uri, viewCount3 }} />
 			</div>
 		</div>
